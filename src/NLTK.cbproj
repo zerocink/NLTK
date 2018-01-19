@@ -133,7 +133,7 @@
             <PCH>true</PCH>
         </PCHCompile>
         <CppCompile Include="wMain.cpp">
-            <Form>Form1</Form>
+            <Form>MainForm</Form>
             <FormType>dfm</FormType>
             <DependentOn>wMain.h</DependentOn>
             <BuildOrder>2</BuildOrder>
