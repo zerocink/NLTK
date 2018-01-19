@@ -107,11 +107,23 @@
         <AppEnableHighDPI>true</AppEnableHighDPI>
     </PropertyGroup>
     <ItemGroup>
+        <CppCompile Include="dbEngine.cpp">
+            <DependentOn>dbEngine.h</DependentOn>
+            <BuildOrder>5</BuildOrder>
+        </CppCompile>
         <CppCompile Include="dbf\dbf.c">
             <BuildOrder>4</BuildOrder>
         </CppCompile>
         <CppCompile Include="dbf\ioapi\ioapi.c">
             <BuildOrder>4</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="nlPlayer.cpp">
+            <DependentOn>nlPlayer.h</DependentOn>
+            <BuildOrder>6</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="nlSavedGame.cpp">
+            <DependentOn>nlSavedGame.h</DependentOn>
+            <BuildOrder>7</BuildOrder>
         </CppCompile>
         <CppCompile Include="NLTK.cpp">
             <BuildOrder>0</BuildOrder>
