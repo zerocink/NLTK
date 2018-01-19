@@ -70,13 +70,13 @@ class CDBRecord
 		bool __fastcall readFromTable( CDBTable* t );
 		bool __fastcall writeToTable( CDBTable* t );
 
-
 		// propriétés publiques :
 		//-----------------------
-		__property CDBField* fields[ int index ] = { read = getFields	   };
-		__property int       fieldsCount         = { read = getFieldsCount };
-		__property int       indexOfField[ AnsiString name ] = { read = getIndexOfField };
-		__property bool      dif				 = { read = getDif };
+		__property CDBField* 	fields[ int index ] = { read = getFields	   };
+		__property int       	fieldsCount         = { read = getFieldsCount };
+		__property int       	indexOfField[ AnsiString name ] = { read = getIndexOfField };
+		__property bool      	dif				 = { read = getDif };
+        __property AnsiString 	ram[ AnsiString fieldName ] = { read = getRam , write = setRam };
 
 	private	:
 
@@ -92,6 +92,8 @@ class CDBRecord
 		int         __fastcall getFieldsCount();
 		int         __fastcall getIndexOfField( AnsiString name );
         bool        __fastcall getDif();
+        AnsiString  __fastcall getRam( AnsiString fieldName );
+        void        __fastcall setRam( AnsiString fieldName , AnsiString ram );
 
 		// variables internes :
 		//---------------------

@@ -10,6 +10,7 @@
 //---------------------------------------------------------------------------
 #include "wMain.h"
 //---------------------------------------------------------------------------
+#include "nlPlayer.h"
 //===========================================================================
 
 
@@ -183,6 +184,35 @@ void __fastcall TMainForm::btnLastClick(TObject *Sender)
 
 void __fastcall TMainForm::btnTestClick(TObject *Sender)
 {
+    this->txtLog->Clear();
+
+    TList* list = new TList();
+
+    if ( this->_t )
+    {
+        this->_t->first();
+
+        AnsiString line = TXT_NULL;
+        for ( int i = 0 ; i < this->_t->recordCount ; i++ )
+        {
+            CNLPlayer* p = new CNLPlayer( this->_t );
+
+            line.sprintf( "[ %04d ] id = %04d ; number = %s; name = %s ; fname = %s " , i , p->ID , p->Number , p->Name.c_str() , p->FName.c_str() );
+			this->txtLog->Lines->Add( line );
+
+            delete p;
+            p = NULL;
+
+            this->_t->next();
+        }
+
+
+
+    }
+
+    delete list;
+    list = NULL;
+/*
 	if ( this->_t )
 	{
 		if ( this->_t->first() )
@@ -194,7 +224,7 @@ void __fastcall TMainForm::btnTestClick(TObject *Sender)
 	}
 
 	this->updateRecordIndex();
-
+*/
 }
 //---------------------------------------------------------------------------
 

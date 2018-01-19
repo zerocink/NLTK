@@ -231,8 +231,11 @@ bool __fastcall CDBRecord::deleteFieldByIndex( int index )
 	if ( index >= 0 && index < this->_fields->Count )
 	{
 		CDBField* field = (CDBField*)this->_fields->Items[ index ];
-		if ( field ) delete field;
-		field = NULL;
+		if ( field )
+        {	delete field;
+			field = NULL;
+            this->_fields->Delete( index );
+        }
 	}
 	else
 	{
@@ -322,6 +325,22 @@ bool __fastcall CDBRecord::getDif()
 	}
 
 	return false;
+}
+//---------------------------------------------------------------------------
+AnsiString __fastcall CDBRecord::getRam( AnsiString fieldName )
+{
+    AnsiString ram = TXT_NULL;
+
+    CDBField* f = this->fields[ this->getIndexOfField( fieldName ) ];
+    if ( f ) ram = f->ram;
+
+    return ram;
+}
+//---------------------------------------------------------------------------
+void __fastcall CDBRecord::setRam( AnsiString fieldName , AnsiString ram )
+{
+    CDBField* f = this->fields[ this->getIndexOfField( fieldName ) ];
+    if ( f ) f->ram = ram;
 }
 //---------------------------------------------------------------------------
 // CLASSE CDBField
