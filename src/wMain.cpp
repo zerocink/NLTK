@@ -4,6 +4,7 @@
 #pragma hdrstop
 
 #include "wMain.h"
+#include "dbf.h"
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
 #pragma resource "*.dfm"
