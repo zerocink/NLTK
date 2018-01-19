@@ -97,6 +97,9 @@
         <AppEnableRuntimeThemes>true</AppEnableRuntimeThemes>
         <AppEnableHighDPI>true</AppEnableHighDPI>
         <LinkPackageImports>rtl.bpi;vcl.bpi</LinkPackageImports>
+        <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
+        <VerInfo_Locale>1033</VerInfo_Locale>
+        <Icon_MainIcon>NLTK_Icon.ico</Icon_MainIcon>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2)'!=''">
         <Defines>NDEBUG;$(Defines)</Defines>
@@ -132,6 +135,10 @@
             <BuildOrder>1</BuildOrder>
             <PCH>true</PCH>
         </PCHCompile>
+        <RcItem Include="NLTK_Icon.ico">
+            <ResourceType>ICON</ResourceType>
+            <ResourceId>Icon_1</ResourceId>
+        </RcItem>
         <CppCompile Include="wMain.cpp">
             <Form>MainForm</Form>
             <FormType>dfm</FormType>

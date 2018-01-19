@@ -197,7 +197,10 @@ void __fastcall TMainForm::btnTestClick(TObject *Sender)
         {
             CNLPlayer* p = new CNLPlayer( this->_t );
 
-            line.sprintf( "[ %04d ] id = %04d ; number = %s; name = %s ; fname = %s " , i , p->ID , p->Number , p->Name.c_str() , p->FName.c_str() );
+            //line.sprintf( "[ %04d ] id = %04d ; number = %s; name = %s ; fname = %s " , i , p->ID , p->Number , p->Name.c_str() , p->FName.c_str() );
+
+            line.sprintf( "%02s %s %s (%s %s) %d kg %d cm" , p->Number , p->FName , p->Name , p->Position1 , p->Position2 , p->Weight , p->Height );
+
 			this->txtLog->Lines->Add( line );
 
             delete p;
@@ -205,8 +208,6 @@ void __fastcall TMainForm::btnTestClick(TObject *Sender)
 
             this->_t->next();
         }
-
-
 
     }
 

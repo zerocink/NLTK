@@ -34,12 +34,12 @@ TStrings* CNLPlayer::_fieldNames = NULL;
 //===========================================================================
 // CONSTANTES : liste des positions
 //---------------------------------------------------------------------------
-#define POS_PG_DW           4
-#define POS_SG_DW           3
-#define POS_SF_DW           2
-#define POS_PF_DW           1
-#define POS_C_DW            0
-#define POS_NONE_DW     	-1
+#define POS_PG_INT           4
+#define POS_SG_INT           3
+#define POS_SF_INT           2
+#define POS_PF_INT           1
+#define POS_C_INT            0
+#define POS_NONE_INT     	-1
 //---------------------------------------------------------------------------
 #define POS_PG_TXT          AnsiString( "PG" )
 #define POS_SG_TXT          AnsiString( "SG" )
@@ -193,22 +193,76 @@ AnsiString __fastcall CNLPlayer::getNumber()
 //---------------------------------------------------------------------------
 DWORD __fastcall CNLPlayer::getWeight()
 {
-    return 0;
+    DWORD WEIGHT_kg = 0;
+
+    if ( this->_record )
+    {
+        DWORD WEIGHT_lb = this->_record->ram[ FIELD_WEIGHT ].ToIntDef( 0 );
+        double lb = (double)WEIGHT_lb;
+        double kg = lb / 2.2046;
+
+        WEIGHT_kg = (int)(kg+0.5);
+    }
+
+    return WEIGHT_kg;
 }
 //---------------------------------------------------------------------------
 DWORD __fastcall CNLPlayer::getHeight()
 {
-    return 0;
+    DWORD HEIGHT_cm = 0;
+
+    if ( this->_record )
+    {
+        DWORD HEIGHT_inch = this->_record->ram[ FIELD_HEIGHT ].ToIntDef( 0 );
+        double inch = (double)HEIGHT_inch;
+        double cm = inch / 0.39370;
+        HEIGHT_cm = (int)(cm+0.5);
+    }
+
+    return HEIGHT_cm;
 }
 //---------------------------------------------------------------------------
 AnsiString __fastcall CNLPlayer::getPosition1()
 {
-    return TXT_NULL;
+    AnsiString POSITION1 = TXT_NULL;
+
+    if ( this->_record )
+    {
+        int POSITION1_asInt = this->_record->ram[ FIELD_POSITION1 ].ToIntDef(-2);
+        switch ( POSITION1_asInt )
+        {
+	        case POS_PG_INT		: POSITION1 = POS_PG_TXT; break;
+            case POS_SG_INT		: POSITION1 = POS_SG_TXT; break;
+            case POS_SF_INT		: POSITION1 = POS_SF_TXT; break;
+            case POS_PF_INT		: POSITION1 = POS_PF_TXT; break;
+            case POS_C_INT		: POSITION1 = POS_C_TXT; break;
+            case POS_NONE_INT	: POSITION1 = POS_NONE_TXT; break;
+        }
+    }
+
+    return POSITION1;
 }
 //---------------------------------------------------------------------------
 AnsiString __fastcall CNLPlayer::getPosition2()
 {
-    return TXT_NULL;
+   AnsiString POSITION2 = TXT_NULL;
+
+    if ( this->_record )
+    {
+        int POSITION2_asInt = this->_record->ram[ FIELD_POSITION2 ].ToIntDef(-2);
+        switch ( POSITION2_asInt )
+        {
+	        case POS_PG_INT		: POSITION2 = POS_PG_TXT; break;
+            case POS_SG_INT		: POSITION2 = POS_SG_TXT; break;
+            case POS_SF_INT		: POSITION2 = POS_SF_TXT; break;
+            case POS_PF_INT		: POSITION2 = POS_PF_TXT; break;
+            case POS_C_INT		: POSITION2 = POS_C_TXT; break;
+            case POS_NONE_INT	: POSITION2 = POS_NONE_TXT; break;
+        }
+    }
+
+
+    return POSITION2;
 }
 //---------------------------------------------------------------------------
 //---------------------------------------------------------------------------
