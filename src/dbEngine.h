@@ -5,9 +5,20 @@
 //---------------------------------------------------------------------------
 #include "dbf.h"
 //---------------------------------------------------------------------------
+//---------------------------------------------------------------------------
 class CDBField;
 class CDBRecord;
 class CDBTable;
+//---------------------------------------------------------------------------
+class CDBEngine	// classe statique
+{
+    public :
+
+        // méthodes publiques statiques :
+        //-------------------------------
+        static	AnsiString __fastcall boolToString( bool b );
+        static	bool       __fastcall stringToBool( AnsiString s );
+};
 //---------------------------------------------------------------------------
 class CDBField
 {
@@ -72,11 +83,11 @@ class CDBRecord
 
 		// propriétés publiques :
 		//-----------------------
-		__property CDBField* 	fields[ int index ] = { read = getFields	   };
-		__property int       	fieldsCount         = { read = getFieldsCount };
+		__property CDBField* 	fields[ int index ] 			= { read = getFields	   };
+		__property int       	fieldsCount         			= { read = getFieldsCount };
 		__property int       	indexOfField[ AnsiString name ] = { read = getIndexOfField };
-		__property bool      	dif				 = { read = getDif };
-        __property AnsiString 	ram[ AnsiString fieldName ] = { read = getRam , write = setRam };
+		__property bool      	dif				 				= { read = getDif };
+        __property AnsiString 	ram[ AnsiString fieldName ] 	= { read = getRam , write = setRam };
 
 	private	:
 

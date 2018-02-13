@@ -4,7 +4,9 @@
 #pragma hdrstop
 #include <tchar.h>
 //---------------------------------------------------------------------------
-USEFORM("wMain.cpp", MainForm);
+USEFORM("wMain.cpp", MainDlg);
+USEFORM("wPlayerDebug.cpp", PlayerDebugDlg);
+USEFORM("wRosterEditor.cpp", RosterEditorDlg);
 //---------------------------------------------------------------------------
 int WINAPI _tWinMain(HINSTANCE, HINSTANCE, LPTSTR, int)
 {
@@ -12,7 +14,7 @@ int WINAPI _tWinMain(HINSTANCE, HINSTANCE, LPTSTR, int)
 	{
 		Application->Initialize();
 		Application->MainFormOnTaskBar = true;
-		Application->CreateForm(__classid(TMainForm), &MainForm);
+		Application->CreateForm(__classid(TMainDlg), &MainDlg);
 		Application->Run();
 	}
 	catch (Exception &exception)

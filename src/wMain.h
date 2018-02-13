@@ -1,61 +1,46 @@
 //---------------------------------------------------------------------------
 
-#ifndef wndMainH
-#define wndMainH
+#ifndef wMainH
+#define wMainH
 //---------------------------------------------------------------------------
 #include <System.Classes.hpp>
 #include <Vcl.Controls.hpp>
 #include <Vcl.StdCtrls.hpp>
 #include <Vcl.Forms.hpp>
-#include <Vcl.ExtCtrls.hpp>
 //---------------------------------------------------------------------------
-class TMainForm : public TForm
+class TMainDlg : public TForm
 {
 __published:	// Composants gérés par l'EDI
-	TPanel *pnlCmds;
-	TButton *btnFirst;
-	TButton *btnPrior;
-	TButton *btnNext;
-	TButton *btnLast;
-	TEdit *edtRecordIndex;
-	TMemo *txtLog;
-	TButton *btnTest;
+	TButton *brnPlayerDebug;
+	TButton *btnRosters;
 	void __fastcall FormCreate(TObject *Sender);
 	void __fastcall FormDestroy(TObject *Sender);
-	void __fastcall btnFirstClick(TObject *Sender);
-	void __fastcall btnPriorClick(TObject *Sender);
-	void __fastcall btnNextClick(TObject *Sender);
-	void __fastcall btnLastClick(TObject *Sender);
-	void __fastcall btnTestClick(TObject *Sender);
+	void __fastcall brnPlayerDebugClick(TObject *Sender);
+	void __fastcall btnRostersClick(TObject *Sender);
 private:	// Déclarations utilisateur
 
-	// méthodes internes :
-	//--------------------
-	void __fastcall zero();
-	void __fastcall init();
-	void __fastcall deinit();
 
-	void __fastcall formInit();
-	void __fastcall formDeinit();
+    // méthodes internes :
+    //--------------------
+    void __fastcall zero();
+    void __fastcall init();
+    void __fastcall deinit();
+    void __fastcall formInit();
+    void __fastcall formDeinit();
 
-	void __fastcall updateRecordIndex();
-
-	// variables internes :
-	//---------------------
-	CDBTable* _t;
-    TStrings* _f;
-
+    // variables internes :
+    //---------------------
+    TRosterEditorDlg* _rosterEditor;
 
 
 public:		// Déclarations utilisateur
 
-	// constructeurs & destructeur :
-	//------------------------------
-			__fastcall TMainForm(TComponent* Owner);
-	virtual __fastcall ~TMainForm();
+    // constructeurs & destructeur :
+    //------------------------------
+			__fastcall TMainDlg(TComponent* Owner);
+    virtual __fastcall ~TMainDlg();
 };
 //---------------------------------------------------------------------------
-extern PACKAGE TMainForm *MainForm;
+extern PACKAGE TMainDlg *MainDlg;
 //---------------------------------------------------------------------------
 #endif
-

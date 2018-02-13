@@ -128,6 +128,10 @@
             <DependentOn>nlSavedGame.h</DependentOn>
             <BuildOrder>7</BuildOrder>
         </CppCompile>
+        <CppCompile Include="nlTeam.cpp">
+            <DependentOn>nlTeam.h</DependentOn>
+            <BuildOrder>9</BuildOrder>
+        </CppCompile>
         <CppCompile Include="NLTK.cpp">
             <BuildOrder>0</BuildOrder>
         </CppCompile>
@@ -140,12 +144,26 @@
             <ResourceId>Icon_1</ResourceId>
         </RcItem>
         <CppCompile Include="wMain.cpp">
-            <Form>MainForm</Form>
+            <Form>MainDlg</Form>
             <FormType>dfm</FormType>
             <DependentOn>wMain.h</DependentOn>
+            <BuildOrder>10</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="wPlayerDebug.cpp">
+            <Form>PlayerDebugDlg</Form>
+            <FormType>dfm</FormType>
+            <DependentOn>wPlayerDebug.h</DependentOn>
             <BuildOrder>2</BuildOrder>
         </CppCompile>
+        <CppCompile Include="wRosterEditor.cpp">
+            <Form>RosterEditorDlg</Form>
+            <FormType>dfm</FormType>
+            <DependentOn>wRosterEditor.h</DependentOn>
+            <BuildOrder>11</BuildOrder>
+        </CppCompile>
         <FormResources Include="wMain.dfm"/>
+        <FormResources Include="wPlayerDebug.dfm"/>
+        <FormResources Include="wRosterEditor.dfm"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

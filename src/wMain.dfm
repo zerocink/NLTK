@@ -1,9 +1,9 @@
-object MainForm: TMainForm
+object MainDlg: TMainDlg
   Left = 0
   Top = 0
-  Caption = 'MainForm'
-  ClientHeight = 456
-  ClientWidth = 647
+  Caption = 'MainDlg'
+  ClientHeight = 96
+  ClientWidth = 613
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -15,102 +15,22 @@ object MainForm: TMainForm
   OnDestroy = FormDestroy
   PixelsPerInch = 96
   TextHeight = 13
-  object pnlCmds: TPanel
-    Left = 0
-    Top = 0
-    Width = 647
-    Height = 25
-    Align = alTop
-    BevelOuter = bvLowered
+  object brnPlayerDebug: TButton
+    Left = 8
+    Top = 8
+    Width = 129
+    Height = 41
+    Caption = 'Player Debug'
     TabOrder = 0
-    ExplicitLeft = -36
-    ExplicitWidth = 683
-    object btnFirst: TButton
-      Left = 1
-      Top = 1
-      Width = 72
-      Height = 23
-      Align = alLeft
-      Caption = '|<'
-      TabOrder = 0
-      OnClick = btnFirstClick
-    end
-    object btnPrior: TButton
-      Left = 73
-      Top = 1
-      Width = 72
-      Height = 23
-      Align = alLeft
-      Caption = '<'
-      TabOrder = 1
-      OnClick = btnPriorClick
-    end
-    object btnNext: TButton
-      Left = 145
-      Top = 1
-      Width = 72
-      Height = 23
-      Align = alLeft
-      Caption = '>'
-      TabOrder = 2
-      OnClick = btnNextClick
-    end
-    object btnLast: TButton
-      Left = 217
-      Top = 1
-      Width = 72
-      Height = 23
-      Align = alLeft
-      Caption = '>|'
-      TabOrder = 3
-      OnClick = btnLastClick
-    end
-    object edtRecordIndex: TEdit
-      Left = 289
-      Top = 1
-      Width = 282
-      Height = 23
-      Align = alClient
-      Alignment = taCenter
-      BevelInner = bvNone
-      BevelOuter = bvNone
-      ReadOnly = True
-      TabOrder = 4
-      Text = '? / ?'
-      ExplicitWidth = 318
-      ExplicitHeight = 21
-    end
-    object btnTest: TButton
-      Left = 571
-      Top = 1
-      Width = 75
-      Height = 23
-      Align = alRight
-      Caption = 'Test'
-      TabOrder = 5
-      OnClick = btnTestClick
-      ExplicitLeft = 607
-    end
+    OnClick = brnPlayerDebugClick
   end
-  object txtLog: TMemo
-    Left = 0
-    Top = 25
-    Width = 647
-    Height = 431
-    Align = alClient
-    Font.Charset = ANSI_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -13
-    Font.Name = 'Liberation Mono'
-    Font.Style = []
-    ParentFont = False
-    ReadOnly = True
-    ScrollBars = ssBoth
+  object btnRosters: TButton
+    Left = 8
+    Top = 48
+    Width = 129
+    Height = 41
+    Caption = 'Rosters'
     TabOrder = 1
-    WordWrap = False
-    ExplicitLeft = -36
-    ExplicitTop = 5
-    ExplicitWidth = 683
-    ExplicitHeight = 451
+    OnClick = btnRostersClick
   end
 end

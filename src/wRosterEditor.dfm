@@ -1,0 +1,80 @@
+object RosterEditorDlg: TRosterEditorDlg
+  Left = 0
+  Top = 0
+  Caption = 'RosterEditorDlg'
+  ClientHeight = 494
+  ClientWidth = 626
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  OnCreate = FormCreate
+  OnDestroy = FormDestroy
+  PixelsPerInch = 96
+  TextHeight = 13
+  object pnlTeam: TPanel
+    Left = 0
+    Top = 0
+    Width = 626
+    Height = 27
+    Align = alTop
+    BevelOuter = bvNone
+    TabOrder = 0
+    object btnTeamPrev: TButton
+      Left = 0
+      Top = 0
+      Width = 75
+      Height = 27
+      Align = alLeft
+      Caption = '<<'
+      TabOrder = 0
+      OnClick = btnTeamPrevClick
+      ExplicitHeight = 21
+    end
+    object btnTeamNext: TButton
+      Left = 551
+      Top = 0
+      Width = 75
+      Height = 27
+      Align = alRight
+      Caption = '>>'
+      TabOrder = 1
+      OnClick = btnTeamNextClick
+      ExplicitLeft = 432
+      ExplicitTop = 16
+      ExplicitHeight = 25
+    end
+    object cbTeamSel: TComboBox
+      Left = 75
+      Top = 0
+      Width = 476
+      Height = 21
+      Align = alClient
+      AutoComplete = False
+      AutoDropDown = True
+      Style = csDropDownList
+      TabOrder = 2
+      OnChange = cbTeamSelChange
+    end
+  end
+  object gridPlayers: TStringGrid
+    Left = 0
+    Top = 27
+    Width = 626
+    Height = 467
+    Align = alClient
+    DoubleBuffered = True
+    FixedCols = 0
+    Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goRowSelect]
+    ParentDoubleBuffered = False
+    TabOrder = 1
+    OnDrawCell = gridPlayersDrawCell
+    ExplicitLeft = 96
+    ExplicitTop = 136
+    ExplicitWidth = 320
+    ExplicitHeight = 120
+  end
+end

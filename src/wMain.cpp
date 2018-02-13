@@ -1,131 +1,66 @@
 //---------------------------------------------------------------------------
 
-
-//===========================================================================
-//#include <vcl.h>
-#include "NLTK_common.h"
-#include "dbf.h"
-#include "dbEngine.h"
+#include <vcl.h>
 #pragma hdrstop
+
+//---------------------------------------------------------------------------
+#include "wRosterEditor.h"
 //---------------------------------------------------------------------------
 #include "wMain.h"
 //---------------------------------------------------------------------------
-#include "nlPlayer.h"
-//===========================================================================
+#include "nlSavedGame.h"
+#include "wPlayerDebug.h"
+//---------------------------------------------------------------------------
 
-
-//===========================================================================
-//===========================================================================
 
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
 #pragma resource "*.dfm"
-
-
-//===========================================================================
-TMainForm *MainForm;
-//===========================================================================
-
-
-//===========================================================================
-//===========================================================================
-//===========================================================================
-//===========================================================================
-//===========================================================================
-//===========================================================================
-// CLASSE TWnMain
+TMainDlg *MainDlg;
 //---------------------------------------------------------------------------
-__fastcall TMainForm::TMainForm(TComponent* Owner)
+__fastcall TMainDlg::TMainDlg(TComponent* Owner)
 	: TForm(Owner)
 {
-	this->zero();
-	this->init();
+    this->zero();
+    this->init();
 }
 //---------------------------------------------------------------------------
-__fastcall TMainForm::~TMainForm()
+__fastcall TMainDlg::~TMainDlg()
 {
-	this->deinit();
-	this->zero();
+    this->deinit();
+    this->zero();
 }
 //---------------------------------------------------------------------------
-void __fastcall TMainForm::zero()
+void __fastcall TMainDlg::zero()
 {
-	this->_t = NULL;
-	this->_f = NULL;
+    this->_rosterEditor = NULL;
 }
 //---------------------------------------------------------------------------
-void __fastcall TMainForm::init()
+void __fastcall TMainDlg::init()
 {
-
-	if ( !this->_t )
-	{
-		AnsiString tableFileName = AnsiString( "D:\\PERSO ND\\Dev\\NLTK\\res\\db\\100\\Players.dbf" );
-		this->_t = new CDBTable( tableFileName  );
-
-		this->_t->open();
-	}
-
-	if ( !this->_f )
-	{
-		this->_f = new TStringList();
-
-		this->_t->loadFieldNames( this->_f );
+    if ( !this->_rosterEditor ) this->_rosterEditor = new TRosterEditorDlg (NULL );
+}
+//---------------------------------------------------------------------------
+void __fastcall TMainDlg::deinit()
+{
+    if ( this->_rosterEditor )
+    {
+    	delete this->_rosterEditor;
+        this->_rosterEditor = NULL;
     }
-}
-//---------------------------------------------------------------------------
-void __fastcall TMainForm::deinit()
-{
-	if ( this->_t )
-	{
-		this->_t->close();
 
-		delete this->_t;
-		this->_t = NULL;
-    }
 }
 //---------------------------------------------------------------------------
-void __fastcall TMainForm::formInit()
+void __fastcall TMainDlg::formInit()
 {
-	this->Caption = Application->Title;
-
-	this->updateRecordIndex();
+    this->Caption = Application->Title;
 }
 //---------------------------------------------------------------------------
-void __fastcall TMainForm::formDeinit()
+void __fastcall TMainDlg::formDeinit()
 {
 
 }
 //---------------------------------------------------------------------------
-void __fastcall TMainForm::updateRecordIndex()
-{
-	AnsiString recordIndex;
-
-	if ( this->_t )
-	{
-		recordIndex = IntToStr( (int)this->_t->recordIndex ) + AnsiString( " / " ) + IntToStr( (int)this->_t->recordCount-1 );
-
-		this->txtLog->Lines->Clear();
-		if ( this->_f )
-		{
-			for ( int i = 0 ; i < this->_f->Count ; i++ )
-			{
-				AnsiString fieldName = this->_f->Strings[i];
-				AnsiString fieldValue;
-				if ( !this->_t->getFieldValueString( fieldName , fieldValue ) ) fieldValue = AnsiString( "ERREUR" );
-
-				this->txtLog->Lines->Add( fieldName + AnsiString( " = " ) + fieldValue );
-			}
-		}
-	}
-	else
-	{
-		recordIndex = AnsiString( "? / ?" );
-		this->txtLog->Lines->Clear();
-	}
-
-	this->edtRecordIndex->Text = recordIndex;
-}
-//---------------------------------------------------------------------------
 //---------------------------------------------------------------------------
 //---------------------------------------------------------------------------
 //---------------------------------------------------------------------------
@@ -136,97 +71,55 @@ void __fastcall TMainForm::updateRecordIndex()
 //===========================================================================
 //===========================================================================
 //===========================================================================
-
-void __fastcall TMainForm::FormCreate(TObject *Sender)
+//===========================================================================
+//===========================================================================
+//===========================================================================
+//===========================================================================
+//===========================================================================
+//===========================================================================
+//===========================================================================
+//===========================================================================
+//===========================================================================
+//===========================================================================
+void __fastcall TMainDlg::FormCreate(TObject *Sender)
 {
     this->formInit();
 }
 //---------------------------------------------------------------------------
-
-void __fastcall TMainForm::FormDestroy(TObject *Sender)
+void __fastcall TMainDlg::FormDestroy(TObject *Sender)
 {
-	this->formDeinit();
+    this->formDeinit();
 }
 //---------------------------------------------------------------------------
-
-
-void __fastcall TMainForm::btnFirstClick(TObject *Sender)
+void __fastcall TMainDlg::brnPlayerDebugClick(TObject *Sender)
 {
-	if ( this->_t ) this->_t->first();
+    TPlayerDebugDlg* pdebug = new TPlayerDebugDlg( NULL );
 
-	this->updateRecordIndex();
+
+    pdebug->ShowModal();
+
+
+    delete pdebug;
+    pdebug = NULL;
 }
 //---------------------------------------------------------------------------
-
-void __fastcall TMainForm::btnPriorClick(TObject *Sender)
+void __fastcall TMainDlg::btnRostersClick(TObject *Sender)
 {
-	if ( this->_t ) this->_t->prior();
+ 	AnsiString path = AnsiString( "D:\\PERSO ND\\Dev\\NLTK\\res\\db\\100\\" );
+    path = ExtractFileDir( path );
 
-	this->updateRecordIndex();
-}
-//---------------------------------------------------------------------------
+    CNLSavedGame* sg = new CNLSavedGame( path );
+    bool ok = sg->open();
 
-void __fastcall TMainForm::btnNextClick(TObject *Sender)
-{
-	if ( this->_t ) this->_t->next();
-
-	this->updateRecordIndex();
-}
-//---------------------------------------------------------------------------
-
-void __fastcall TMainForm::btnLastClick(TObject *Sender)
-{
-	if ( this->_t ) this->_t->last();
-
-	this->updateRecordIndex();
-}
-//---------------------------------------------------------------------------
-
-void __fastcall TMainForm::btnTestClick(TObject *Sender)
-{
-    this->txtLog->Clear();
-
-    TList* list = new TList();
-
-    if ( this->_t )
+    if ( this->_rosterEditor )
     {
-        this->_t->first();
-
-        AnsiString line = TXT_NULL;
-        for ( int i = 0 ; i < this->_t->recordCount ; i++ )
-        {
-            CNLPlayer* p = new CNLPlayer( this->_t );
-
-            //line.sprintf( "[ %04d ] id = %04d ; number = %s; name = %s ; fname = %s " , i , p->ID , p->Number , p->Name.c_str() , p->FName.c_str() );
-
-            line.sprintf( "%02s %s %s (%s %s) %d kg %d cm" , p->Number , p->FName , p->Name , p->Position1 , p->Position2 , p->Weight , p->Height );
-
-			this->txtLog->Lines->Add( line );
-
-            delete p;
-            p = NULL;
-
-            this->_t->next();
-        }
-
+    	this->_rosterEditor->sg = sg;
+        this->_rosterEditor->ShowModal();
     }
 
-    delete list;
-    list = NULL;
-/*
-	if ( this->_t )
-	{
-		if ( this->_t->first() )
-		{
-			bool ok = this->_t->setFieldValueString( AnsiString("NAME") , AnsiString( "TOTO") );
-			if ( ok ) ok = this->_t->post();
-			if ( ok ) ShowMessage( "post = OK" );
-        }
-	}
 
-	this->updateRecordIndex();
-*/
+    sg->close();
+    delete sg;
+    sg = NULL;
 }
 //---------------------------------------------------------------------------
-
-
