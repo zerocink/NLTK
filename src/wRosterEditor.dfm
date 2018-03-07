@@ -19,52 +19,65 @@ object RosterEditorDlg: TRosterEditorDlg
     Left = 0
     Top = 0
     Width = 626
-    Height = 27
+    Height = 81
     Align = alTop
     BevelOuter = bvNone
     TabOrder = 0
     object btnTeamPrev: TButton
       Left = 0
-      Top = 0
+      Top = 21
       Width = 75
-      Height = 27
+      Height = 60
       Align = alLeft
-      Caption = '<<'
+      ImageAlignment = iaCenter
+      ImageIndex = 71
+      Images = IconListsDlg.ilIconSet48x48_blue
       TabOrder = 0
       OnClick = btnTeamPrevClick
-      ExplicitHeight = 21
+      ExplicitLeft = -6
+      ExplicitTop = -6
+      ExplicitHeight = 57
     end
     object btnTeamNext: TButton
       Left = 551
-      Top = 0
+      Top = 21
       Width = 75
-      Height = 27
+      Height = 60
       Align = alRight
-      Caption = '>>'
+      ImageAlignment = iaCenter
+      ImageIndex = 43
+      Images = IconListsDlg.ilIconSet48x48_blue
       TabOrder = 1
       OnClick = btnTeamNextClick
-      ExplicitLeft = 432
-      ExplicitTop = 16
-      ExplicitHeight = 25
+      ExplicitTop = 0
+      ExplicitHeight = 27
     end
     object cbTeamSel: TComboBox
-      Left = 75
+      Left = 0
       Top = 0
-      Width = 476
+      Width = 626
       Height = 21
-      Align = alClient
+      Align = alTop
       AutoComplete = False
       AutoDropDown = True
       Style = csDropDownList
+      Ctl3D = True
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentCtl3D = False
+      ParentFont = False
       TabOrder = 2
       OnChange = cbTeamSelChange
     end
   end
   object gridPlayers: TStringGrid
     Left = 0
-    Top = 27
+    Top = 81
     Width = 626
-    Height = 467
+    Height = 351
     Align = alClient
     DoubleBuffered = True
     FixedCols = 0
@@ -72,9 +85,42 @@ object RosterEditorDlg: TRosterEditorDlg
     ParentDoubleBuffered = False
     TabOrder = 1
     OnDrawCell = gridPlayersDrawCell
-    ExplicitLeft = 96
-    ExplicitTop = 136
-    ExplicitWidth = 320
-    ExplicitHeight = 120
+    ExplicitTop = 27
+    ExplicitHeight = 467
+  end
+  object pnlCmd: TPanel
+    Left = 0
+    Top = 432
+    Width = 626
+    Height = 62
+    Align = alBottom
+    BevelOuter = bvNone
+    TabOrder = 2
+    object btnMoveUp: TButton
+      Left = 0
+      Top = 0
+      Width = 89
+      Height = 62
+      Align = alLeft
+      ImageAlignment = iaCenter
+      ImageIndex = 148
+      Images = IconListsDlg.ilIconSet48x48_blue
+      TabOrder = 0
+      OnClick = btnMoveUpClick
+      ExplicitLeft = -14
+    end
+    object btnMoveDown: TButton
+      Left = 89
+      Top = 0
+      Width = 89
+      Height = 62
+      Align = alLeft
+      ImageAlignment = iaCenter
+      ImageIndex = 97
+      Images = IconListsDlg.ilIconSet48x48_blue
+      TabOrder = 1
+      OnClick = btnMoveDownClick
+      ExplicitLeft = 8
+    end
   end
 end

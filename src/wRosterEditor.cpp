@@ -7,6 +7,7 @@
 //---------------------------------------------------------------------------
 #include "wRosterEditor.h"
 #include "NLTK_common.h"
+#include "wIconLists.h"
 //---------------------------------------------------------------------------
 //===========================================================================
 
@@ -157,38 +158,7 @@ void __fastcall TRosterEditorDlg::updatePlayers()
         for ( int i = 0 ; i < ROSTER_SIZE ; i++ )
         {
             CNLPlayer* p = r->players[ i ];
-            if ( p )
-            {
-                AnsiString txt;
-
-                this->gridPlayers->Objects[0][i+1] = (TObject*)p;
-	            this->gridPlayers->Cells[0][i+1] = p->RosterPosText;
-                this->gridPlayers->Cells[1][i+1] = txt.sprintf( "%s %s %s" , p->Number , p->FName , p->Name );
-                this->gridPlayers->Cells[2][i+1] = txt.sprintf( "%d" , p->Height );
-                this->gridPlayers->Cells[3][i+1] = txt.sprintf( "%d" , p->Weight );
-                this->gridPlayers->Cells[4][i+1] = txt.sprintf( "%s / %s " , p->Position1 , p->Position2 );
-                this->gridPlayers->Cells[5][i+1] = txt.sprintf( "%2.01f" , p->OverallRtg );
-                this->gridPlayers->Cells[6][i+1] = txt.sprintf( "%d" , p->YearsExp );
-
-                WORD g = p->SeasonGM;
-                if ( g > 0 )
-                {
-                    double pts = ( ( (double)p->SeasonFGM * 2.0 ) + (double)p->Season3PM + (double)p->SeasonFTM ) / (double)g;
-                    double reb = ( (double)p->SeasonORB + (double)p->SeasonDRB ) / (double)g;
-                    double ast = ( (double)p->SeasonAST ) / (double)g;
-                    double blk = ( (double)p->SeasonBLK ) / (double)g;
-                    double stl = ( (double)p->SeasonSTL ) / (double)g;
-
-
-                    this->gridPlayers->Cells[7][i+1] = txt.sprintf( "%2.01f" , pts );
-                    this->gridPlayers->Cells[8][i+1] = txt.sprintf( "%2.01f" , reb );
-                    this->gridPlayers->Cells[9][i+1] = txt.sprintf( "%2.01f" , ast );
-                    this->gridPlayers->Cells[10][i+1] = txt.sprintf( "%2.01f" , blk );
-                    this->gridPlayers->Cells[11][i+1] = txt.sprintf( "%2.01f" , stl );
-
-                }
-
-            }
+            this->playerDisplay( p , i+1 );
         }
     }
 
@@ -224,6 +194,97 @@ void __fastcall TRosterEditorDlg::autoSizeCol( int col )
 void __fastcall TRosterEditorDlg::autoSizeRow( int row )
 {
 
+}
+//---------------------------------------------------------------------------
+void __fastcall TRosterEditorDlg::playerDisplay( CNLPlayer* p , int row )
+{
+    if ( p && row >= 1 && row < this->gridPlayers->RowCount )
+    {
+        AnsiString txt;
+
+        this->gridPlayers->Objects[0][row] = (TObject*)p;
+        this->gridPlayers->Cells[0][row] = p->RosterPosText;
+        this->gridPlayers->Cells[1][row] = txt.sprintf( "%s %s %s" , p->Number , p->FName , p->Name );
+        this->gridPlayers->Cells[2][row] = txt.sprintf( "%01.02f m" , (double)p->Height/100.0 );
+        this->gridPlayers->Cells[3][row] = txt.sprintf( "%d kg" , p->Weight );
+        this->gridPlayers->Cells[4][row] = txt.sprintf( "%s / %s " , p->Position1 , p->Position2 );
+        this->gridPlayers->Cells[5][row] = txt.sprintf( "%2.01f" , p->OverallRtg );
+        this->gridPlayers->Cells[6][row] = txt.sprintf( "%d" , p->YearsExp );
+
+        WORD g = p->SeasonGM;
+        if ( g > 0 )
+        {
+            double pts = ( ( (double)p->SeasonFGM * 2.0 ) + (double)p->Season3PM + (double)p->SeasonFTM ) / (double)g;
+            double reb = ( (double)p->SeasonORB + (double)p->SeasonDRB ) / (double)g;
+            double ast = ( (double)p->SeasonAST ) / (double)g;
+            double blk = ( (double)p->SeasonBLK ) / (double)g;
+            double stl = ( (double)p->SeasonSTL ) / (double)g;
+
+
+            this->gridPlayers->Cells[7][row] = txt.sprintf( "%2.01f" , pts );
+            this->gridPlayers->Cells[8][row] = txt.sprintf( "%2.01f" , reb );
+            this->gridPlayers->Cells[9][row] = txt.sprintf( "%2.01f" , ast );
+            this->gridPlayers->Cells[10][row] = txt.sprintf( "%2.01f" , blk );
+            this->gridPlayers->Cells[11][row] = txt.sprintf( "%2.01f" , stl );
+        }
+
+    }
+}
+//---------------------------------------------------------------------------
+void __fastcall TRosterEditorDlg::playerMoveUp()
+{
+    if ( this->playerSwitch( this->gridPlayers->Row , this->gridPlayers->Row-1 ) )
+    {
+        this->gridPlayers->Row--;
+    }
+}
+//---------------------------------------------------------------------------
+void __fastcall TRosterEditorDlg::playerMoveDown()
+{
+    if ( this->playerSwitch( this->gridPlayers->Row , this->gridPlayers->Row+1 ) )
+    {
+        this->gridPlayers->Row++;
+    }
+}
+//---------------------------------------------------------------------------
+bool __fastcall TRosterEditorDlg::playerSwitch( int row1 , int row2 )
+{
+    int i1 = row1 - 1;
+    int i2 = row2 - 1;
+
+    if ( ( i1 >= 0 && i1 < ROSTER_SIZE ) &&
+		 ( i2 >= 0 && i2 < ROSTER_SIZE ) &&
+         ( i1 != i2 )
+       )
+    {
+
+	    CNLRoster* r = (CNLRoster*)this->cbTeamSel->Items->Objects[ this->cbTeamSel->ItemIndex ];
+        if ( r )
+        {
+            CNLPlayer* p1 = r->players[ i1 ];
+            CNLPlayer* p2 = r->players[ i2 ];
+            if ( p1 && p2 )
+            {
+                r->players[ i1 ] = p2;
+                r->players[ i2 ] = p1;
+                p1->RosterPos = i2;
+                p2->RosterPos = i1;
+
+                this->playerDisplay( r->players[ i1 ] , row1 );
+                this->playerDisplay( r->players[ i2 ] , row2 );
+
+                return true;
+            }
+        }
+    }
+
+    return false;
+
+/*
+    AnsiString msg;
+    ShowMessage( msg.sprintf( "switch player @row %d <--> %d" , row1 , row2) );
+    return false;
+    */
 }
 //---------------------------------------------------------------------------
 void __fastcall TRosterEditorDlg::setSg( CNLSavedGame* sg )
@@ -280,6 +341,23 @@ CNLRoster* __fastcall TRosterEditorDlg::getTeamRoster( WORD teamNum )
 
     return NULL;
 }
+//---------------------------------------------------------------------------
+CNLPlayer* __fastcall TRosterEditorDlg::getPlayerAtRow( int row )
+{
+    if ( row > 0 && row < this->gridPlayers->RowCount )
+    {
+        CNLRoster* r = (CNLRoster*)this->cbTeamSel->Items->Objects[ this->cbTeamSel->ItemIndex ];
+        if ( r )
+        {
+            return r->players[ row-1 ];
+        }
+    }
+    return NULL;
+}
+//---------------------------------------------------------------------------
+//---------------------------------------------------------------------------
+//---------------------------------------------------------------------------
+//---------------------------------------------------------------------------
 //---------------------------------------------------------------------------
 //===========================================================================
 //===========================================================================
@@ -352,3 +430,15 @@ void __fastcall TRosterEditorDlg::gridPlayersDrawCell(TObject *Sender, int ACol,
 
 }
 //---------------------------------------------------------------------------
+void __fastcall TRosterEditorDlg::btnMoveUpClick(TObject *Sender)
+{
+    this->playerMoveUp();
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TRosterEditorDlg::btnMoveDownClick(TObject *Sender)
+{
+    this->playerMoveDown();
+}
+//---------------------------------------------------------------------------
+

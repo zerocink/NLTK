@@ -101,6 +101,9 @@ TStrings* CNLPlayer::_fieldNames = NULL;
 #define ROSTERPOS_INACTIVE_3    14
 #define ROSTERPOS_UNDEF		    ((WORD)-1)
 //---------------------------------------------------------------------------
+#define ROSTERPOS_MIN           ROSTERPOS_STARTER_C
+#define ROSTERPOS_MAX           ROSTERPOS_INACTIVE_3
+//---------------------------------------------------------------------------
 #define ROSTERPOS_STARTER_C_TXT 	AnsiString( "C" )
 #define ROSTERPOS_STARTER_PF_TXT    AnsiString( "PF" )
 #define ROSTERPOS_STARTER_SF_TXT    AnsiString( "SF" )
@@ -136,7 +139,8 @@ __fastcall CNLPlayer::CNLPlayer()
 //---------------------------------------------------------------------------
 __fastcall CNLPlayer::CNLPlayer( CDBTable* t )
 {
-    this->zero();
+	this->zero();
+
     this->init();
 
     this->_instanceCount++;
@@ -155,10 +159,9 @@ bool __fastcall CNLPlayer::loadFromTable( CDBTable* t )
 {
     bool ok = false;
 
-
     if ( this->_record && t )
     {
-        ok = this->_record->readFromTable( t );
+	    ok = this->_record->readFromTable( t );
     }
 
     return ok;
@@ -387,6 +390,17 @@ WORD __fastcall CNLPlayer::getRosterPos()
     }
 
     return ROSTERPOS;
+}
+//---------------------------------------------------------------------------
+void __fastcall CNLPlayer::setRosterPos( WORD rosterPos )
+{
+    AnsiString ROSTERPOS = TXT_NULL;
+    if ( rosterPos >= ROSTERPOS_MIN && rosterPos <= ROSTERPOS_MAX )
+    {
+        ROSTERPOS = IntToStr( rosterPos );
+    }
+
+    this->_record->ram[ FIELD_ROSTERPOS ] = ROSTERPOS;
 }
 //---------------------------------------------------------------------------
 AnsiString __fastcall CNLPlayer::getRosterPosText()

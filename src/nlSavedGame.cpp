@@ -220,13 +220,15 @@ bool __fastcall CNLSavedGame::openPlayers()
         {
             int indexDebug = 0;
             ok = this->_tablePlayers->first();
+
             while ( ok )
             {
                 CNLPlayer* p = new CNLPlayer( this->_tablePlayers );
                 AnsiString nameDebug = p->Name;
+
                 if ( p->InSeason )
                 {
-                    this->_players->Add( p );
+                	this->_players->Add( p );
                 }
                 else
                 {

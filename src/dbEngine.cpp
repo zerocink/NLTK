@@ -99,7 +99,9 @@ bool __fastcall CDBField::readFromTable( CDBTable* t )
 	if ( t && t->isOpen )
 	{
 		AnsiString rom;
-		ok = t->getFieldValueString( this->_name.Trim() , rom );
+
+        ok = t->getFieldValueString( this->_name.Trim() , rom );
+
 		if ( ok )
 		{
 			this->_rom = rom;
@@ -293,10 +295,10 @@ bool __fastcall CDBRecord::readFromTable( CDBTable* t )
 		for ( int i = 0 ; i < this->_fields->Count ; i++ )
 		{
 			CDBField* field = this->fields[ i ];
-			if ( field && !field->readFromTable( t ) )
-			{
-				ok = false;
-			}
+            if ( field && !field->readFromTable( t ) )
+            {
+                ok = false;
+            }
 		}
 	}
 	else
@@ -586,26 +588,33 @@ bool __fastcall CDBTable::getFieldValueString( AnsiString fieldName , AnsiString
 
 	if ( this->isOpen )
 	{
-		const DBF_FIELD* field = dbf_getfieldptr_name( this->_h , fieldName.c_str() );
-		if ( field )
-		{
-			dbf_data_type fieldType = dbf_getfield_type( this->_h , field );
-			size_t fieldSize = dbf_getfield( this->_h , field , NULL , 0 , fieldType );
+    	try
+        {
+            const DBF_FIELD* field = dbf_getfieldptr_name( this->_h , fieldName.c_str() );
 
-			if ( fieldSize > 0 )
-			{
-				char* buf = new char[ fieldSize + 1 ];
-				ZeroMemory( buf , sizeof( char ) * (fieldSize+1) );
+            if ( field )
+            {
+                dbf_data_type fieldType = dbf_getfield_type( this->_h , field );
+                size_t fieldSize = dbf_getfield( this->_h , field , NULL , 0 , fieldType );
 
-				dbf_getfield( this->_h , field , buf , fieldSize , fieldType );
-				fieldValue = AnsiString( buf );
+                if ( fieldSize > 0 )
+                {
+                    char* buf = new char[ fieldSize + 1 ];
+                    ZeroMemory( buf , sizeof( char ) * (fieldSize+1) );
 
-				ZeroMemory( buf , sizeof( char ) * (fieldSize+1) );
-				delete[] buf;
-				buf = NULL;
-			}
-            ok = true;
-		}
+                    dbf_getfield( this->_h , field , buf , fieldSize , fieldType );
+                    fieldValue = AnsiString( buf );
+
+                    ZeroMemory( buf , sizeof( char ) * (fieldSize+1) );
+                    delete[] buf;
+                    buf = NULL;
+                }
+                ok = true;
+            }
+        }
+        catch(...)
+        {
+        }
 	}
 
 	return ok;

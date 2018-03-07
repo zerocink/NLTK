@@ -11,6 +11,8 @@
 #include "nlSavedGame.h"
 #include <Vcl.ExtCtrls.hpp>
 #include <Vcl.Grids.hpp>
+#include <System.ImageList.hpp>
+#include <Vcl.ImgList.hpp>
 //---------------------------------------------------------------------------
 class TRosterEditorDlg : public TForm
 {
@@ -18,8 +20,11 @@ __published:	// Composants gérés par l'EDI
 	TPanel *pnlTeam;
 	TButton *btnTeamPrev;
 	TButton *btnTeamNext;
-	TComboBox *cbTeamSel;
 	TStringGrid *gridPlayers;
+	TPanel *pnlCmd;
+	TButton *btnMoveUp;
+	TButton *btnMoveDown;
+	TComboBox *cbTeamSel;
 	void __fastcall FormCreate(TObject *Sender);
 	void __fastcall FormDestroy(TObject *Sender);
 	void __fastcall cbTeamSelChange(TObject *Sender);
@@ -27,6 +32,8 @@ __published:	// Composants gérés par l'EDI
 	void __fastcall btnTeamNextClick(TObject *Sender);
 	void __fastcall gridPlayersDrawCell(TObject *Sender, int ACol, int ARow, TRect &Rect,
           TGridDrawState State);
+	void __fastcall btnMoveUpClick(TObject *Sender);
+	void __fastcall btnMoveDownClick(TObject *Sender);
 private:	// Déclarations utilisateur
 
     // méthodes internes :
@@ -41,15 +48,21 @@ private:	// Déclarations utilisateur
     void __fastcall updatePlayers();
     void __fastcall autoSizeCol( int col );
     void __fastcall autoSizeRow( int row );
+    void __fastcall playerDisplay( CNLPlayer* p , int row );
+    void __fastcall playerMoveUp();
+    void __fastcall playerMoveDown();
+    bool __fastcall playerSwitch( int row1 , int row2 );
 
     // méthodes get/set des propriétés :
     //----------------------------------
     void 		__fastcall setSg( CNLSavedGame* sg );
     CNLRoster* 	__fastcall getTeamRoster( WORD teamNum );
+    CNLPlayer*  __fastcall getPlayerAtRow( int row );
 
     // propriétés internes :
     //----------------------
     __property CNLRoster* teamRoster[ WORD teamNum ] = { read = getTeamRoster };
+    __property CNLPlayer* playerAtRow[ int row ] = { read = getPlayerAtRow };
 
     // variables internes :
     //---------------------

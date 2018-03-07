@@ -143,6 +143,12 @@
             <ResourceType>ICON</ResourceType>
             <ResourceId>Icon_1</ResourceId>
         </RcItem>
+        <CppCompile Include="wIconLists.cpp">
+            <Form>IconListsDlg</Form>
+            <FormType>dfm</FormType>
+            <DependentOn>wIconLists.h</DependentOn>
+            <BuildOrder>12</BuildOrder>
+        </CppCompile>
         <CppCompile Include="wMain.cpp">
             <Form>MainDlg</Form>
             <FormType>dfm</FormType>
@@ -161,9 +167,10 @@
             <DependentOn>wRosterEditor.h</DependentOn>
             <BuildOrder>11</BuildOrder>
         </CppCompile>
-        <FormResources Include="wMain.dfm"/>
-        <FormResources Include="wPlayerDebug.dfm"/>
+        <FormResources Include="wIconLists.dfm"/>
         <FormResources Include="wRosterEditor.dfm"/>
+        <FormResources Include="wPlayerDebug.dfm"/>
+        <FormResources Include="wMain.dfm"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

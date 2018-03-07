@@ -51,7 +51,7 @@ class CNLPlayer
         __property AnsiString Position1 	= { read = getPosition1 	};
         __property AnsiString Position2 	= { read = getPosition2 	};
         __property WORD       Team          = { read = getTeam          };
-        __property WORD       RosterPos	 	= { read = getRosterPos	 	};
+        __property WORD       RosterPos	 	= { read = getRosterPos	 	, write = setRosterPos };
         __property AnsiString RosterPosText = { read = getRosterPosText };
         __property bool       InSeason      = { read = getInSeason      };
         __property double     OverallRtg    = { read = getOverallRtg    };
@@ -76,7 +76,6 @@ class CNLPlayer
         __property WORD       SeasonFLS     = { read = getSeasonFLS         };
         __property WORD       SeasonMIN     = { read = getSeasonMIN     	};
         __property WORD       SeasonEJT     = { read = getSeasonEJT         };
-
 
 
     private :
@@ -104,6 +103,7 @@ class CNLPlayer
         AnsiString  __fastcall getPosition2();
         WORD        __fastcall getTeam();
         WORD        __fastcall getRosterPos();
+        void        __fastcall setRosterPos( WORD rosterPos );
         AnsiString  __fastcall getRosterPosText();
         bool        __fastcall getInSeason();
         double      __fastcall getOverallRtg();
