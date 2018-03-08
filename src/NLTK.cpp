@@ -4,10 +4,11 @@
 #pragma hdrstop
 #include <tchar.h>
 //---------------------------------------------------------------------------
+USEFORM("wIconLists.cpp", IconListsDlg);
 USEFORM("wRosterEditor.cpp", RosterEditorDlg);
 USEFORM("wPlayerDebug.cpp", PlayerDebugDlg);
 USEFORM("wMain.cpp", MainDlg);
-USEFORM("wIconLists.cpp", IconListsDlg);
+USEFORM("wAcceptChanges.cpp", AcceptChangesDlg);
 //---------------------------------------------------------------------------
 int WINAPI _tWinMain(HINSTANCE, HINSTANCE, LPTSTR, int)
 {

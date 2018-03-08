@@ -1,0 +1,60 @@
+object AcceptChangesDlg: TAcceptChangesDlg
+  Left = 0
+  Top = 0
+  Caption = 'AcceptChangesDlg'
+  ClientHeight = 332
+  ClientWidth = 511
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  PixelsPerInch = 96
+  TextHeight = 13
+  object gridChanges: TStringGrid
+    Left = 0
+    Top = 0
+    Width = 511
+    Height = 272
+    Align = alClient
+    TabOrder = 0
+    ExplicitLeft = 32
+    ExplicitTop = 32
+    ExplicitWidth = 320
+    ExplicitHeight = 120
+  end
+  object pnlCmd: TPanel
+    Left = 0
+    Top = 272
+    Width = 511
+    Height = 60
+    Align = alBottom
+    BevelOuter = bvNone
+    TabOrder = 1
+    object btnAccept: TButton
+      Left = 0
+      Top = 0
+      Width = 89
+      Height = 60
+      Align = alLeft
+      ImageAlignment = iaCenter
+      ImageIndex = 191
+      Images = IconListsDlg.ilIconSet48x48_green
+      TabOrder = 0
+    end
+    object btnCancel: TButton
+      Left = 422
+      Top = 0
+      Width = 89
+      Height = 60
+      Align = alRight
+      ImageAlignment = iaCenter
+      ImageIndex = 191
+      Images = IconListsDlg.ilIconSet48x48_red
+      TabOrder = 1
+      ExplicitLeft = 424
+    end
+  end
+end

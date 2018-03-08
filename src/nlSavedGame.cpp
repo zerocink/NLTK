@@ -81,6 +81,18 @@ bool __fastcall CNLSavedGame::close()
     return (ok_p && ok_t);
 }
 //---------------------------------------------------------------------------
+bool __fastcall CNLSavedGame::playersAccept()
+{
+    bool ok = false;
+
+    if ( this->_players )
+    {
+
+    }
+
+    return ok;
+}
+//---------------------------------------------------------------------------
 void __fastcall CNLSavedGame::zero()
 {
     this->_path			= TXT_NULL;

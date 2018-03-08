@@ -2,7 +2,7 @@ object RosterEditorDlg: TRosterEditorDlg
   Left = 0
   Top = 0
   Caption = 'RosterEditorDlg'
-  ClientHeight = 494
+  ClientHeight = 545
   ClientWidth = 626
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -34,9 +34,6 @@ object RosterEditorDlg: TRosterEditorDlg
       Images = IconListsDlg.ilIconSet48x48_blue
       TabOrder = 0
       OnClick = btnTeamPrevClick
-      ExplicitLeft = -6
-      ExplicitTop = -6
-      ExplicitHeight = 57
     end
     object btnTeamNext: TButton
       Left = 551
@@ -49,8 +46,6 @@ object RosterEditorDlg: TRosterEditorDlg
       Images = IconListsDlg.ilIconSet48x48_blue
       TabOrder = 1
       OnClick = btnTeamNextClick
-      ExplicitTop = 0
-      ExplicitHeight = 27
     end
     object cbTeamSel: TComboBox
       Left = 0
@@ -77,7 +72,7 @@ object RosterEditorDlg: TRosterEditorDlg
     Left = 0
     Top = 81
     Width = 626
-    Height = 351
+    Height = 404
     Align = alClient
     DoubleBuffered = True
     FixedCols = 0
@@ -85,14 +80,13 @@ object RosterEditorDlg: TRosterEditorDlg
     ParentDoubleBuffered = False
     TabOrder = 1
     OnDrawCell = gridPlayersDrawCell
-    ExplicitTop = 27
-    ExplicitHeight = 467
+    ExplicitHeight = 351
   end
   object pnlCmd: TPanel
     Left = 0
-    Top = 432
+    Top = 485
     Width = 626
-    Height = 62
+    Height = 60
     Align = alBottom
     BevelOuter = bvNone
     TabOrder = 2
@@ -100,27 +94,41 @@ object RosterEditorDlg: TRosterEditorDlg
       Left = 0
       Top = 0
       Width = 89
-      Height = 62
+      Height = 60
       Align = alLeft
       ImageAlignment = iaCenter
       ImageIndex = 148
       Images = IconListsDlg.ilIconSet48x48_blue
       TabOrder = 0
       OnClick = btnMoveUpClick
-      ExplicitLeft = -14
+      ExplicitHeight = 62
     end
     object btnMoveDown: TButton
       Left = 89
       Top = 0
       Width = 89
-      Height = 62
+      Height = 60
       Align = alLeft
       ImageAlignment = iaCenter
       ImageIndex = 97
       Images = IconListsDlg.ilIconSet48x48_blue
       TabOrder = 1
       OnClick = btnMoveDownClick
-      ExplicitLeft = 8
+      ExplicitHeight = 62
+    end
+    object btnAccept: TButton
+      Left = 537
+      Top = 0
+      Width = 89
+      Height = 60
+      Align = alRight
+      ImageAlignment = iaCenter
+      ImageIndex = 191
+      Images = IconListsDlg.ilIconSet48x48_green
+      TabOrder = 2
+      OnClick = btnAcceptClick
+      ExplicitLeft = 89
+      ExplicitHeight = 62
     end
   end
 end

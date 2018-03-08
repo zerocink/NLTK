@@ -1949,21 +1949,12 @@ static void strcpy_dos2host(char* buf, const char* src, size_t buf_len, enum dbf
 
 static void strcpy_host2dos(char* buf, const char* src, size_t buf_len, enum dbf_charconv mode)
 {
-    int i = 0;
    switch (mode)
    {
       case dbf_charconv_oem_host:
       #ifdef _WIN32
-        __try
-        {
-	         CharToOemBuffA(src, buf, (DWORD)buf_len);
-             i = 1;
-        }
-        __finally
-        {
-            i = -1;
-        }
-        break;
+         CharToOemBuffA(src, buf, (DWORD)buf_len);
+         break;
       #endif
       case dbf_charconv_off:
       default:

@@ -43,6 +43,8 @@ class CNLSavedGame
         bool __fastcall open();
         bool __fastcall close();
 
+        bool __fastcall playersAccept();	// demande acceptation puis applications des modifications
+
         // propriétés publiques :
         //-----------------------
         __property AnsiString path 							 = { read = _path 				};

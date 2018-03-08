@@ -8,6 +8,7 @@
 #include "wRosterEditor.h"
 #include "NLTK_common.h"
 #include "wIconLists.h"
+#include "wAcceptChanges.h"
 //---------------------------------------------------------------------------
 //===========================================================================
 
@@ -279,12 +280,14 @@ bool __fastcall TRosterEditorDlg::playerSwitch( int row1 , int row2 )
     }
 
     return false;
-
-/*
-    AnsiString msg;
-    ShowMessage( msg.sprintf( "switch player @row %d <--> %d" , row1 , row2) );
-    return false;
-    */
+}
+//---------------------------------------------------------------------------
+void __fastcall TRosterEditorDlg::rostersAccept()
+{
+    if ( this->_sg )
+    {
+	    bool ok = this->_sg->playersAccept();
+    }
 }
 //---------------------------------------------------------------------------
 void __fastcall TRosterEditorDlg::setSg( CNLSavedGame* sg )
@@ -439,6 +442,12 @@ void __fastcall TRosterEditorDlg::btnMoveUpClick(TObject *Sender)
 void __fastcall TRosterEditorDlg::btnMoveDownClick(TObject *Sender)
 {
     this->playerMoveDown();
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TRosterEditorDlg::btnAcceptClick(TObject *Sender)
+{
+    this->rostersAccept();
 }
 //---------------------------------------------------------------------------
 

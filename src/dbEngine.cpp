@@ -588,32 +588,31 @@ bool __fastcall CDBTable::getFieldValueString( AnsiString fieldName , AnsiString
 
 	if ( this->isOpen )
 	{
-    	try
-        {
-            const DBF_FIELD* field = dbf_getfieldptr_name( this->_h , fieldName.c_str() );
+        char buf[20];
+        ZeroMemory( buf , sizeof(buf ) );
+        memcpy( buf , fieldName.c_str() , fieldName.Length() );
+        const DBF_FIELD* field = dbf_getfieldptr_name( this->_h , buf );
 
-            if ( field )
+        //const DBF_FIELD* field = dbf_getfieldptr_name( this->_h , fieldName.c_str() );	// génère des exceptions de temps en temps
+
+        if ( field )
+        {
+            dbf_data_type fieldType = dbf_getfield_type( this->_h , field );
+            size_t fieldSize = dbf_getfield( this->_h , field , NULL , 0 , fieldType );
+
+            if ( fieldSize > 0 )
             {
-                dbf_data_type fieldType = dbf_getfield_type( this->_h , field );
-                size_t fieldSize = dbf_getfield( this->_h , field , NULL , 0 , fieldType );
+                char* buf = new char[ fieldSize + 1 ];
+                ZeroMemory( buf , sizeof( char ) * (fieldSize+1) );
 
-                if ( fieldSize > 0 )
-                {
-                    char* buf = new char[ fieldSize + 1 ];
-                    ZeroMemory( buf , sizeof( char ) * (fieldSize+1) );
+                dbf_getfield( this->_h , field , buf , fieldSize , fieldType );
+                fieldValue = AnsiString( buf );
 
-                    dbf_getfield( this->_h , field , buf , fieldSize , fieldType );
-                    fieldValue = AnsiString( buf );
-
-                    ZeroMemory( buf , sizeof( char ) * (fieldSize+1) );
-                    delete[] buf;
-                    buf = NULL;
-                }
-                ok = true;
+                ZeroMemory( buf , sizeof( char ) * (fieldSize+1) );
+                delete[] buf;
+                buf = NULL;
             }
-        }
-        catch(...)
-        {
+            ok = true;
         }
 	}
 

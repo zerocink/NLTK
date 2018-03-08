@@ -25,6 +25,7 @@ __published:	// Composants gérés par l'EDI
 	TButton *btnMoveUp;
 	TButton *btnMoveDown;
 	TComboBox *cbTeamSel;
+	TButton *btnAccept;
 	void __fastcall FormCreate(TObject *Sender);
 	void __fastcall FormDestroy(TObject *Sender);
 	void __fastcall cbTeamSelChange(TObject *Sender);
@@ -34,6 +35,7 @@ __published:	// Composants gérés par l'EDI
           TGridDrawState State);
 	void __fastcall btnMoveUpClick(TObject *Sender);
 	void __fastcall btnMoveDownClick(TObject *Sender);
+	void __fastcall btnAcceptClick(TObject *Sender);
 private:	// Déclarations utilisateur
 
     // méthodes internes :
@@ -52,6 +54,7 @@ private:	// Déclarations utilisateur
     void __fastcall playerMoveUp();
     void __fastcall playerMoveDown();
     bool __fastcall playerSwitch( int row1 , int row2 );
+    void __fastcall rostersAccept();
 
     // méthodes get/set des propriétés :
     //----------------------------------
@@ -68,7 +71,6 @@ private:	// Déclarations utilisateur
     //---------------------
     CNLSavedGame* _sg;
     TList*        _rosters;
-
 
 public:		// Déclarations utilisateur
 

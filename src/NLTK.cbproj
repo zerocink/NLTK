@@ -143,6 +143,12 @@
             <ResourceType>ICON</ResourceType>
             <ResourceId>Icon_1</ResourceId>
         </RcItem>
+        <CppCompile Include="wAcceptChanges.cpp">
+            <Form>AcceptChangesDlg</Form>
+            <FormType>dfm</FormType>
+            <DependentOn>wAcceptChanges.h</DependentOn>
+            <BuildOrder>13</BuildOrder>
+        </CppCompile>
         <CppCompile Include="wIconLists.cpp">
             <Form>IconListsDlg</Form>
             <FormType>dfm</FormType>
@@ -171,6 +177,7 @@
         <FormResources Include="wRosterEditor.dfm"/>
         <FormResources Include="wPlayerDebug.dfm"/>
         <FormResources Include="wMain.dfm"/>
+        <FormResources Include="wAcceptChanges.dfm"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>
