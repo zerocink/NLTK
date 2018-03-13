@@ -80,9 +80,11 @@ class CDBRecord
 		bool __fastcall deleteFieldByIndex( int index );
 		bool __fastcall readFromTable( CDBTable* t );
 		bool __fastcall writeToTable( CDBTable* t );
+        void __fastcall loadDifs( TStrings* difs );
 
 		// propriétés publiques :
 		//-----------------------
+        __property int          recordIndex                     = { read = _recordIndex   };
 		__property CDBField* 	fields[ int index ] 			= { read = getFields	   };
 		__property int       	fieldsCount         			= { read = getFieldsCount };
 		__property int       	indexOfField[ AnsiString name ] = { read = getIndexOfField };
@@ -108,6 +110,7 @@ class CDBRecord
 
 		// variables internes :
 		//---------------------
+        int         _recordIndex;
 		TList* 		_fields;
 };
 //---------------------------------------------------------------------------
@@ -129,6 +132,7 @@ class CDBTable
 		bool __fastcall last();
 		bool __fastcall next();
 		bool __fastcall prior();
+        bool __fastcall setPosition( int recordIndex );
 
 		bool __fastcall loadFieldNames( TStrings* names );
 		bool __fastcall getFieldValueString( AnsiString fieldName , AnsiString& fieldValue );

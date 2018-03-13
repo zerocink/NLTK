@@ -120,16 +120,18 @@ bool __fastcall CDBField::writeToTable( CDBTable* t )
 
 	if ( t && t->isOpen )
 	{
-		/*TField* dsField = ds->FieldByName( this->_name.Trim() );
-		if ( dsField )
-		{
-			dsField->AsString = this->_ram;
-			this->_rom = this->_ram;
-		}
-		else
-		{
-			ok = false;
-		}*/
+        if ( this->dif )
+        {
+            ok = t->setFieldValueString( this->_name.Trim() , this->_ram );
+            if ( ok )
+            {
+                this->_rom = this->_ram;
+            }
+        }
+        else
+        {
+            ok = true;
+        }
 	}
 	else
 	{
@@ -162,7 +164,7 @@ bool __fastcall CDBField::getDif()
 //===========================================================================
 // CLASSE CDBRecord
 //---------------------------------------------------------------------------
-__fastcall CDBRecord::CDBRecord( )
+__fastcall CDBRecord::CDBRecord()
 {
 	this->zero();
 	this->init();
@@ -178,15 +180,18 @@ __fastcall CDBRecord::~CDBRecord()
 void __fastcall CDBRecord::zero()
 {
 	this->_fields = NULL;
+    this->_recordIndex = 0;
 }
 //---------------------------------------------------------------------------
 void __fastcall CDBRecord::init()
 {
 	this->_fields = new TList();
+    this->_recordIndex = -1;
 }
 //---------------------------------------------------------------------------
 void __fastcall CDBRecord::deinit()
 {
+	this->_recordIndex = -1;
 	if ( this->_fields ) delete this->_fields;
 	this->_fields = NULL;
 }
@@ -292,6 +297,8 @@ bool __fastcall CDBRecord::readFromTable( CDBTable* t )
 
 	if ( t && t->isOpen )
 	{
+        this->_recordIndex = t->recordIndex;
+
 		for ( int i = 0 ; i < this->_fields->Count ; i++ )
 		{
 			CDBField* field = this->fields[ i ];
@@ -303,6 +310,7 @@ bool __fastcall CDBRecord::readFromTable( CDBTable* t )
 	}
 	else
 	{
+        this->_recordIndex = -1;
 		ok = false;
 	}
 
@@ -330,6 +338,20 @@ bool __fastcall CDBRecord::writeToTable( CDBTable* t )
 	}
 
 	return ok;
+}
+//---------------------------------------------------------------------------
+void __fastcall CDBRecord::loadDifs( TStrings* difs )
+{
+    for ( int i = 0 ; i < this->fieldsCount ; i++ )
+    {
+        CDBField* f = this->fields[ i ];
+        if ( f && f->dif )
+        {
+            AnsiString dif;
+            dif.sprintf( "%s : %s --> %s" , f->name , f->rom , f->ram );
+            difs->Add( dif );
+        }
+    }
 }
 //---------------------------------------------------------------------------
 CDBField* __fastcall CDBRecord::getFields( int index )
@@ -566,6 +588,19 @@ bool __fastcall CDBTable::prior()
 	}
 
 	return ok;
+}
+//---------------------------------------------------------------------------
+bool __fastcall CDBTable::setPosition( int recordIndex )
+{
+    bool ok = false;
+
+    if ( this->isOpen && recordIndex >= 0 && recordIndex < this->recordCount )
+    {
+        ok = dbf_setposition( this->_h , recordIndex );
+		this->_recordIndex = dbf_getposition( this->_h );
+    }
+
+    return ok;
 }
 //---------------------------------------------------------------------------
 bool __fastcall CDBTable::loadFieldNames( TStrings* names )

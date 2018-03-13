@@ -10,6 +10,7 @@
 //---------------------------------------------------------------------------
 #include "nlSavedGame.h"
 #include "wPlayerDebug.h"
+#include "wIconLists.h"
 //---------------------------------------------------------------------------
 
 
@@ -54,11 +55,37 @@ void __fastcall TMainDlg::deinit()
 void __fastcall TMainDlg::formInit()
 {
     this->Caption = Application->Title;
+
+    this->loadSavedGamesPaths();
 }
 //---------------------------------------------------------------------------
 void __fastcall TMainDlg::formDeinit()
 {
 
+}
+//---------------------------------------------------------------------------
+void __fastcall TMainDlg::loadSavedGamesPaths()
+{
+    bool ok = false;
+
+    if ( this->cbSavedGamesPaths->Items->Count == 0 )
+    {
+        AnsiString root = System::Sysutils::ExtractFilePath( Application->ExeName ) + AnsiString( "\\saves" );
+        if ( System::Sysutils::DirectoryExists( root , false  ) )
+        {
+            for ( int i = 0 ; i <= 999 ; i++ )
+            {
+                AnsiString savePath;
+                savePath.sprintf( "%s\\%03d" , root , i );
+                if ( System::Sysutils::DirectoryExists( savePath , false ) )
+                {
+                    this->cbSavedGamesPaths->Items->Add( savePath );
+                }
+            }
+        }
+    }
+
+    this->cbSavedGamesPaths->ItemIndex = -1;
 }
 //---------------------------------------------------------------------------
 //---------------------------------------------------------------------------
@@ -105,8 +132,8 @@ void __fastcall TMainDlg::brnPlayerDebugClick(TObject *Sender)
 //---------------------------------------------------------------------------
 void __fastcall TMainDlg::btnRostersClick(TObject *Sender)
 {
- 	AnsiString path = AnsiString( "D:\\PERSO ND\\Dev\\NLTK\\res\\db\\100\\" );
-    path = ExtractFileDir( path );
+ 	AnsiString path = this->cbSavedGamesPaths->Items->Strings[ this->cbSavedGamesPaths->ItemIndex ];
+    //path = System::Sysutils::ExtractFileDir( path , false );
 
     CNLSavedGame* sg = new CNLSavedGame( path );
     bool ok = sg->open();

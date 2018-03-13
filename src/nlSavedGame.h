@@ -44,6 +44,7 @@ class CNLSavedGame
         bool __fastcall close();
 
         bool __fastcall playersAccept();	// demande acceptation puis applications des modifications
+        bool __fastcall playersUpdate();    // applications des modifications
 
         // propriétés publiques :
         //-----------------------
@@ -54,6 +55,7 @@ class CNLSavedGame
         __property CNLPlayer* playerById   [ WORD playerId ] = { read = getPlayerById 		};
         __property CNLPlayer* playerByIndex[ int index 	   ] = { read = getPlayerByIndex	};
         __property int        playerCount                	 = { read = getPlayerCount 		};
+        __property bool       playersDif                     = { read = getPlayersDif		};
 
     private :
 
@@ -80,6 +82,7 @@ class CNLSavedGame
         CNLPlayer* 	__fastcall getPlayerById( WORD playerId );
         CNLPlayer* 	__fastcall getPlayerByIndex( int index );
         int         __fastcall getPlayerCount();
+        bool        __fastcall getPlayersDif();
 
         // variables internes :
         //---------------------

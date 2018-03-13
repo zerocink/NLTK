@@ -7,12 +7,14 @@
 #include <Vcl.Controls.hpp>
 #include <Vcl.StdCtrls.hpp>
 #include <Vcl.Forms.hpp>
+#include <Vcl.ComCtrls.hpp>
 //---------------------------------------------------------------------------
 class TMainDlg : public TForm
 {
 __published:	// Composants gérés par l'EDI
 	TButton *brnPlayerDebug;
 	TButton *btnRosters;
+	TComboBox *cbSavedGamesPaths;
 	void __fastcall FormCreate(TObject *Sender);
 	void __fastcall FormDestroy(TObject *Sender);
 	void __fastcall brnPlayerDebugClick(TObject *Sender);
@@ -27,11 +29,12 @@ private:	// Déclarations utilisateur
     void __fastcall deinit();
     void __fastcall formInit();
     void __fastcall formDeinit();
+    void __fastcall loadSavedGamesPaths();
 
     // variables internes :
     //---------------------
-    TRosterEditorDlg* _rosterEditor;
-
+    TRosterEditorDlg* 	_rosterEditor;
+    //TStrings* 			_savedGamesPaths;
 
 public:		// Déclarations utilisateur
 

@@ -2,7 +2,7 @@ object MainDlg: TMainDlg
   Left = 0
   Top = 0
   Caption = 'MainDlg'
-  ClientHeight = 96
+  ClientHeight = 263
   ClientWidth = 613
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -17,7 +17,7 @@ object MainDlg: TMainDlg
   TextHeight = 13
   object brnPlayerDebug: TButton
     Left = 8
-    Top = 8
+    Top = 27
     Width = 129
     Height = 41
     Caption = 'Player Debug'
@@ -26,11 +26,20 @@ object MainDlg: TMainDlg
   end
   object btnRosters: TButton
     Left = 8
-    Top = 48
+    Top = 67
     Width = 129
     Height = 41
     Caption = 'Rosters'
     TabOrder = 1
     OnClick = btnRostersClick
+  end
+  object cbSavedGamesPaths: TComboBox
+    Left = 0
+    Top = 0
+    Width = 613
+    Height = 21
+    Align = alTop
+    Style = csDropDownList
+    TabOrder = 2
   end
 end

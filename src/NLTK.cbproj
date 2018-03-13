@@ -96,10 +96,13 @@
     <PropertyGroup Condition="'$(Cfg_1_Win32)'!=''">
         <AppEnableRuntimeThemes>true</AppEnableRuntimeThemes>
         <AppEnableHighDPI>true</AppEnableHighDPI>
-        <LinkPackageImports>rtl.bpi;vcl.bpi</LinkPackageImports>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <VerInfo_Locale>1033</VerInfo_Locale>
         <Icon_MainIcon>NLTK_Icon.ico</Icon_MainIcon>
+        <UsePackages>false</UsePackages>
+        <DynamicRTL>false</DynamicRTL>
+        <LinkPackageStatics>rtl.lib;vcl.lib</LinkPackageStatics>
+        <VerInfo_AutoGenVersion>true</VerInfo_AutoGenVersion>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2)'!=''">
         <Defines>NDEBUG;$(Defines)</Defines>
@@ -173,11 +176,11 @@
             <DependentOn>wRosterEditor.h</DependentOn>
             <BuildOrder>11</BuildOrder>
         </CppCompile>
+        <FormResources Include="wAcceptChanges.dfm"/>
         <FormResources Include="wIconLists.dfm"/>
         <FormResources Include="wRosterEditor.dfm"/>
         <FormResources Include="wPlayerDebug.dfm"/>
         <FormResources Include="wMain.dfm"/>
-        <FormResources Include="wAcceptChanges.dfm"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

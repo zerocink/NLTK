@@ -80,7 +80,6 @@ object RosterEditorDlg: TRosterEditorDlg
     ParentDoubleBuffered = False
     TabOrder = 1
     OnDrawCell = gridPlayersDrawCell
-    ExplicitHeight = 351
   end
   object pnlCmd: TPanel
     Left = 0
@@ -101,7 +100,6 @@ object RosterEditorDlg: TRosterEditorDlg
       Images = IconListsDlg.ilIconSet48x48_blue
       TabOrder = 0
       OnClick = btnMoveUpClick
-      ExplicitHeight = 62
     end
     object btnMoveDown: TButton
       Left = 89
@@ -114,7 +112,6 @@ object RosterEditorDlg: TRosterEditorDlg
       Images = IconListsDlg.ilIconSet48x48_blue
       TabOrder = 1
       OnClick = btnMoveDownClick
-      ExplicitHeight = 62
     end
     object btnAccept: TButton
       Left = 537
@@ -127,8 +124,6 @@ object RosterEditorDlg: TRosterEditorDlg
       Images = IconListsDlg.ilIconSet48x48_green
       TabOrder = 2
       OnClick = btnAcceptClick
-      ExplicitLeft = 89
-      ExplicitHeight = 62
     end
   end
 end

@@ -167,6 +167,27 @@ bool __fastcall CNLPlayer::loadFromTable( CDBTable* t )
     return ok;
 }
 //---------------------------------------------------------------------------
+void __fastcall CNLPlayer::loadDifs( TStrings* difs )
+{
+    if ( this->_record ) this->_record->loadDifs( difs );
+}
+//---------------------------------------------------------------------------
+bool __fastcall CNLPlayer::saveToTable( CDBTable* t )
+{
+    bool ok = false;
+
+    if ( this->_record && t )
+    {
+        if ( this->_record->writeToTable( t ) )
+        {
+            ok = t->post();
+        }
+
+    }
+
+    return ok;
+}
+//---------------------------------------------------------------------------
 void __fastcall CNLPlayer::zero()
 {
     this->_record = NULL;
@@ -246,6 +267,25 @@ void __fastcall CNLPlayer::deleteFieldNames()
         delete CNLPlayer::_fieldNames;
         CNLPlayer::_fieldNames = NULL;
     }
+}
+//---------------------------------------------------------------------------
+bool __fastcall CNLPlayer::getDif()
+{
+    if ( this->_record )
+    {
+        return this->_record->dif;
+    }
+
+    return false;
+}
+//---------------------------------------------------------------------------
+int __fastcall CNLPlayer::getRecordIndex()
+{
+    if ( this->_record )
+    {
+        return this->_record->recordIndex;
+    }
+    return -1;
 }
 //---------------------------------------------------------------------------
 WORD __fastcall CNLPlayer::getID()

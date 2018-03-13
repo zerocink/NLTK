@@ -7,6 +7,7 @@
 #include "NLTK_common.h"
 //---------------------------------------------------------------------------
 #include "nlSavedGame.h"
+#include "wAcceptChanges.h"
 //---------------------------------------------------------------------------
 //===========================================================================
 
@@ -83,14 +84,84 @@ bool __fastcall CNLSavedGame::close()
 //---------------------------------------------------------------------------
 bool __fastcall CNLSavedGame::playersAccept()
 {
-    bool ok = false;
-
     if ( this->_players )
     {
+        TStrings* changes = new TStringList();
+        changes->Add( "Liste des changements :" );
+        changes->Add( "" );
+
+        if ( this->playersDif )
+        {
+            for ( int i = 0 ; i < this->playerCount ; i++ )
+            {
+                CNLPlayer* p = this->playerByIndex[ i ];
+                if ( p && p->dif )
+                {
+                    AnsiString line;
+                    line.sprintf( "> id = %d ; %s %s" , p->ID , p->FName , p->Name );
+                    changes->Add( line );
+
+                    TStrings* difs = new TStringList();
+
+                    p->loadDifs( difs );
+
+                    for ( int i = 0 ; i < difs->Count ; i++ )
+                    {
+                        changes->Add( AnsiString( "    . " ) + difs->Strings[ i ]  );
+                    }
+                    changes->Add( "" );
+
+                    delete difs;
+                    difs = NULL;
+                }
+            }
+        }
+        else
+        {
+            changes->Add("aucun changement à appliquer");
+        }
+
+        TAcceptChangesDlg* accept = new TAcceptChangesDlg( NULL );
+        bool ok = accept->execute( changes );
+
+        delete accept;
+        accept = NULL;
+
+        delete changes;
+        changes = NULL;
+
+        return ok;
 
     }
 
-    return ok;
+    return false;
+}
+//---------------------------------------------------------------------------
+bool __fastcall CNLSavedGame::playersUpdate()
+{
+    if ( this->_tablePlayers )
+    {
+        this->_tablePlayers->first();
+
+        for ( int i = 0 ; i < this->playerCount ; i++ )
+        {
+            CNLPlayer* p = this->playerByIndex[ i ];
+            if ( p && p->dif )
+            {
+                if ( this->_tablePlayers->setPosition( p->recordIndex ) )
+                {
+                    if ( !p->saveToTable( this->_tablePlayers ) )
+                    {
+                        return false;
+                    }
+                }
+                else return false;
+            }
+        }
+
+        return true;;
+    }
+    return false;
 }
 //---------------------------------------------------------------------------
 void __fastcall CNLSavedGame::zero()
@@ -343,6 +414,20 @@ int __fastcall CNLSavedGame::getPlayerCount()
 
     return 0;
 }
+//---------------------------------------------------------------------------
+bool __fastcall CNLSavedGame::getPlayersDif()
+{
+    if ( this->_players )
+    {
+        for ( int i = 0 ; i < this->_players->Count ; i++ )
+        {
+            CNLPlayer* p = (CNLPlayer*)this->_players->Items[ i ];
+            if ( p && p->dif ) return true;
+        }
+    }
+    return false;
+}
+//---------------------------------------------------------------------------
 //===========================================================================
 //===========================================================================
 //===========================================================================

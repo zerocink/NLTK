@@ -39,9 +39,13 @@ class CNLPlayer
         // méthodes publiques :
         //---------------------
         bool __fastcall loadFromTable( CDBTable* t );
+        void __fastcall loadDifs( TStrings* difs );
+        bool __fastcall saveToTable( CDBTable* f );
 
         // propriétés publiques :
         //-----------------------
+        __property bool       dif           = { read = getDif			};
+        __property int        recordIndex	= { read = getRecordIndex	};
         __property WORD 	  ID			= { read = getID    		};
         __property AnsiString Name 			= { read = getName 			};
         __property AnsiString FName 		= { read = getFName			};
@@ -93,6 +97,8 @@ class CNLPlayer
 
         // méthodes get / set des propriétés :
         //------------------------------------
+        bool        __fastcall getDif();
+        int         __fastcall getRecordIndex();
         WORD 		__fastcall getID();
         AnsiString 	__fastcall getName();
         AnsiString  __fastcall getFName();

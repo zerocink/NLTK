@@ -55,6 +55,7 @@ private:	// Déclarations utilisateur
     void __fastcall playerMoveDown();
     bool __fastcall playerSwitch( int row1 , int row2 );
     void __fastcall rostersAccept();
+    void __fastcall rostersUpdate();
 
     // méthodes get/set des propriétés :
     //----------------------------------

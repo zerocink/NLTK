@@ -221,14 +221,20 @@ void __fastcall TRosterEditorDlg::playerDisplay( CNLPlayer* p , int row )
             double blk = ( (double)p->SeasonBLK ) / (double)g;
             double stl = ( (double)p->SeasonSTL ) / (double)g;
 
-
             this->gridPlayers->Cells[7][row] = txt.sprintf( "%2.01f" , pts );
             this->gridPlayers->Cells[8][row] = txt.sprintf( "%2.01f" , reb );
             this->gridPlayers->Cells[9][row] = txt.sprintf( "%2.01f" , ast );
             this->gridPlayers->Cells[10][row] = txt.sprintf( "%2.01f" , blk );
             this->gridPlayers->Cells[11][row] = txt.sprintf( "%2.01f" , stl );
         }
-
+        else
+        {
+            this->gridPlayers->Cells[7][row] = TXT_NULL;
+            this->gridPlayers->Cells[8][row] = TXT_NULL;
+            this->gridPlayers->Cells[9][row] = TXT_NULL;
+            this->gridPlayers->Cells[10][row] = TXT_NULL;
+            this->gridPlayers->Cells[11][row] = TXT_NULL;
+        }
     }
 }
 //---------------------------------------------------------------------------
@@ -290,8 +296,17 @@ void __fastcall TRosterEditorDlg::rostersAccept()
     }
 }
 //---------------------------------------------------------------------------
+void __fastcall TRosterEditorDlg::rostersUpdate()
+{
+    if ( this->_sg )
+    {
+        bool ok = this->_sg->playersUpdate();
+    }
+}
+//---------------------------------------------------------------------------
 void __fastcall TRosterEditorDlg::setSg( CNLSavedGame* sg )
 {
+    this->_sg = sg;
     this->clearRosters();
 
     if ( sg )
@@ -448,6 +463,7 @@ void __fastcall TRosterEditorDlg::btnMoveDownClick(TObject *Sender)
 void __fastcall TRosterEditorDlg::btnAcceptClick(TObject *Sender)
 {
     this->rostersAccept();
+    this->rostersUpdate();
 }
 //---------------------------------------------------------------------------
 
