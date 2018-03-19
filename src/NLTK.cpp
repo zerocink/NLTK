@@ -4,6 +4,8 @@
 #pragma hdrstop
 #include <tchar.h>
 //---------------------------------------------------------------------------
+#include <Vcl.Styles.hpp>
+#include <Vcl.Themes.hpp>
 USEFORM("wIconLists.cpp", IconListsDlg);
 USEFORM("wRosterEditor.cpp", RosterEditorDlg);
 USEFORM("wPlayerDebug.cpp", PlayerDebugDlg);
@@ -16,6 +18,7 @@ int WINAPI _tWinMain(HINSTANCE, HINSTANCE, LPTSTR, int)
 	{
 		Application->Initialize();
 		Application->MainFormOnTaskBar = true;
+		TStyleManager::TrySetStyle("Windows10 SlateGray");
 		Application->CreateForm(__classid(TMainDlg), &MainDlg);
 		Application->CreateForm(__classid(TIconListsDlg), &IconListsDlg);
 		Application->Run();

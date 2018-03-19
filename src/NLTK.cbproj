@@ -61,6 +61,7 @@
         <SanitizedProjectName>NLTK</SanitizedProjectName>
         <IncludePath>dbf\ioapi\;dbf\;$(IncludePath)</IncludePath>
         <ILINK_LibraryPath>dbf\ioapi\;dbf\;$(ILINK_LibraryPath)</ILINK_LibraryPath>
+        <Custom_Styles>&quot;Windows10 SlateGray|VCLSTYLE|$(BDSCOMMONDIR)\Styles\Windows10SlateGray.vsf&quot;</Custom_Styles>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_Win32)'!=''">
         <PackageImports>appanalytics;bcbsmp;bindcomp;bindcompfmx;bindcompvcl;bindengine;dbrtl;dsnap;fmx;fmxase;fmxdae;fmxobj;IndyCore;IndyProtocols;IndySystem;rtl;svn;tethering;vcl;vclactnband;vcldb;vcldsnap;vclimg;VclSmp;vcltouch;vclwinx;vclx;xmlrtl;$(PackageImports)</PackageImports>

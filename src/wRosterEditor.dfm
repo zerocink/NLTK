@@ -19,67 +19,75 @@ object RosterEditorDlg: TRosterEditorDlg
     Left = 0
     Top = 0
     Width = 626
-    Height = 81
+    Height = 59
     Align = alTop
     BevelOuter = bvNone
     TabOrder = 0
     object btnTeamPrev: TButton
       Left = 0
-      Top = 21
+      Top = 0
       Width = 75
-      Height = 60
+      Height = 59
       Align = alLeft
       ImageAlignment = iaCenter
       ImageIndex = 71
       Images = IconListsDlg.ilIconSet48x48_blue
       TabOrder = 0
       OnClick = btnTeamPrevClick
+      ExplicitTop = 21
+      ExplicitHeight = 60
     end
     object btnTeamNext: TButton
       Left = 551
-      Top = 21
+      Top = 0
       Width = 75
-      Height = 60
+      Height = 59
       Align = alRight
       ImageAlignment = iaCenter
       ImageIndex = 43
       Images = IconListsDlg.ilIconSet48x48_blue
       TabOrder = 1
       OnClick = btnTeamNextClick
+      ExplicitTop = 21
+      ExplicitHeight = 60
     end
     object cbTeamSel: TComboBox
-      Left = 0
+      Left = 75
       Top = 0
-      Width = 626
-      Height = 21
-      Align = alTop
+      Width = 476
+      Height = 22
+      Align = alClient
       AutoComplete = False
       AutoDropDown = True
-      Style = csDropDownList
+      Style = csOwnerDrawVariable
       Ctl3D = True
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
-      Font.Height = -11
+      Font.Height = -21
       Font.Name = 'Tahoma'
       Font.Style = []
       ParentCtl3D = False
       ParentFont = False
       TabOrder = 2
       OnChange = cbTeamSelChange
+      OnDrawItem = cbTeamSelDrawItem
+      OnMeasureItem = cbTeamSelMeasureItem
     end
   end
   object gridPlayers: TStringGrid
     Left = 0
-    Top = 81
+    Top = 59
     Width = 626
-    Height = 404
+    Height = 426
     Align = alClient
     DoubleBuffered = True
     FixedCols = 0
-    Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goRowSelect]
+    Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goColMoving, goRowSelect]
     ParentDoubleBuffered = False
     TabOrder = 1
     OnDrawCell = gridPlayersDrawCell
+    ExplicitTop = 81
+    ExplicitHeight = 404
   end
   object pnlCmd: TPanel
     Left = 0

@@ -150,3 +150,6 @@ void __fastcall TMainDlg::btnRostersClick(TObject *Sender)
     sg = NULL;
 }
 //---------------------------------------------------------------------------
+
+
+

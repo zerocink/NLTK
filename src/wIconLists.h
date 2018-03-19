@@ -17,6 +17,7 @@ __published:	// Composants gérés par l'EDI
 	TImageList *ilIconSet48x48_red;
 	TImageList *ilIconSet48x48_green;
 	TImageList *ilIconSet48x48_yellow;
+	TImageList *ilLogos187x49;
 private:	// Déclarations utilisateur
 public:		// Déclarations utilisateur
 	__fastcall TIconListsDlg(TComponent* Owner);

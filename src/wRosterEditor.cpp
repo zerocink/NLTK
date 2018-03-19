@@ -61,6 +61,7 @@ void __fastcall TRosterEditorDlg::deinit()
 void __fastcall TRosterEditorDlg::formInit()
 {
     this->Caption = Application->Title;
+    this->pnlTeam->ClientHeight = 64;
 }
 //---------------------------------------------------------------------------
 void __fastcall TRosterEditorDlg::formDeinit()
@@ -464,6 +465,49 @@ void __fastcall TRosterEditorDlg::btnAcceptClick(TObject *Sender)
 {
     this->rostersAccept();
     this->rostersUpdate();
+}
+//---------------------------------------------------------------------------
+
+
+void __fastcall TRosterEditorDlg::cbTeamSelMeasureItem(TWinControl *Control, int Index,
+          int &Height)
+{
+    Height = 49;
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TRosterEditorDlg::cbTeamSelDrawItem(TWinControl *Control, int Index,
+          TRect &Rect, TOwnerDrawState State)
+{
+    TComboBox* box = (TComboBox*)Control;
+
+    if ( box )
+    {
+        if ( State.Contains( odFocused ) )
+        {
+            box->Canvas->DrawFocusRect( Rect );
+        }
+        box->Canvas->FillRect( Rect );
+
+        if ( Index >= 0 && Index < IconListsDlg->ilLogos187x49->Count )
+        {
+			IconListsDlg->ilLogos187x49->Draw( box->Canvas , Rect.left , Rect.top , Index , true );
+        }
+
+        UnicodeString text = box->Items->Strings[ Index ];
+        int textHeight = box->Canvas->TextHeight( text );
+
+        TRect textRect = TRect( Rect );
+        textRect.left += 187;
+    	textRect.top += ( ( textRect.Height() - textHeight ) / 2 );
+        textRect.bottom = textRect.top + textHeight;
+
+        TTextFormat textFormat;
+        textFormat << tfCenter;
+
+        box->Canvas->TextRect( textRect , text , textFormat );
+
+    }
 }
 //---------------------------------------------------------------------------
 

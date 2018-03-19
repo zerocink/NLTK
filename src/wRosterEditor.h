@@ -24,8 +24,8 @@ __published:	// Composants gérés par l'EDI
 	TPanel *pnlCmd;
 	TButton *btnMoveUp;
 	TButton *btnMoveDown;
-	TComboBox *cbTeamSel;
 	TButton *btnAccept;
+	TComboBox *cbTeamSel;
 	void __fastcall FormCreate(TObject *Sender);
 	void __fastcall FormDestroy(TObject *Sender);
 	void __fastcall cbTeamSelChange(TObject *Sender);
@@ -36,6 +36,10 @@ __published:	// Composants gérés par l'EDI
 	void __fastcall btnMoveUpClick(TObject *Sender);
 	void __fastcall btnMoveDownClick(TObject *Sender);
 	void __fastcall btnAcceptClick(TObject *Sender);
+	void __fastcall cbTeamSelMeasureItem(TWinControl *Control, int Index, int &Height);
+	void __fastcall cbTeamSelDrawItem(TWinControl *Control, int Index, TRect &Rect,
+          TOwnerDrawState State);
+
 private:	// Déclarations utilisateur
 
     // méthodes internes :
