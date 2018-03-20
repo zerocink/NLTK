@@ -121,7 +121,7 @@ void __fastcall TRosterEditorDlg::updateTeams()
 //---------------------------------------------------------------------------
 void __fastcall TRosterEditorDlg::updatePlayers()
 {
-    // visage de la grille :
+    // vidage de la grille :
     //----------------------
     for ( int i = 0 ; i < this->gridPlayers->ColCount ; i++ )
     {

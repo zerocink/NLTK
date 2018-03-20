@@ -13,4 +13,38 @@ object DraftReviewDlg: TDraftReviewDlg
   OldCreateOrder = False
   PixelsPerInch = 96
   TextHeight = 13
+  object pnlDrafts: TPanel
+    Left = 0
+    Top = 0
+    Width = 645
+    Height = 49
+    Align = alTop
+    BevelOuter = bvNone
+    TabOrder = 0
+    object cbDraftSel: TComboBox
+      Left = 0
+      Top = 0
+      Width = 645
+      Height = 21
+      Align = alClient
+      Style = csDropDownList
+      TabOrder = 0
+      OnChange = cbDraftSelChange
+    end
+  end
+  object gridPlayers: TStringGrid
+    Left = 0
+    Top = 49
+    Width = 645
+    Height = 442
+    Align = alClient
+    DoubleBuffered = True
+    FixedCols = 0
+    Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goColMoving, goRowSelect]
+    ParentDoubleBuffered = False
+    TabOrder = 1
+    ExplicitTop = 59
+    ExplicitWidth = 626
+    ExplicitHeight = 426
+  end
 end

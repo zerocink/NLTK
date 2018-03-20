@@ -42,4 +42,13 @@ object MainDlg: TMainDlg
     Style = csDropDownList
     TabOrder = 2
   end
+  object btnDrafts: TButton
+    Left = 8
+    Top = 107
+    Width = 129
+    Height = 41
+    Caption = 'Drafts'
+    TabOrder = 3
+    OnClick = btnDraftsClick
+  end
 end

@@ -38,7 +38,7 @@ TStrings* CNLPlayer::_fieldNames = NULL;
 #define FIELD_YEARSEXP      AnsiString( "YEARSEXP" )
 #define FIELD_INJURYID      AnsiString( "INJURYID" )
 #define FIELD_ISPLAYABLE    AnsiString( "ISPLAYABLE" )
-
+//---------------------------------------------------------------------------
 #define FIELD_SGM        	AnsiString( "SGAMES" )
 #define FIELD_SGMS		    AnsiString( "SGAMESTART" )
 #define FIELD_SFGA  	 	AnsiString( "SFGATTEMPT" )
@@ -56,6 +56,12 @@ TStrings* CNLPlayer::_fieldNames = NULL;
 #define FIELD_STO		    AnsiString( "STURNOVERS" )
 #define FIELD_SMIN	        AnsiString( "SMINUTES" )
 #define FIELD_SEJT	        AnsiString( "SEJECTS" )
+//---------------------------------------------------------------------------
+#define FIELD_DPLACE        AnsiString( "DPLACE" )
+#define FIELD_DROUND        AnsiString( "DROUND" )
+#define FIELD_DOVERALL      AnsiString( "DOVERALL" )
+#define FIELD_DRAFTYEAR     AnsiString( "DRAFTYEAR" )
+#define FIELD_DRAFTEDBY     AnsiString( "DRAFTEDBY" )
 //===========================================================================
 // CONSTANTES : liste des positions
 //---------------------------------------------------------------------------
@@ -256,6 +262,12 @@ void __fastcall CNLPlayer::createFieldNames()
         CNLPlayer::_fieldNames->Add( FIELD_STO );
         CNLPlayer::_fieldNames->Add( FIELD_SMIN );
         CNLPlayer::_fieldNames->Add( FIELD_SEJT );
+
+        CNLPlayer::_fieldNames->Add( FIELD_DPLACE );
+        CNLPlayer::_fieldNames->Add( FIELD_DROUND );
+        CNLPlayer::_fieldNames->Add( FIELD_DOVERALL );
+        CNLPlayer::_fieldNames->Add( FIELD_DRAFTYEAR );
+        CNLPlayer::_fieldNames->Add( FIELD_DRAFTEDBY );
     }
 }
 //---------------------------------------------------------------------------
@@ -732,6 +744,65 @@ WORD __fastcall CNLPlayer::getSeasonEJT()
     return SEJT;
 }
 //---------------------------------------------------------------------------
+WORD __fastcall CNLPlayer::getDraftPlace()
+{
+    WORD PLACE = DRAFT_PLACE_UNDEF;
+
+    if ( this->_record )
+    {
+        PLACE = this->_record->ram[ FIELD_DPLACE ].ToIntDef( DRAFT_PLACE_UNDEF );
+    }
+
+    return PLACE;
+}
+//---------------------------------------------------------------------------
+WORD __fastcall CNLPlayer::getDraftRound()
+{
+    WORD ROUND = DRAFT_ROUND_UNDEF;
+
+    if ( this->_record )
+    {
+        ROUND = this->_record->ram[ FIELD_DROUND ].ToIntDef( DRAFT_ROUND_UNDEF );
+    }
+
+    return ROUND;
+}
+//---------------------------------------------------------------------------
+WORD __fastcall CNLPlayer::getDraftOverall()
+{
+    WORD OVERALL = DRAFT_OVERALL_UNDEF;
+
+    if ( this->_record )
+    {
+        OVERALL = this->_record->ram[ FIELD_DOVERALL ].ToIntDef( DRAFT_OVERALL_UNDEF );
+    }
+
+    return OVERALL;
+}
+//---------------------------------------------------------------------------
+WORD __fastcall CNLPlayer::getDraftYear()
+{
+	WORD YEAR = DRAFT_YEAR_UNDEF;
+
+    if ( this->_record )
+    {
+        YEAR = this->_record->ram[ FIELD_DRAFTYEAR ].ToIntDef( DRAFT_YEAR_UNDEF );
+    }
+
+    return YEAR;
+}
+//---------------------------------------------------------------------------
+AnsiString __fastcall CNLPlayer::getDraftTeam()
+{
+	AnsiString TEAM = DRAFT_TEAM_UNDEF;
+
+    if ( this->_record )
+    {
+        TEAM = this->_record->ram[ FIELD_DRAFTEDBY ];
+    }
+
+    return TEAM;
+}
 //===========================================================================
 //===========================================================================
 //===========================================================================

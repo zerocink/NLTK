@@ -16,7 +16,15 @@
 #define INJURYID_UNDEF          ((WORD)-1)
 //===========================================================================
 
-
+//===========================================================================
+// CONSTANTES : drafs
+//---------------------------------------------------------------------------
+#define DRAFT_PLACE_UNDEF           (WORD(0))
+#define DRAFT_ROUND_UNDEF           (WORD(0))
+#define DRAFT_OVERALL_UNDEF         (WORD(0))
+#define DRAFT_YEAR_UNDEF            (WORD(0))
+#define DRAFT_TEAM_UNDEF            TXT_NULL
+//===========================================================================
 
 //===========================================================================
 // Pré-déclarations des classes
@@ -81,6 +89,12 @@ class CNLPlayer
         __property WORD       SeasonMIN     = { read = getSeasonMIN     	};
         __property WORD       SeasonEJT     = { read = getSeasonEJT         };
 
+        __property WORD       DraftPlace    = { read = getDraftPlace        };
+        __property WORD       DraftRound    = { read = getDraftRound        };
+        __property WORD       DraftOverall  = { read = getDraftOverall      };
+        __property WORD       DraftYear     = { read = getDraftYear         };
+        __property AnsiString DraftTeam     = { read = getDraftTeam         };
+
 
     private :
 
@@ -134,6 +148,12 @@ class CNLPlayer
         WORD       __fastcall getSeasonFLS();
         WORD       __fastcall getSeasonMIN();
         WORD       __fastcall getSeasonEJT();
+
+        WORD       __fastcall getDraftPlace();
+        WORD       __fastcall getDraftRound();
+        WORD       __fastcall getDraftOverall();
+        WORD       __fastcall getDraftYear();
+        AnsiString __fastcall getDraftTeam();
 
         // variables internes :
         //---------------------

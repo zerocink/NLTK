@@ -5,6 +5,7 @@
 
 //---------------------------------------------------------------------------
 #include "wRosterEditor.h"
+#include "wDraftReview.h"
 //---------------------------------------------------------------------------
 #include "wMain.h"
 //---------------------------------------------------------------------------
@@ -35,15 +36,23 @@ __fastcall TMainDlg::~TMainDlg()
 void __fastcall TMainDlg::zero()
 {
     this->_rosterEditor = NULL;
+    this->_draftReview = NULL;
 }
 //---------------------------------------------------------------------------
 void __fastcall TMainDlg::init()
 {
-    if ( !this->_rosterEditor ) this->_rosterEditor = new TRosterEditorDlg (NULL );
+    if ( !this->_rosterEditor ) this->_rosterEditor = new TRosterEditorDlg(NULL );
+    if ( !this->_draftReview ) this->_draftReview = new TDraftReviewDlg( NULL );
 }
 //---------------------------------------------------------------------------
 void __fastcall TMainDlg::deinit()
 {
+    if ( this->_draftReview )
+    {
+        delete this->_draftReview;
+        this->_draftReview = NULL;
+
+    }
     if ( this->_rosterEditor )
     {
     	delete this->_rosterEditor;
@@ -133,7 +142,6 @@ void __fastcall TMainDlg::brnPlayerDebugClick(TObject *Sender)
 void __fastcall TMainDlg::btnRostersClick(TObject *Sender)
 {
  	AnsiString path = this->cbSavedGamesPaths->Items->Strings[ this->cbSavedGamesPaths->ItemIndex ];
-    //path = System::Sysutils::ExtractFileDir( path , false );
 
     CNLSavedGame* sg = new CNLSavedGame( path );
     bool ok = sg->open();
@@ -151,5 +159,22 @@ void __fastcall TMainDlg::btnRostersClick(TObject *Sender)
 }
 //---------------------------------------------------------------------------
 
+void __fastcall TMainDlg::btnDraftsClick(TObject *Sender)
+{
+ 	AnsiString path = this->cbSavedGamesPaths->Items->Strings[ this->cbSavedGamesPaths->ItemIndex ];
 
+    CNLSavedGame* sg = new CNLSavedGame( path );
+    bool ok = sg->open();
+
+    if ( this->_draftReview )
+    {
+    	this->_draftReview->sg = sg;
+        this->_draftReview->ShowModal();
+    }
+
+    sg->close();
+    delete sg;
+    sg = NULL;
+}
+//---------------------------------------------------------------------------
 

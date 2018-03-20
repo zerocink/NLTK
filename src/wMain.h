@@ -18,10 +18,12 @@ __published:	// Composants gérés par l'EDI
 	TButton *brnPlayerDebug;
 	TButton *btnRosters;
 	TComboBox *cbSavedGamesPaths;
+	TButton *btnDrafts;
 	void __fastcall FormCreate(TObject *Sender);
 	void __fastcall FormDestroy(TObject *Sender);
 	void __fastcall brnPlayerDebugClick(TObject *Sender);
 	void __fastcall btnRostersClick(TObject *Sender);
+	void __fastcall btnDraftsClick(TObject *Sender);
 private:	// Déclarations utilisateur
 
 
@@ -37,6 +39,7 @@ private:	// Déclarations utilisateur
     // variables internes :
     //---------------------
     TRosterEditorDlg* 	_rosterEditor;
+    TDraftReviewDlg*    _draftReview;
     //TStrings* 			_savedGamesPaths;
 
 public:		// Déclarations utilisateur

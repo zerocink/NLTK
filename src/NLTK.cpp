@@ -6,11 +6,12 @@
 //---------------------------------------------------------------------------
 #include <Vcl.Styles.hpp>
 #include <Vcl.Themes.hpp>
+USEFORM("wAcceptChanges.cpp", AcceptChangesDlg);
 USEFORM("wIconLists.cpp", IconListsDlg);
 USEFORM("wRosterEditor.cpp", RosterEditorDlg);
 USEFORM("wPlayerDebug.cpp", PlayerDebugDlg);
 USEFORM("wMain.cpp", MainDlg);
-USEFORM("wAcceptChanges.cpp", AcceptChangesDlg);
+USEFORM("wDraftReview.cpp", DraftReviewDlg);
 //---------------------------------------------------------------------------
 int WINAPI _tWinMain(HINSTANCE, HINSTANCE, LPTSTR, int)
 {
