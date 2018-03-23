@@ -24,7 +24,7 @@ TStrings* CNLTeam::_fieldNames = NULL;
 #define FIELD_TEAMNUM	      	AnsiString( "TEAMNUM" )
 #define FIELD_TEAMNAME          AnsiString( "TEAMNAME" )
 #define FIELD_CITYNAME          AnsiString( "CITYNAME" )
-#define FIELD_ABREV             AnsiString( "ABREV" )
+#define FIELD_ABREV             AnsiString( "ABBREV" )
 #define FIELD_INSEASON          AnsiString( "INSEASON" )
 #define FIELD_TEAMCODE          AnsiString( "TEAMCODE" )
 #define FIELD_CONFERENCE        AnsiString( "CONFERENCE" )

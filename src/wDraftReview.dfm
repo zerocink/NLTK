@@ -43,8 +43,5 @@ object DraftReviewDlg: TDraftReviewDlg
     Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goColMoving, goRowSelect]
     ParentDoubleBuffered = False
     TabOrder = 1
-    ExplicitTop = 59
-    ExplicitWidth = 626
-    ExplicitHeight = 426
   end
 end

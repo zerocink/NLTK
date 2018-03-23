@@ -218,7 +218,7 @@ void __fastcall TDraftReviewDlg::updatePlayers()
     // initialisation des lignes et colonnes :
     //----------------------------------------
     this->gridPlayers->RowCount = DRAFT_PLACE_COUNT * DRAFT_ROUND_COUNT + 1;
-    this->gridPlayers->ColCount = 12;
+    this->gridPlayers->ColCount = 13;
 
     // titre des colonnes :
     //---------------------
@@ -234,6 +234,7 @@ void __fastcall TDraftReviewDlg::updatePlayers()
     this->gridPlayers->Cells[ 9 ][ 0 ] = AnsiString( "Ast" );
     this->gridPlayers->Cells[ 10 ][ 0 ] = AnsiString( "Blk" );
     this->gridPlayers->Cells[ 11 ][ 0 ] = AnsiString( "Stl" );
+    this->gridPlayers->Cells[ 12 ][ 0 ] = AnsiString( "Eval" );
 
     // récup draft sélectionnée dans la liste déroulante :
     //----------------------------------------------------
@@ -264,6 +265,9 @@ void __fastcall TDraftReviewDlg::playerDisplay( CNLPlayer* p , int row )
     {
         AnsiString txt;
 
+        CNLPlayerStats ps;
+        p->loadSeasonStats( ps );
+
         // recherche équipe actuel du joueur :
         //------------------------------------
         CNLTeam* t = NULL;
@@ -271,7 +275,7 @@ void __fastcall TDraftReviewDlg::playerDisplay( CNLPlayer* p , int row )
         if ( this->sg )
         {
             t = this->sg->teamByNum[ p->Team ];
-            if ( t ) team = t->CityName;
+            if ( t ) team = t->Abrev.UpperCase();
         }
 
         this->gridPlayers->Objects[0][row] = (TObject*)p;
@@ -283,20 +287,15 @@ void __fastcall TDraftReviewDlg::playerDisplay( CNLPlayer* p , int row )
         this->gridPlayers->Cells[5][row] = txt.sprintf( "%s / %s " , p->Position1 , p->Position2 );
         this->gridPlayers->Cells[6][row] = txt.sprintf( "%2.01f" , p->OverallRtg );
 
-        WORD g = p->SeasonGM;
-        if ( g > 0 )
+        if ( ps.GM > 0 )
         {
-            double pts = ( ( (double)p->SeasonFGM * 2.0 ) + (double)p->Season3PM + (double)p->SeasonFTM ) / (double)g;
-            double reb = ( (double)p->SeasonORB + (double)p->SeasonDRB ) / (double)g;
-            double ast = ( (double)p->SeasonAST ) / (double)g;
-            double blk = ( (double)p->SeasonBLK ) / (double)g;
-            double stl = ( (double)p->SeasonSTL ) / (double)g;
 
-            this->gridPlayers->Cells[7][row] = txt.sprintf( "%2.01f" , pts );
-            this->gridPlayers->Cells[8][row] = txt.sprintf( "%2.01f" , reb );
-            this->gridPlayers->Cells[9][row] = txt.sprintf( "%2.01f" , ast );
-            this->gridPlayers->Cells[10][row] = txt.sprintf( "%2.01f" , blk );
-            this->gridPlayers->Cells[11][row] = txt.sprintf( "%2.01f" , stl );
+            this->gridPlayers->Cells[7][row] = txt.sprintf( "%2.01f" , ps.avgPTS );
+            this->gridPlayers->Cells[8][row] = txt.sprintf( "%2.01f" , ps.avgRB );
+            this->gridPlayers->Cells[9][row] = txt.sprintf( "%2.01f" , ps.avgAST );
+            this->gridPlayers->Cells[10][row] = txt.sprintf( "%2.01f" , ps.avgBLK );
+            this->gridPlayers->Cells[11][row] = txt.sprintf( "%2.01f" , ps.avgSTL );
+            this->gridPlayers->Cells[12][row] = txt.sprintf( "%2.01f" , ps.avgEVAL );
         }
         else
         {
@@ -305,6 +304,7 @@ void __fastcall TDraftReviewDlg::playerDisplay( CNLPlayer* p , int row )
             this->gridPlayers->Cells[9][row] = TXT_NULL;
             this->gridPlayers->Cells[10][row] = TXT_NULL;
             this->gridPlayers->Cells[11][row] = TXT_NULL;
+            this->gridPlayers->Cells[12][row] = TXT_NULL;
         }
     }
 }
