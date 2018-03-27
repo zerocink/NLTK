@@ -19,6 +19,10 @@ __published:	// Composants gérés par l'EDI
 	TComboBox *cbDraftSel;
 	TStringGrid *gridPlayers;
 	void __fastcall cbDraftSelChange(TObject *Sender);
+	void __fastcall gridPlayersColumnMoved(TObject *Sender, int FromIndex, int ToIndex);
+	void __fastcall FormCreate(TObject *Sender);
+	void __fastcall FormDestroy(TObject *Sender);
+
 private:	// Déclarations utilisateur
 
     // méthodes internes :
@@ -52,6 +56,7 @@ private:	// Déclarations utilisateur
     //---------------------
     CNLSavedGame* _sg;
     TList*        _drafts;
+    TStringList*  _fieldCols;
 
 public:		// Déclarations utilisateur
 

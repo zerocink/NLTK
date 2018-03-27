@@ -19,6 +19,38 @@
 TRosterEditorDlg *RosterEditorDlg;
 
 //===========================================================================
+// CONSTANTES :
+//---------------------------------------------------------------------------
+#define COL_RP		    AnsiString( "RP" )
+#define COL_NOM         AnsiString( "Nom" )
+#define COL_TAILLE      AnsiString( "Taille" )
+#define COL_POIDS       AnsiString( "Poids" )
+#define COL_POS         AnsiString( "Pos" )
+#define COL_OVRL        AnsiString( "Ovrl" )
+#define COL_EXP         AnsiString( "Exp" )
+#define COL_PTS         AnsiString( "Pts" )
+#define COL_RB          AnsiString( "Rb" )
+#define COL_AST         AnsiString( "Ast" )
+#define COL_BLK         AnsiString( "Blk" )
+#define COL_STL         AnsiString( "Stl" )
+#define COL_EVAL        AnsiString( "Eval" )
+//---------------------------------------------------------------------------
+#define RP              (this->_fieldCols->IndexOf(COL_RP))
+#define NOM             (this->_fieldCols->IndexOf(COL_NOM))
+#define TAILLE          (this->_fieldCols->IndexOf(COL_TAILLE))
+#define POIDS           (this->_fieldCols->IndexOf(COL_POIDS))
+#define POS             (this->_fieldCols->IndexOf(COL_POS))
+#define OVRL            (this->_fieldCols->IndexOf(COL_OVRL))
+#define EXP             (this->_fieldCols->IndexOf(COL_EXP))
+#define PTS             (this->_fieldCols->IndexOf(COL_PTS))
+#define RB              (this->_fieldCols->IndexOf(COL_RB))
+#define AST             (this->_fieldCols->IndexOf(COL_AST))
+#define BLK             (this->_fieldCols->IndexOf(COL_BLK))
+#define STL             (this->_fieldCols->IndexOf(COL_STL))
+#define EVAL            (this->_fieldCols->IndexOf(COL_EVAL))
+//===========================================================================
+
+//===========================================================================
 //===========================================================================
 //===========================================================================
 //===========================================================================
@@ -39,16 +71,45 @@ __fastcall TRosterEditorDlg::~TRosterEditorDlg()
 //---------------------------------------------------------------------------
 void __fastcall TRosterEditorDlg::zero()
 {
+    this->_sg = NULL;
     this->_rosters = NULL;
+    this->_fieldCols = NULL;
 }
 //---------------------------------------------------------------------------
 void __fastcall TRosterEditorDlg::init()
 {
     if ( !this->_rosters ) this->_rosters = new TList();
+    if ( !this->_fieldCols )
+    {
+    	this->_fieldCols = new TStringList();
+
+        // ordre par défaut des colonnes :
+        //--------------------------------
+        this->_fieldCols->Add( COL_RP );
+        this->_fieldCols->Add( COL_NOM );
+        this->_fieldCols->Add( COL_TAILLE );
+        this->_fieldCols->Add( COL_POIDS );
+        this->_fieldCols->Add( COL_POS );
+        this->_fieldCols->Add( COL_OVRL );
+        this->_fieldCols->Add( COL_EXP );
+        this->_fieldCols->Add( COL_PTS );
+        this->_fieldCols->Add( COL_RB );
+        this->_fieldCols->Add( COL_AST );
+        this->_fieldCols->Add( COL_BLK );
+        this->_fieldCols->Add( COL_STL );
+        this->_fieldCols->Add( COL_EVAL );
+    }
 }
 //---------------------------------------------------------------------------
 void __fastcall TRosterEditorDlg::deinit()
 {
+    if ( this->_fieldCols )
+    {
+        this->_fieldCols->Clear();
+        delete this->_fieldCols;
+        this->_fieldCols = NULL;
+    }
+
     if ( this->_rosters )
     {
         this->clearRosters();
@@ -135,23 +196,15 @@ void __fastcall TRosterEditorDlg::updatePlayers()
     // initialisation des lignes et colonnes :
     //----------------------------------------
     this->gridPlayers->RowCount = ROSTER_SIZE + 1;
-    this->gridPlayers->ColCount = 13;
+    this->gridPlayers->ColCount = this->_fieldCols->Count;
 
     // titres des colonnes :
     //----------------------
-    this->gridPlayers->Cells[0][0] = AnsiString( "RP" );    // roster position
-    this->gridPlayers->Cells[1][0] = AnsiString( "Nom" );
-    this->gridPlayers->Cells[2][0] = AnsiString( "Taille" );
-    this->gridPlayers->Cells[3][0] = AnsiString( "Poids" );
-    this->gridPlayers->Cells[4][0] = AnsiString( "Pos" );
-    this->gridPlayers->Cells[5][0] = AnsiString( "Ovrl" );
-    this->gridPlayers->Cells[6][0] = AnsiString( "Exp" );
-    this->gridPlayers->Cells[7][0] = AnsiString( "Pts" );
-    this->gridPlayers->Cells[8][0] = AnsiString( "Rb" );
-    this->gridPlayers->Cells[9][0] = AnsiString( "Ast" );
-    this->gridPlayers->Cells[10][0] = AnsiString( "Blk" );
-    this->gridPlayers->Cells[11][0] = AnsiString( "Stl" );
-    this->gridPlayers->Cells[12][0] = AnsiString( "Eval" );
+    for ( int i = 0 ; i < this->_fieldCols->Count ; i++ )
+    {
+        AnsiString titre = this->_fieldCols->Strings[ i ];
+        this->gridPlayers->Cells[i][0] = titre;
+    }
 
     // récup roster sélectionné dans la liste déroulante :
     //----------------------------------------------------
@@ -209,32 +262,32 @@ void __fastcall TRosterEditorDlg::playerDisplay( CNLPlayer* p , int row )
         p->loadSeasonStats( ps );
 
         this->gridPlayers->Objects[0][row] = (TObject*)p;
-        this->gridPlayers->Cells[0][row] = p->RosterPosText;
-        this->gridPlayers->Cells[1][row] = txt.sprintf( "%s %s %s" , p->Number , p->FName , p->Name );
-        this->gridPlayers->Cells[2][row] = txt.sprintf( "%01.02f m" , (double)p->Height/100.0 );
-        this->gridPlayers->Cells[3][row] = txt.sprintf( "%d kg" , p->Weight );
-        this->gridPlayers->Cells[4][row] = txt.sprintf( "%s / %s " , p->Position1 , p->Position2 );
-        this->gridPlayers->Cells[5][row] = txt.sprintf( "%2.01f" , p->OverallRtg );
-        this->gridPlayers->Cells[6][row] = txt.sprintf( "%d" , p->YearsExp );
+        this->gridPlayers->Cells[RP][row] = p->RosterPosText;
+        this->gridPlayers->Cells[NOM][row] = txt.sprintf( "%s %s %s" , p->Number , p->FName , p->Name );
+        this->gridPlayers->Cells[TAILLE][row] = txt.sprintf( "%01.02f m" , (double)p->Height/100.0 );
+        this->gridPlayers->Cells[POIDS][row] = txt.sprintf( "%d kg" , p->Weight );
+        this->gridPlayers->Cells[POS][row] = txt.sprintf( "%s / %s " , p->Position1 , p->Position2 );
+        this->gridPlayers->Cells[OVRL][row] = txt.sprintf( "%2.01f" , p->OverallRtg );
+        this->gridPlayers->Cells[EXP][row] = txt.sprintf( "%d" , p->YearsExp );
 
         if (  ps.GM > 0  )
         {
-            this->gridPlayers->Cells[7][row] = txt.sprintf( "%2.01f" , ps.avgPTS );
-            this->gridPlayers->Cells[8][row] = txt.sprintf( "%2.01f" , ps.avgRB );
-            this->gridPlayers->Cells[9][row] = txt.sprintf( "%2.01f" , ps.avgAST );
-            this->gridPlayers->Cells[10][row] = txt.sprintf( "%2.01f" , ps.avgBLK );
-            this->gridPlayers->Cells[11][row] = txt.sprintf( "%2.01f" , ps.avgSTL );
-            this->gridPlayers->Cells[12][row] = txt.sprintf( "%2.01f" , ps.avgEVAL );
+            this->gridPlayers->Cells[PTS][row] = txt.sprintf( "%2.01f" , ps.avgPTS );
+            this->gridPlayers->Cells[RB][row] = txt.sprintf( "%2.01f" , ps.avgRB );
+            this->gridPlayers->Cells[AST][row] = txt.sprintf( "%2.01f" , ps.avgAST );
+            this->gridPlayers->Cells[BLK][row] = txt.sprintf( "%2.01f" , ps.avgBLK );
+            this->gridPlayers->Cells[STL][row] = txt.sprintf( "%2.01f" , ps.avgSTL );
+            this->gridPlayers->Cells[EVAL][row] = txt.sprintf( "%2.01f" , ps.avgEVAL );
 
         }
         else
         {
-            this->gridPlayers->Cells[7][row] = TXT_NULL;
-            this->gridPlayers->Cells[8][row] = TXT_NULL;
-            this->gridPlayers->Cells[9][row] = TXT_NULL;
-            this->gridPlayers->Cells[10][row] = TXT_NULL;
-            this->gridPlayers->Cells[11][row] = TXT_NULL;
-            this->gridPlayers->Cells[12][row] = TXT_NULL;
+            this->gridPlayers->Cells[PTS][row] = TXT_NULL;
+            this->gridPlayers->Cells[RB][row] = TXT_NULL;
+            this->gridPlayers->Cells[AST][row] = TXT_NULL;
+            this->gridPlayers->Cells[BLK][row] = TXT_NULL;
+            this->gridPlayers->Cells[STL][row] = TXT_NULL;
+            this->gridPlayers->Cells[EVAL][row] = TXT_NULL;
         }
     }
 }
@@ -507,6 +560,15 @@ void __fastcall TRosterEditorDlg::cbTeamSelDrawItem(TWinControl *Control, int In
 
         box->Canvas->TextRect( textRect , text , textFormat );
 
+    }
+}
+//---------------------------------------------------------------------------
+void __fastcall TRosterEditorDlg::gridPlayersColumnMoved(TObject *Sender, int FromIndex,
+          int ToIndex)
+{
+    if ( this->_fieldCols )
+    {
+        this->_fieldCols->Move( FromIndex,ToIndex );
     }
 }
 //---------------------------------------------------------------------------

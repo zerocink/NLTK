@@ -39,6 +39,9 @@ __published:	// Composants gérés par l'EDI
 	void __fastcall cbTeamSelMeasureItem(TWinControl *Control, int Index, int &Height);
 	void __fastcall cbTeamSelDrawItem(TWinControl *Control, int Index, TRect &Rect,
           TOwnerDrawState State);
+	void __fastcall gridPlayersColumnMoved(TObject *Sender, int FromIndex, int ToIndex);
+
+
 
 private:	// Déclarations utilisateur
 
@@ -76,6 +79,7 @@ private:	// Déclarations utilisateur
     //---------------------
     CNLSavedGame* _sg;
     TList*        _rosters;
+    TStringList*  _fieldCols;
 
 public:		// Déclarations utilisateur
 

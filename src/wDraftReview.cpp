@@ -9,6 +9,40 @@
 #include "NLTK_common.h"
 //---------------------------------------------------------------------------
 //===========================================================================
+
+
+//===========================================================================
+// CONSTANTES :
+//---------------------------------------------------------------------------
+#define TITRE_ROUND AnsiString( "Round" )
+#define TITRE_PLACE AnsiString( "Place" )
+#define TITRE_BY    AnsiString( "By" )
+#define TITRE_TEAM  AnsiString( "Team" )
+#define TITRE_NOM   AnsiString( "Nom" )
+#define TITRE_POS   AnsiString( "Pos" )
+#define TITRE_OVRL  AnsiString( "Ovrl" )
+#define TITRE_PTS   AnsiString( "Pts" )
+#define TITRE_RB    AnsiString( "Rb" )
+#define TITRE_AST   AnsiString( "Ast" )
+#define TITRE_BLK   AnsiString( "Blk" )
+#define TITRE_STL   AnsiString( "Stl" )
+#define TITRE_EVAL  AnsiString( "Eval" )
+//---------------------------------------------------------------------------
+#define ROUND       (this->_fieldCols->IndexOf(TITRE_ROUND))
+#define PLACE       (this->_fieldCols->IndexOf(TITRE_PLACE))
+#define BY       	(this->_fieldCols->IndexOf(TITRE_BY))
+#define TEAM       	(this->_fieldCols->IndexOf(TITRE_TEAM))
+#define NOM       	(this->_fieldCols->IndexOf(TITRE_NOM))
+#define POS       	(this->_fieldCols->IndexOf(TITRE_POS))
+#define OVRL       	(this->_fieldCols->IndexOf(TITRE_OVRL))
+#define PTS       	(this->_fieldCols->IndexOf(TITRE_PTS))
+#define RB       	(this->_fieldCols->IndexOf(TITRE_RB))
+#define AST       	(this->_fieldCols->IndexOf(TITRE_AST))
+#define BLK       	(this->_fieldCols->IndexOf(TITRE_BLK))
+#define STL       	(this->_fieldCols->IndexOf(TITRE_STL))
+#define EVAL       	(this->_fieldCols->IndexOf(TITRE_EVAL))
+//===========================================================================
+
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
 #pragma resource "*.dfm"
@@ -32,15 +66,43 @@ void __fastcall TDraftReviewDlg::zero()
 {
     this->_sg 		= NULL;
     this->_drafts 	= NULL;
+    this->_fieldCols = NULL;
 }
 //---------------------------------------------------------------------------
 void __fastcall TDraftReviewDlg::init()
 {
     if ( !this->_drafts ) this->_drafts = new TList();
+
+    if ( !this->_fieldCols )
+    {
+        this->_fieldCols = new TStringList();
+
+        this->_fieldCols->Add( TITRE_ROUND );
+        this->_fieldCols->Add( TITRE_PLACE );
+        this->_fieldCols->Add( TITRE_BY );
+        this->_fieldCols->Add( TITRE_TEAM );
+        this->_fieldCols->Add( TITRE_NOM );
+        this->_fieldCols->Add( TITRE_POS );
+        this->_fieldCols->Add( TITRE_OVRL );
+        this->_fieldCols->Add( TITRE_PTS );
+        this->_fieldCols->Add( TITRE_RB );
+        this->_fieldCols->Add( TITRE_AST );
+        this->_fieldCols->Add( TITRE_BLK );
+        this->_fieldCols->Add( TITRE_STL );
+        this->_fieldCols->Add( TITRE_EVAL );
+    }
 }
 //---------------------------------------------------------------------------
 void __fastcall TDraftReviewDlg::deinit()
 {
+    if ( this->_fieldCols )
+    {
+        this->_fieldCols->Clear();
+
+        delete this->_fieldCols;
+        this->_fieldCols = NULL;
+    }
+
     if ( this->_drafts )
     {
         this->clearDrafts();
@@ -218,23 +280,14 @@ void __fastcall TDraftReviewDlg::updatePlayers()
     // initialisation des lignes et colonnes :
     //----------------------------------------
     this->gridPlayers->RowCount = DRAFT_PLACE_COUNT * DRAFT_ROUND_COUNT + 1;
-    this->gridPlayers->ColCount = 13;
+    this->gridPlayers->ColCount = this->_fieldCols->Count;
 
     // titre des colonnes :
     //---------------------
-    this->gridPlayers->Cells[ 0 ][ 0 ] = AnsiString( "Round" );
-    this->gridPlayers->Cells[ 1 ][ 0 ] = AnsiString( "Place" );
-    this->gridPlayers->Cells[ 2 ][ 0 ] = AnsiString( "By" );
-    this->gridPlayers->Cells[ 3 ][ 0 ] = AnsiString( "Team" );
-    this->gridPlayers->Cells[ 4 ][ 0 ] = AnsiString( "Nom" );
-    this->gridPlayers->Cells[ 5 ][ 0 ] = AnsiString( "Pos" );
-    this->gridPlayers->Cells[ 6 ][ 0 ] = AnsiString( "Ovrl" );
-    this->gridPlayers->Cells[ 7 ][ 0 ] = AnsiString( "Pts" );
-    this->gridPlayers->Cells[ 8 ][ 0 ] = AnsiString( "Rb" );
-    this->gridPlayers->Cells[ 9 ][ 0 ] = AnsiString( "Ast" );
-    this->gridPlayers->Cells[ 10 ][ 0 ] = AnsiString( "Blk" );
-    this->gridPlayers->Cells[ 11 ][ 0 ] = AnsiString( "Stl" );
-    this->gridPlayers->Cells[ 12 ][ 0 ] = AnsiString( "Eval" );
+    for ( int i = 0 ; i < this->_fieldCols->Count ; i++ )
+    {
+        this->gridPlayers->Cells[ i ][ 0 ] = this->_fieldCols->Strings[ i ];
+    }
 
     // récup draft sélectionnée dans la liste déroulante :
     //----------------------------------------------------
@@ -279,32 +332,32 @@ void __fastcall TDraftReviewDlg::playerDisplay( CNLPlayer* p , int row )
         }
 
         this->gridPlayers->Objects[0][row] = (TObject*)p;
-        this->gridPlayers->Cells[0][row] = txt.sprintf( "%d" , p->DraftRound );
-        this->gridPlayers->Cells[1][row] = txt.sprintf( "%d" , p->DraftPlace );
-        this->gridPlayers->Cells[2][row] = p->DraftTeam.UpperCase();
-        this->gridPlayers->Cells[3][row] = team;
-        this->gridPlayers->Cells[4][row] = txt.sprintf( "%s %s" , p->FName , p->Name );
-        this->gridPlayers->Cells[5][row] = txt.sprintf( "%s / %s " , p->Position1 , p->Position2 );
-        this->gridPlayers->Cells[6][row] = txt.sprintf( "%2.01f" , p->OverallRtg );
+        this->gridPlayers->Cells[ROUND][row] = txt.sprintf( "%d" , p->DraftRound );
+        this->gridPlayers->Cells[PLACE][row] = txt.sprintf( "%d" , p->DraftPlace );
+        this->gridPlayers->Cells[BY][row] = p->DraftTeam.UpperCase();
+        this->gridPlayers->Cells[TEAM][row] = team;
+        this->gridPlayers->Cells[NOM][row] = txt.sprintf( "%s %s" , p->FName , p->Name );
+        this->gridPlayers->Cells[POS][row] = txt.sprintf( "%s / %s " , p->Position1 , p->Position2 );
+        this->gridPlayers->Cells[OVRL][row] = txt.sprintf( "%2.01f" , p->OverallRtg );
 
         if ( ps.GM > 0 )
         {
 
-            this->gridPlayers->Cells[7][row] = txt.sprintf( "%2.01f" , ps.avgPTS );
-            this->gridPlayers->Cells[8][row] = txt.sprintf( "%2.01f" , ps.avgRB );
-            this->gridPlayers->Cells[9][row] = txt.sprintf( "%2.01f" , ps.avgAST );
-            this->gridPlayers->Cells[10][row] = txt.sprintf( "%2.01f" , ps.avgBLK );
-            this->gridPlayers->Cells[11][row] = txt.sprintf( "%2.01f" , ps.avgSTL );
-            this->gridPlayers->Cells[12][row] = txt.sprintf( "%2.01f" , ps.avgEVAL );
+            this->gridPlayers->Cells[PTS][row] = txt.sprintf( "%2.01f" , ps.avgPTS );
+            this->gridPlayers->Cells[RB][row] = txt.sprintf( "%2.01f" , ps.avgRB );
+            this->gridPlayers->Cells[AST][row] = txt.sprintf( "%2.01f" , ps.avgAST );
+            this->gridPlayers->Cells[BLK][row] = txt.sprintf( "%2.01f" , ps.avgBLK );
+            this->gridPlayers->Cells[STL][row] = txt.sprintf( "%2.01f" , ps.avgSTL );
+            this->gridPlayers->Cells[EVAL][row] = txt.sprintf( "%2.01f" , ps.avgEVAL );
         }
         else
         {
-            this->gridPlayers->Cells[7][row] = TXT_NULL;
-            this->gridPlayers->Cells[8][row] = TXT_NULL;
-            this->gridPlayers->Cells[9][row] = TXT_NULL;
-            this->gridPlayers->Cells[10][row] = TXT_NULL;
-            this->gridPlayers->Cells[11][row] = TXT_NULL;
-            this->gridPlayers->Cells[12][row] = TXT_NULL;
+            this->gridPlayers->Cells[PTS][row] = TXT_NULL;
+            this->gridPlayers->Cells[RB][row] = TXT_NULL;
+            this->gridPlayers->Cells[AST][row] = TXT_NULL;
+            this->gridPlayers->Cells[BLK][row] = TXT_NULL;
+            this->gridPlayers->Cells[STL][row] = TXT_NULL;
+            this->gridPlayers->Cells[EVAL][row] = TXT_NULL;
         }
     }
 }
@@ -364,3 +417,25 @@ void __fastcall TDraftReviewDlg::cbDraftSelChange(TObject *Sender)
     this->updatePlayers();
 }
 //---------------------------------------------------------------------------
+void __fastcall TDraftReviewDlg::gridPlayersColumnMoved(TObject *Sender, int FromIndex,
+          int ToIndex)
+{
+    if ( this->_fieldCols )
+    {
+        this->_fieldCols->Move( FromIndex , ToIndex );
+    }
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TDraftReviewDlg::FormCreate(TObject *Sender)
+{
+    this->formInit();
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TDraftReviewDlg::FormDestroy(TObject *Sender)
+{
+    this->formDeinit();
+}
+//---------------------------------------------------------------------------
+

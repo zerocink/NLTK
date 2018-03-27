@@ -2,8 +2,8 @@ object RosterEditorDlg: TRosterEditorDlg
   Left = 0
   Top = 0
   Caption = 'RosterEditorDlg'
-  ClientHeight = 545
-  ClientWidth = 626
+  ClientHeight = 543
+  ClientWidth = 854
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -18,11 +18,12 @@ object RosterEditorDlg: TRosterEditorDlg
   object pnlTeam: TPanel
     Left = 0
     Top = 0
-    Width = 626
+    Width = 854
     Height = 59
     Align = alTop
     BevelOuter = bvNone
     TabOrder = 0
+    ExplicitWidth = 626
     object btnTeamPrev: TButton
       Left = 0
       Top = 0
@@ -34,11 +35,9 @@ object RosterEditorDlg: TRosterEditorDlg
       Images = IconListsDlg.ilIconSet48x48_blue
       TabOrder = 0
       OnClick = btnTeamPrevClick
-      ExplicitTop = 21
-      ExplicitHeight = 60
     end
     object btnTeamNext: TButton
-      Left = 551
+      Left = 779
       Top = 0
       Width = 75
       Height = 59
@@ -48,19 +47,19 @@ object RosterEditorDlg: TRosterEditorDlg
       Images = IconListsDlg.ilIconSet48x48_blue
       TabOrder = 1
       OnClick = btnTeamNextClick
-      ExplicitTop = 21
-      ExplicitHeight = 60
+      ExplicitLeft = 551
     end
     object cbTeamSel: TComboBox
       Left = 75
       Top = 0
-      Width = 476
+      Width = 704
       Height = 22
       Align = alClient
       AutoComplete = False
       AutoDropDown = True
       Style = csOwnerDrawVariable
       Ctl3D = True
+      DropDownCount = 26
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
       Font.Height = -21
@@ -72,31 +71,35 @@ object RosterEditorDlg: TRosterEditorDlg
       OnChange = cbTeamSelChange
       OnDrawItem = cbTeamSelDrawItem
       OnMeasureItem = cbTeamSelMeasureItem
+      ExplicitWidth = 476
     end
   end
   object gridPlayers: TStringGrid
     Left = 0
     Top = 59
-    Width = 626
-    Height = 426
+    Width = 854
+    Height = 424
     Align = alClient
     DoubleBuffered = True
     FixedCols = 0
-    Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goColMoving, goRowSelect]
+    Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goColMoving, goRowSelect]
     ParentDoubleBuffered = False
     TabOrder = 1
+    OnColumnMoved = gridPlayersColumnMoved
     OnDrawCell = gridPlayersDrawCell
-    ExplicitTop = 81
-    ExplicitHeight = 404
+    ExplicitWidth = 626
+    ExplicitHeight = 426
   end
   object pnlCmd: TPanel
     Left = 0
-    Top = 485
-    Width = 626
+    Top = 483
+    Width = 854
     Height = 60
     Align = alBottom
     BevelOuter = bvNone
     TabOrder = 2
+    ExplicitTop = 485
+    ExplicitWidth = 626
     object btnMoveUp: TButton
       Left = 0
       Top = 0
@@ -122,7 +125,7 @@ object RosterEditorDlg: TRosterEditorDlg
       OnClick = btnMoveDownClick
     end
     object btnAccept: TButton
-      Left = 537
+      Left = 765
       Top = 0
       Width = 89
       Height = 60
@@ -132,6 +135,7 @@ object RosterEditorDlg: TRosterEditorDlg
       Images = IconListsDlg.ilIconSet48x48_green
       TabOrder = 2
       OnClick = btnAcceptClick
+      ExplicitLeft = 537
     end
   end
 end

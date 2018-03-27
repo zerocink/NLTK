@@ -11,6 +11,8 @@ object DraftReviewDlg: TDraftReviewDlg
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  OnCreate = FormCreate
+  OnDestroy = FormDestroy
   PixelsPerInch = 96
   TextHeight = 13
   object pnlDrafts: TPanel
@@ -40,8 +42,9 @@ object DraftReviewDlg: TDraftReviewDlg
     Align = alClient
     DoubleBuffered = True
     FixedCols = 0
-    Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goColMoving, goRowSelect]
+    Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goColMoving, goRowSelect]
     ParentDoubleBuffered = False
     TabOrder = 1
+    OnColumnMoved = gridPlayersColumnMoved
   end
 end
