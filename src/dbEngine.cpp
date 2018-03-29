@@ -42,6 +42,32 @@ bool __fastcall CDBEngine::stringToBool( AnsiString s )
     if ( s.Trim().UpperCase() == TXT_TRUE ) return true;
     return false;
 }
+//---------------------------------------------------------------------------
+TDate __fastcall CDBEngine::stringToDate( const AnsiString& s )
+{
+    if ( s.Length() >= 8 )
+    {
+	    WORD y = s.SubString( 1,4 ).ToIntDef(0);
+        WORD m = s.SubString( 5,2 ).ToIntDef(0);
+        WORD d = s.SubString( 7,2 ).ToIntDef(0);
+
+        return EncodeDate(y,m,d);
+    }
+
+    return (TDate)0;
+}
+//---------------------------------------------------------------------------
+AnsiString __fastcall CDBEngine::dateToString( const TDate& dt )
+{
+    WORD y = 0;
+    WORD m = 0;
+    WORD d = 0;
+    dt.DecodeDate( &y , &m , &d );
+
+    AnsiString s;
+
+    return s.sprintf( "%04d%02d%02d" , y , m , d );
+}
 //===========================================================================
 //===========================================================================
 //===========================================================================

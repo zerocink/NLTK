@@ -18,6 +18,8 @@ class CDBEngine	// classe statique
         //-------------------------------
         static	AnsiString __fastcall boolToString( bool b );
         static	bool       __fastcall stringToBool( AnsiString s );
+        static  TDate      __fastcall stringToDate( const AnsiString& s );
+        static  AnsiString __fastcall dateToString( const TDate& dt );
 };
 //---------------------------------------------------------------------------
 class CDBField

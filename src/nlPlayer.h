@@ -192,6 +192,10 @@ class CNLPlayer
         __property WORD       InjuryId      = { read = getInjuryId      };
         __property bool       IsPlayable    = { read = getIsPlayable	};
 
+        __property WORD       weeklyMvp     = { read = getWeeklyMvp 		};
+        __property WORD       monthlyMvp    = { read = getMonthlyMvp 		};
+        __property WORD       allStarMvp    = { read = getAllStarMvp 		};
+
         __property WORD       SeasonGM		= { read = getSeasonGM   	 	};
         __property WORD       SeasonGMS		= { read = getSeasonGMS		    };
         __property WORD       SeasonFGM     = { read = getSeasonFGM         };
@@ -251,6 +255,10 @@ class CNLPlayer
         WORD        __fastcall getYearsExp();
         WORD        __fastcall getInjuryId();
         bool        __fastcall getIsPlayable();
+
+        WORD        __fastcall getWeeklyMvp();
+        WORD        __fastcall getMonthlyMvp();
+        WORD        __fastcall getAllStarMvp();
 
         WORD       __fastcall getSeasonGM();
         WORD       __fastcall getSeasonGMS();

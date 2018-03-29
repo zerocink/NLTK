@@ -41,6 +41,12 @@ struct CNLDraft
 
 
 //===========================================================================
+enum tNLSavedGame
+{
+    nlsgNotSupported = 0,
+    nlsgSeason = 6,
+    nlsgPlayoffs = 7
+};
 class CNLSavedGame
 {
 
@@ -69,6 +75,14 @@ class CNLSavedGame
         __property CNLPlayer* playerByIndex[ int index 	   ] = { read = getPlayerByIndex	};
         __property int        playerCount                	 = { read = getPlayerCount 		};
         __property bool       playersDif                     = { read = getPlayersDif		};
+
+        __property tNLSavedGame type 			= { read = _type 			};
+        __property AnsiString   name 			= { read = _name		    };
+        __property int          salaryCap 		= { read = _salaryCap		};
+        __property TDate        dateAllStarGame = { read = _dateAllStarGame	};
+        __property TDate        dateEndTransf   = { read = _dateEndTransf	};
+        __property TDate        dateInSeason    = { read = _dateInSeason    };
+        __property TDate        dateInPlayoffs  = { read = _dateInPlayoffs  };
 
     private :
 
@@ -104,6 +118,14 @@ class CNLSavedGame
         TList*     		_players;
         CDBTable* 		_tableTeams;
         CDBTable*  		_tablePlayers;
+        tNLSavedGame    _type;
+        AnsiString   	_name;
+        int          	_salaryCap;
+        TDate        	_dateAllStarGame;
+        TDate        	_dateEndTransf;
+        TDate        	_dateInSeason;
+        TDate        	_dateInPlayoffs;
+
 };
 //===========================================================================
 

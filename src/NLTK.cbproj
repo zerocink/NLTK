@@ -171,6 +171,12 @@
             <DependentOn>wMain.h</DependentOn>
             <BuildOrder>10</BuildOrder>
         </CppCompile>
+        <CppCompile Include="wMVPReview.cpp">
+            <Form>MVPReviewDlg</Form>
+            <FormType>dfm</FormType>
+            <DependentOn>wMVPReview.h</DependentOn>
+            <BuildOrder>15</BuildOrder>
+        </CppCompile>
         <CppCompile Include="wPlayerDebug.cpp">
             <Form>PlayerDebugDlg</Form>
             <FormType>dfm</FormType>
@@ -183,12 +189,13 @@
             <DependentOn>wRosterEditor.h</DependentOn>
             <BuildOrder>11</BuildOrder>
         </CppCompile>
+        <FormResources Include="wDraftReview.dfm"/>
         <FormResources Include="wAcceptChanges.dfm"/>
         <FormResources Include="wIconLists.dfm"/>
         <FormResources Include="wRosterEditor.dfm"/>
         <FormResources Include="wPlayerDebug.dfm"/>
         <FormResources Include="wMain.dfm"/>
-        <FormResources Include="wDraftReview.dfm"/>
+        <FormResources Include="wMVPReview.dfm"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

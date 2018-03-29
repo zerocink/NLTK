@@ -39,6 +39,10 @@ TStrings* CNLPlayer::_fieldNames = NULL;
 #define FIELD_INJURYID      AnsiString( "INJURYID" )
 #define FIELD_ISPLAYABLE    AnsiString( "ISPLAYABLE" )
 //---------------------------------------------------------------------------
+#define FIELD_WEEKLYMVP     AnsiString( "WEEKLYMVP" )
+#define FIELD_MONTHLYMVP    AnsiString( "MONTHLYMVP" )
+#define FIELD_ALLSTARMVP    AnsiString( "ALLSTARMVP" )
+//---------------------------------------------------------------------------
 #define FIELD_SGM        	AnsiString( "SGAMES" )
 #define FIELD_SGMS		    AnsiString( "SGAMESTART" )
 #define FIELD_SFGA  	 	AnsiString( "SFGATTEMPT" )
@@ -614,6 +618,10 @@ void __fastcall CNLPlayer::createFieldNames()
         CNLPlayer::_fieldNames->Add( FIELD_INJURYID );
         CNLPlayer::_fieldNames->Add( FIELD_ISPLAYABLE );
 
+        CNLPlayer::_fieldNames->Add( FIELD_WEEKLYMVP );
+        CNLPlayer::_fieldNames->Add( FIELD_MONTHLYMVP );
+        CNLPlayer::_fieldNames->Add( FIELD_ALLSTARMVP );
+
         CNLPlayer::_fieldNames->Add( FIELD_SGM );
         CNLPlayer::_fieldNames->Add( FIELD_SGMS );
         CNLPlayer::_fieldNames->Add( FIELD_SFGA );
@@ -907,6 +915,42 @@ bool __fastcall CNLPlayer::getIsPlayable()
     }
 
     return ISPLAYABLE;
+}
+//---------------------------------------------------------------------------
+WORD __fastcall CNLPlayer::getWeeklyMvp()
+{
+    WORD WEEKLYMVP = 0;
+
+    if ( this->_record )
+    {
+        WEEKLYMVP = this->_record->ram[ FIELD_WEEKLYMVP ].ToIntDef( 0 );
+    }
+
+    return WEEKLYMVP;
+}
+//---------------------------------------------------------------------------
+WORD __fastcall CNLPlayer::getMonthlyMvp()
+{
+    WORD MONTHLYMVP = 0;
+
+    if ( this->_record )
+    {
+        MONTHLYMVP = this->_record->ram[ FIELD_MONTHLYMVP ].ToIntDef( 0 );
+    }
+
+    return MONTHLYMVP;
+}
+//---------------------------------------------------------------------------
+WORD __fastcall CNLPlayer::getAllStarMvp()
+{
+    WORD ALLSTARMVP = 0;
+
+    if ( this->_record )
+    {
+        ALLSTARMVP = this->_record->ram[ FIELD_ALLSTARMVP ].ToIntDef( 0 );
+    }
+
+    return ALLSTARMVP;
 }
 //---------------------------------------------------------------------------
 WORD __fastcall CNLPlayer::getSeasonGM()

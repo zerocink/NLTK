@@ -30,6 +30,16 @@
 #define FILE_SCHEDULE   AnsiString( "\\schedule.dbf" )
 #define FILE_TEAMCAREER AnsiString( "\\tmcareer.dbf" )
 //===========================================================================
+// CONSTANTES : offsets des données à lire dans le fichier SAVE.DAT
+//---------------------------------------------------------------------------
+#define SAVE_OFFSET_TYPE    			0x0000
+#define SAVE_OFFSET_NAME    			0x0003
+#define SAVE_OFFSET_SALARY_CAP      	0x0462
+#define SAVE_OFFSET_DATE_ALLSTARGAME	0x07B2
+#define SAVE_OFFSET_DATE_ENDTRANSF  	0x07BB
+#define SAVE_OFFSET_DATE_INSEASON   	0x07C4
+#define SAVE_OFFSET_DATE_INPLAYOFFS 	0x0000 // a définir
+//===========================================================================
 
 
 //===========================================================================
@@ -166,11 +176,18 @@ bool __fastcall CNLSavedGame::playersUpdate()
 //---------------------------------------------------------------------------
 void __fastcall CNLSavedGame::zero()
 {
-    this->_path			= TXT_NULL;
-    this->_teams		= NULL;
-    this->_players		= NULL;
-    this->_tableTeams	= NULL;
-    this->_tablePlayers	= NULL;
+    this->_path				= TXT_NULL;
+    this->_teams			= NULL;
+    this->_players			= NULL;
+    this->_tableTeams		= NULL;
+    this->_tablePlayers		= NULL;
+    this->_type         	= (tNLSavedGame)0;
+	this->_name				= TXT_NULL;
+    this->_salaryCap		= 0;
+    this->_dateAllStarGame	= (TDate)0;
+    this->_dateEndTransf	= (TDate)0;
+    this->_dateInSeason		= (TDate)0;
+    this->_dateInPlayoffs	= (TDate)0;
 }
 //---------------------------------------------------------------------------
 void __fastcall CNLSavedGame::init()
@@ -247,7 +264,122 @@ void __fastcall CNLSavedGame::deleteTeams()
 //---------------------------------------------------------------------------
 bool __fastcall CNLSavedGame::readSave()
 {
-    return true;
+    bool ok = false;
+
+    AnsiString saveFile = this->_path + FILE_SAVE;
+    if ( FileExists( saveFile ) )
+    {
+
+        // ouverture du fichier en lecture :
+        //----------------------------------
+        TFileStream* f = new TFileStream( saveFile , fmOpenRead );
+
+        // lecture type de sauvegarde :
+        //-----------------------------
+        int type = 0;
+        f->Position = SAVE_OFFSET_TYPE;
+        if ( f->Read( &type , sizeof(type) ) )
+        {
+            switch ( type )
+            {
+                case 6	: this->_type = nlsgSeason; break;
+                case 7	: this->_type = nlsgPlayoffs; break;
+                default	: this->_type = nlsgNotSupported;
+            }
+        }
+
+        if ( this->_type != nlsgNotSupported )
+        {
+            char buf[20];
+        	ZeroMemory( buf , sizeof( buf ) );
+
+            // lecture nom de la sauvegarde :
+            //-------------------------------
+            f->Position = SAVE_OFFSET_NAME;
+            if ( f->Read( buf , sizeof(buf) ) )
+            {
+            	this->_name = AnsiString( buf );
+            }
+            else
+            {
+                this->_name = TXT_NULL;
+            }
+            ZeroMemory( buf , sizeof( buf ) );
+
+            // lecture salary cap :
+            //---------------------
+            f->Position = SAVE_OFFSET_SALARY_CAP;
+            int sc = 0;
+            if ( f->Read( &sc , sizeof(sc) ) )
+            {
+                this->_salaryCap = sc;
+            }
+            else
+            {
+                this->_salaryCap = 0;
+            }
+
+            // lecture date all star game :
+            //----------------------------
+            f->Position = SAVE_OFFSET_DATE_ALLSTARGAME;
+            if ( f->Read( buf , 8 ) )
+            {
+                this->_dateAllStarGame = CDBEngine::stringToDate( AnsiString( buf ) );
+            }
+            else
+            {
+                this->_dateAllStarGame = (TDate)0;
+            }
+            ZeroMemory( buf , sizeof(buf) );
+
+            // lecture date limite des transferts :
+            //-------------------------------------
+            f->Position = SAVE_OFFSET_DATE_ENDTRANSF;
+            if ( f->Read( buf , 8 ) )
+            {
+                this->_dateEndTransf = CDBEngine::stringToDate( AnsiString( buf ) );
+            }
+            else
+            {
+                this->_dateEndTransf = (TDate)0;
+            }
+            ZeroMemory( buf , sizeof(buf) );
+
+            // lecture date actuelle en saison :
+            //----------------------------------
+            f->Position = SAVE_OFFSET_DATE_INSEASON;
+            if ( f->Read( buf , 8 ) )
+            {
+                this->_dateInSeason = CDBEngine::stringToDate( AnsiString( buf ) );
+            }
+            else
+            {
+                this->_dateInSeason = (TDate)0;
+            }
+            ZeroMemory( buf , sizeof(buf) );
+
+            ok = true;
+
+        }
+        else
+        {
+            this->_name = TXT_NULL;
+            this->_salaryCap = 0;
+            this->_dateAllStarGame = (TDate)0;
+            this->_dateEndTransf = (TDate)0;
+            this->_dateInSeason = (TDate)0;
+            this->_dateInPlayoffs = (TDate)0;
+        }
+
+        delete f;
+        f = NULL;
+    }
+    else
+    {
+        this->_type = nlsgNotSupported;
+    }
+
+	return ok;
 }
 //---------------------------------------------------------------------------
 bool __fastcall CNLSavedGame::openTeams()

@@ -15,18 +15,19 @@ object MainDlg: TMainDlg
   OnDestroy = FormDestroy
   PixelsPerInch = 96
   TextHeight = 13
-  object brnPlayerDebug: TButton
+  object btnPlayerDebug: TButton
     Left = 8
-    Top = 27
+    Top = 162
     Width = 129
     Height = 41
     Caption = 'Player Debug'
     TabOrder = 0
-    OnClick = brnPlayerDebugClick
+    Visible = False
+    OnClick = btnPlayerDebugClick
   end
   object btnRosters: TButton
     Left = 8
-    Top = 67
+    Top = 27
     Width = 129
     Height = 41
     Caption = 'Rosters'
@@ -44,11 +45,20 @@ object MainDlg: TMainDlg
   end
   object btnDrafts: TButton
     Left = 8
-    Top = 107
+    Top = 67
     Width = 129
     Height = 41
     Caption = 'Drafts'
     TabOrder = 3
     OnClick = btnDraftsClick
+  end
+  object btnMVP: TButton
+    Left = 8
+    Top = 107
+    Width = 129
+    Height = 41
+    Caption = 'MVPs'
+    TabOrder = 4
+    OnClick = btnMVPClick
   end
 end

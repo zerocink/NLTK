@@ -15,15 +15,17 @@
 class TMainDlg : public TForm
 {
 __published:	// Composants gérés par l'EDI
-	TButton *brnPlayerDebug;
+	TButton *btnPlayerDebug;
 	TButton *btnRosters;
 	TComboBox *cbSavedGamesPaths;
 	TButton *btnDrafts;
+	TButton *btnMVP;
 	void __fastcall FormCreate(TObject *Sender);
 	void __fastcall FormDestroy(TObject *Sender);
-	void __fastcall brnPlayerDebugClick(TObject *Sender);
+	void __fastcall btnPlayerDebugClick(TObject *Sender);
 	void __fastcall btnRostersClick(TObject *Sender);
 	void __fastcall btnDraftsClick(TObject *Sender);
+	void __fastcall btnMVPClick(TObject *Sender);
 private:	// Déclarations utilisateur
 
 

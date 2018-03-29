@@ -12,6 +12,7 @@
 #include "nlSavedGame.h"
 #include "wPlayerDebug.h"
 #include "wIconLists.h"
+#include "dbEngine.h"
 //---------------------------------------------------------------------------
 
 
@@ -127,16 +128,21 @@ void __fastcall TMainDlg::FormDestroy(TObject *Sender)
     this->formDeinit();
 }
 //---------------------------------------------------------------------------
-void __fastcall TMainDlg::brnPlayerDebugClick(TObject *Sender)
+void __fastcall TMainDlg::btnPlayerDebugClick(TObject *Sender)
 {
-    TPlayerDebugDlg* pdebug = new TPlayerDebugDlg( NULL );
+    TDate dt = CDBEngine::stringToDate( AnsiString("20150331") );
+
+    AnsiString s = CDBEngine::dateToString( dt );
+    ShowMessage( s );
+
+/*    TPlayerDebugDlg* pdebug = new TPlayerDebugDlg( NULL );
 
 
     pdebug->ShowModal();
 
 
     delete pdebug;
-    pdebug = NULL;
+    pdebug = NULL;*/
 }
 //---------------------------------------------------------------------------
 void __fastcall TMainDlg::btnRostersClick(TObject *Sender)
@@ -151,7 +157,6 @@ void __fastcall TMainDlg::btnRostersClick(TObject *Sender)
     	this->_rosterEditor->sg = sg;
         this->_rosterEditor->ShowModal();
     }
-
 
     sg->close();
     delete sg;
@@ -175,6 +180,12 @@ void __fastcall TMainDlg::btnDraftsClick(TObject *Sender)
     sg->close();
     delete sg;
     sg = NULL;
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TMainDlg::btnMVPClick(TObject *Sender)
+{
+    //;
 }
 //---------------------------------------------------------------------------
 
