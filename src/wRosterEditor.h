@@ -40,6 +40,7 @@ __published:	// Composants gérés par l'EDI
 	void __fastcall cbTeamSelDrawItem(TWinControl *Control, int Index, TRect &Rect,
           TOwnerDrawState State);
 	void __fastcall gridPlayersColumnMoved(TObject *Sender, int FromIndex, int ToIndex);
+	void __fastcall gridPlayersDblClick(TObject *Sender);
 
 
 

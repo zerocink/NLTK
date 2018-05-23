@@ -220,6 +220,25 @@ class CNLPlayer
         __property WORD       DraftYear     = { read = getDraftYear         };
         __property AnsiString DraftTeam     = { read = getDraftTeam         };
 
+        __property WORD       skillLuciditeOffensive	= { read = getSkillLuciditeOffensive	};
+        __property WORD       skillLuciditeDefensive    = { read = getSkillLuciditeDefensive    };
+        __property WORD       skillDribble		        = { read = getSkillDribble           	};
+        __property WORD       skillPasse			    = { read = getSkillPasse        		};
+        __property WORD       skillAdresse		        = { read = getSkillAdresse          	};
+        __property WORD       skill2Pts			        = { read = getSkill2Pts           		};
+        __property WORD       skill3Pts				    = { read = getSkill3Pts       			};
+        __property WORD       skillLf			        = { read = getSkillLf           		};
+        __property WORD       skillRebondOffensif	    = { read = getSkillRebondOffensif      	};
+        __property WORD       skillRebondDefensif       = { read = getSkillRebondDefensif		};
+        __property WORD       skillInterception         = { read = getSkillInterception 		};
+        __property WORD       skillContre               = { read = getSkillContre           	};
+        __property WORD       skillAgilite              = { read = getSkillAgilite          	};
+        __property WORD       skillEndurance            = { read = getSkillEndurance        	};
+        __property WORD       skillDetente              = { read = getSkillDetente          	};
+        __property WORD       skillPuissance            = { read = getSkillPuissance			};
+        __property WORD       skillVitesse              = { read = getSkillVitesse          	};
+
+        __property WORD       skillDistanceTir          = { read = getSkillDistanceTir          };
 
     private :
 
@@ -284,6 +303,27 @@ class CNLPlayer
         WORD       __fastcall getDraftOverall();
         WORD       __fastcall getDraftYear();
         AnsiString __fastcall getDraftTeam();
+
+        WORD       __fastcall getSkillLuciditeOffensive();
+        WORD       __fastcall getSkillLuciditeDefensive();
+        WORD       __fastcall getSkillDribble();
+        WORD       __fastcall getSkillPasse();
+        WORD       __fastcall getSkillAdresse();
+        WORD       __fastcall getSkill2Pts();
+        WORD       __fastcall getSkill3Pts();
+        WORD       __fastcall getSkillLf();
+        WORD       __fastcall getSkillRebondOffensif();
+        WORD       __fastcall getSkillRebondDefensif();
+        WORD       __fastcall getSkillInterception();
+        WORD       __fastcall getSkillContre();
+        WORD       __fastcall getSkillAgilite();
+        WORD       __fastcall getSkillEndurance();
+        WORD       __fastcall getSkillDetente();
+        WORD       __fastcall getSkillPuissance();
+        WORD       __fastcall getSkillVitesse();
+
+        WORD       __fastcall getSkillDistanceTir();
+
 
         // variables internes :
         //---------------------

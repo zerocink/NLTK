@@ -66,6 +66,25 @@ TStrings* CNLPlayer::_fieldNames = NULL;
 #define FIELD_DOVERALL      AnsiString( "DOVERALL" )
 #define FIELD_DRAFTYEAR     AnsiString( "DRAFTYEAR" )
 #define FIELD_DRAFTEDBY     AnsiString( "DRAFTEDBY" )
+//---------------------------------------------------------------------------
+#define FIELD_SKILL_LUCID_OFF       AnsiString( "OFFABILITY" )
+#define FIELD_SKILL_LUCID_DEF       AnsiString( "DEFABILITY" )
+#define FIELD_SKILL_DRIBBLE       	AnsiString( "DRIBBLE" )
+#define FIELD_SKILL_PASSE      	 	AnsiString( "BALABILITY" )
+#define FIELD_SKILL_ADRESSE       	AnsiString( "INSIDESC" )
+#define FIELD_SKILL_2PTS       		AnsiString( "FGPBASE" )
+#define FIELD_SKILL_3PTS       		AnsiString( "THREEPTBAS" )
+#define FIELD_SKILL_LF       		AnsiString( "FTPBASE" )
+#define FIELD_SKILL_REBOFF       	AnsiString( "OREABILITY" )
+#define FIELD_SKILL_REBDEF       	AnsiString( "DREABILITY" )
+#define FIELD_SKILL_INT       		AnsiString( "STLABILITY" )
+#define FIELD_SKILL_BLK       		AnsiString( "BLKABILITY" )
+#define FIELD_SKILL_AGIL       		AnsiString( "QUICK" )
+#define FIELD_SKILL_ENDU       		AnsiString( "FATIGUE" )
+#define FIELD_SKILL_JUMP       		AnsiString( "JUMP" )
+#define FIELD_SKILL_PUISS       	AnsiString( "DSTRENGTH" )
+#define FIELD_SKILL_SPEED       	AnsiString( "SPEED" )
+#define FIELD_SKILL_DTIR       		AnsiString( "DSHOOTRANG" )
 //===========================================================================
 // CONSTANTES : liste des positions
 //---------------------------------------------------------------------------
@@ -645,6 +664,25 @@ void __fastcall CNLPlayer::createFieldNames()
         CNLPlayer::_fieldNames->Add( FIELD_DOVERALL );
         CNLPlayer::_fieldNames->Add( FIELD_DRAFTYEAR );
         CNLPlayer::_fieldNames->Add( FIELD_DRAFTEDBY );
+
+        CNLPlayer::_fieldNames->Add( FIELD_SKILL_LUCID_OFF );
+        CNLPlayer::_fieldNames->Add( FIELD_SKILL_LUCID_DEF );
+        CNLPlayer::_fieldNames->Add( FIELD_SKILL_DRIBBLE );
+        CNLPlayer::_fieldNames->Add( FIELD_SKILL_PASSE );
+        CNLPlayer::_fieldNames->Add( FIELD_SKILL_ADRESSE );
+        CNLPlayer::_fieldNames->Add( FIELD_SKILL_2PTS );
+        CNLPlayer::_fieldNames->Add( FIELD_SKILL_3PTS );
+        CNLPlayer::_fieldNames->Add( FIELD_SKILL_LF );
+        CNLPlayer::_fieldNames->Add( FIELD_SKILL_REBOFF );
+        CNLPlayer::_fieldNames->Add( FIELD_SKILL_REBDEF );
+        CNLPlayer::_fieldNames->Add( FIELD_SKILL_INT );
+        CNLPlayer::_fieldNames->Add( FIELD_SKILL_BLK );
+        CNLPlayer::_fieldNames->Add( FIELD_SKILL_AGIL );
+        CNLPlayer::_fieldNames->Add( FIELD_SKILL_ENDU );
+        CNLPlayer::_fieldNames->Add( FIELD_SKILL_JUMP );
+        CNLPlayer::_fieldNames->Add( FIELD_SKILL_PUISS );
+        CNLPlayer::_fieldNames->Add( FIELD_SKILL_SPEED );
+        CNLPlayer::_fieldNames->Add( FIELD_SKILL_DTIR );
     }
 }
 //---------------------------------------------------------------------------
@@ -1215,6 +1253,222 @@ AnsiString __fastcall CNLPlayer::getDraftTeam()
     }
 
     return TEAM;
+}
+//---------------------------------------------------------------------------
+WORD __fastcall CNLPlayer::getSkillLuciditeOffensive()
+{
+    WORD LUCID_OFF = 0;
+
+    if ( this->_record )
+    {
+        LUCID_OFF = this->_record->ram[ FIELD_SKILL_LUCID_OFF ].ToIntDef( 0 );
+    }
+
+    return LUCID_OFF;
+}
+//---------------------------------------------------------------------------
+WORD __fastcall CNLPlayer::getSkillLuciditeDefensive()
+{
+    WORD LUCID_DEF = 0;
+
+    if ( this->_record )
+    {
+        LUCID_DEF = this->_record->ram[ FIELD_SKILL_LUCID_DEF ].ToIntDef( 0 );
+    }
+
+    return LUCID_DEF;
+}
+//---------------------------------------------------------------------------
+WORD __fastcall CNLPlayer::getSkillDribble()
+{
+    WORD DRIBBLE = 0;
+
+    if ( this->_record )
+    {
+        DRIBBLE = this->_record->ram[ FIELD_SKILL_DRIBBLE ].ToIntDef( 0 );
+    }
+
+    return DRIBBLE;
+}
+//---------------------------------------------------------------------------
+WORD __fastcall CNLPlayer::getSkillPasse()
+{
+    WORD PASSE = 0;
+
+    if ( this->_record )
+    {
+        PASSE = this->_record->ram[ FIELD_SKILL_PASSE ].ToIntDef( 0 );
+    }
+
+    return PASSE;
+}
+//---------------------------------------------------------------------------
+WORD __fastcall CNLPlayer::getSkillAdresse()
+{
+    WORD ADRESSE = 0;
+
+    if ( this->_record )
+    {
+        ADRESSE = this->_record->ram[ FIELD_SKILL_ADRESSE ].ToIntDef( 0 );
+    }
+
+    return ADRESSE;
+}
+//---------------------------------------------------------------------------
+WORD __fastcall CNLPlayer::getSkill2Pts()
+{
+    WORD _2PTS = 0;
+
+    if ( this->_record )
+    {
+        _2PTS = this->_record->ram[ FIELD_SKILL_2PTS ].ToIntDef( 0 );
+    }
+
+    return _2PTS;
+}
+//---------------------------------------------------------------------------
+WORD __fastcall CNLPlayer::getSkill3Pts()
+{
+    WORD _3PTS = 0;
+
+    if ( this->_record )
+    {
+        _3PTS = this->_record->ram[ FIELD_SKILL_3PTS ].ToIntDef( 0 );
+    }
+
+    return _3PTS;
+}
+//---------------------------------------------------------------------------
+WORD __fastcall CNLPlayer::getSkillLf()
+{
+    WORD LF = 0;
+
+    if ( this->_record )
+    {
+        LF = this->_record->ram[ FIELD_SKILL_LF ].ToIntDef( 0 );
+    }
+
+    return LF;
+}
+//---------------------------------------------------------------------------
+WORD __fastcall CNLPlayer::getSkillRebondOffensif()
+{
+    WORD REBOFF = 0;
+
+    if ( this->_record )
+    {
+        REBOFF = this->_record->ram[ FIELD_SKILL_REBOFF ].ToIntDef( 0 );
+    }
+
+    return REBOFF;
+}
+//---------------------------------------------------------------------------
+WORD __fastcall CNLPlayer::getSkillRebondDefensif()
+{
+    WORD REBDEF = 0;
+
+    if ( this->_record )
+    {
+        REBDEF = this->_record->ram[ FIELD_SKILL_REBDEF ].ToIntDef( 0 );
+    }
+
+    return REBDEF;
+}
+//---------------------------------------------------------------------------
+WORD __fastcall CNLPlayer::getSkillInterception()
+{
+    WORD INT = 0;
+
+    if ( this->_record )
+    {
+        INT = this->_record->ram[ FIELD_SKILL_INT ].ToIntDef( 0 );
+    }
+
+    return INT;
+}
+//---------------------------------------------------------------------------
+WORD __fastcall CNLPlayer::getSkillContre()
+{
+    WORD BLK = 0;
+
+    if ( this->_record )
+    {
+        BLK = this->_record->ram[ FIELD_SKILL_BLK ].ToIntDef( 0 );
+    }
+
+    return BLK;
+}
+//---------------------------------------------------------------------------
+WORD __fastcall CNLPlayer::getSkillAgilite()
+{
+    WORD AGIL = 0;
+
+    if ( this->_record )
+    {
+        AGIL = this->_record->ram[ FIELD_SKILL_AGIL ].ToIntDef( 0 );
+    }
+
+    return AGIL;
+}
+//---------------------------------------------------------------------------
+WORD __fastcall CNLPlayer::getSkillEndurance()
+{
+    WORD ENDU = 0;
+
+    if ( this->_record )
+    {
+        ENDU = this->_record->ram[ FIELD_SKILL_ENDU ].ToIntDef( 0 );
+    }
+
+    return ENDU;
+}
+//---------------------------------------------------------------------------
+WORD __fastcall CNLPlayer::getSkillDetente()
+{
+    WORD JUMP = 0;
+
+    if ( this->_record )
+    {
+        JUMP = this->_record->ram[ FIELD_SKILL_JUMP ].ToIntDef( 0 );
+    }
+
+    return JUMP;
+}
+//---------------------------------------------------------------------------
+WORD __fastcall CNLPlayer::getSkillPuissance()
+{
+    WORD PUISS = 0;
+
+    if ( this->_record )
+    {
+        PUISS = this->_record->ram[ FIELD_SKILL_PUISS ].ToIntDef( 0 );
+    }
+
+    return PUISS;
+}
+//---------------------------------------------------------------------------
+WORD __fastcall CNLPlayer::getSkillVitesse()
+{
+    WORD SPEED = 0;
+
+    if ( this->_record )
+    {
+        SPEED = this->_record->ram[ FIELD_SKILL_SPEED ].ToIntDef( 0 );
+    }
+
+    return SPEED;
+}
+//---------------------------------------------------------------------------
+WORD __fastcall CNLPlayer::getSkillDistanceTir()
+{
+    WORD DTIR = 0;
+
+    if ( this->_record )
+    {
+        DTIR = this->_record->ram[ FIELD_SKILL_DTIR ].ToIntDef( 0 );
+    }
+
+    return DTIR;
 }
 //===========================================================================
 //===========================================================================

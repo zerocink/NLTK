@@ -9,6 +9,7 @@
 #include "NLTK_common.h"
 #include "wIconLists.h"
 #include "wAcceptChanges.h"
+#include "wPlayerSkills.h"
 //---------------------------------------------------------------------------
 //===========================================================================
 
@@ -570,6 +571,21 @@ void __fastcall TRosterEditorDlg::gridPlayersColumnMoved(TObject *Sender, int Fr
     {
         this->_fieldCols->Move( FromIndex,ToIndex );
     }
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TRosterEditorDlg::gridPlayersDblClick(TObject *Sender)
+{
+    // édition du joueur sélectionné dans la fenêtre skills :
+    //-------------------------------------------------------
+    CNLPlayer* p = this->getPlayerAtRow( this->gridPlayers->Row );
+
+    TPlayerSkillsDlg* skills = new TPlayerSkillsDlg( this );
+
+    skills->showPlayerSkills( p );
+
+    delete skills;
+    skills = NULL;
 }
 //---------------------------------------------------------------------------
 

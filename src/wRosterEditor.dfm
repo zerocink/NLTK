@@ -23,7 +23,6 @@ object RosterEditorDlg: TRosterEditorDlg
     Align = alTop
     BevelOuter = bvNone
     TabOrder = 0
-    ExplicitWidth = 626
     object btnTeamPrev: TButton
       Left = 0
       Top = 0
@@ -47,7 +46,6 @@ object RosterEditorDlg: TRosterEditorDlg
       Images = IconListsDlg.ilIconSet48x48_blue
       TabOrder = 1
       OnClick = btnTeamNextClick
-      ExplicitLeft = 551
     end
     object cbTeamSel: TComboBox
       Left = 75
@@ -71,7 +69,6 @@ object RosterEditorDlg: TRosterEditorDlg
       OnChange = cbTeamSelChange
       OnDrawItem = cbTeamSelDrawItem
       OnMeasureItem = cbTeamSelMeasureItem
-      ExplicitWidth = 476
     end
   end
   object gridPlayers: TStringGrid
@@ -86,9 +83,8 @@ object RosterEditorDlg: TRosterEditorDlg
     ParentDoubleBuffered = False
     TabOrder = 1
     OnColumnMoved = gridPlayersColumnMoved
+    OnDblClick = gridPlayersDblClick
     OnDrawCell = gridPlayersDrawCell
-    ExplicitWidth = 626
-    ExplicitHeight = 426
   end
   object pnlCmd: TPanel
     Left = 0
@@ -98,8 +94,6 @@ object RosterEditorDlg: TRosterEditorDlg
     Align = alBottom
     BevelOuter = bvNone
     TabOrder = 2
-    ExplicitTop = 485
-    ExplicitWidth = 626
     object btnMoveUp: TButton
       Left = 0
       Top = 0
@@ -135,7 +129,6 @@ object RosterEditorDlg: TRosterEditorDlg
       Images = IconListsDlg.ilIconSet48x48_green
       TabOrder = 2
       OnClick = btnAcceptClick
-      ExplicitLeft = 537
     end
   end
 end

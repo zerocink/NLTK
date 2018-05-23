@@ -183,19 +183,26 @@
             <DependentOn>wPlayerDebug.h</DependentOn>
             <BuildOrder>2</BuildOrder>
         </CppCompile>
+        <CppCompile Include="wPlayerSkills.cpp">
+            <Form>PlayerSkillsDlg</Form>
+            <FormType>dfm</FormType>
+            <DependentOn>wPlayerSkills.h</DependentOn>
+            <BuildOrder>16</BuildOrder>
+        </CppCompile>
         <CppCompile Include="wRosterEditor.cpp">
             <Form>RosterEditorDlg</Form>
             <FormType>dfm</FormType>
             <DependentOn>wRosterEditor.h</DependentOn>
             <BuildOrder>11</BuildOrder>
         </CppCompile>
+        <FormResources Include="wIconLists.dfm"/>
         <FormResources Include="wDraftReview.dfm"/>
         <FormResources Include="wAcceptChanges.dfm"/>
-        <FormResources Include="wIconLists.dfm"/>
         <FormResources Include="wRosterEditor.dfm"/>
         <FormResources Include="wPlayerDebug.dfm"/>
-        <FormResources Include="wMain.dfm"/>
         <FormResources Include="wMVPReview.dfm"/>
+        <FormResources Include="wMain.dfm"/>
+        <FormResources Include="wPlayerSkills.dfm"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>
