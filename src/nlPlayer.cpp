@@ -85,23 +85,7 @@ TStrings* CNLPlayer::_fieldNames = NULL;
 #define FIELD_SKILL_PUISS       	AnsiString( "DSTRENGTH" )
 #define FIELD_SKILL_SPEED       	AnsiString( "SPEED" )
 #define FIELD_SKILL_DTIR       		AnsiString( "DSHOOTRANG" )
-//===========================================================================
-// CONSTANTES : liste des positions
-//---------------------------------------------------------------------------
-#define POS_PG           4
-#define POS_SG           3
-#define POS_SF           2
-#define POS_PF           1
-#define POS_C            0
-#define POS_NONE	  	-1
-#define POS_UNDEF       -2
-//---------------------------------------------------------------------------
-#define POS_PG_TXT          AnsiString( "PG" )
-#define POS_SG_TXT          AnsiString( "SG" )
-#define POS_SF_TXT          AnsiString( "SF" )
-#define POS_PF_TXT          AnsiString( "PF" )
-#define POS_C_TXT           AnsiString( "C"  )
-#define POS_NONE_TXT        AnsiString( "-"  )
+
 //===========================================================================
 // CONSTANTES : liste des équipes
 //---------------------------------------------------------------------------
@@ -830,6 +814,23 @@ AnsiString __fastcall CNLPlayer::getPosition2()
     }
 
     return POSITION2;
+}
+//---------------------------------------------------------------------------
+void __fastcall CNLPlayer::setPosition2( AnsiString position2 )
+{
+    AnsiString POSITION2 = TXT_NULL;
+
+    if ( position2 != this->Position1 && this->_record  )
+    {
+        if ( position2 == POS_PG_TXT ) POSITION2 = IntToStr( POS_PG );
+        else if ( position2 == POS_SG_TXT ) POSITION2 = IntToStr( POS_SG );
+        else if ( position2 == POS_SF_TXT ) POSITION2 = IntToStr( POS_SF );
+        else if ( position2 == POS_PF_TXT ) POSITION2 = IntToStr( POS_PF );
+        else if ( position2 == POS_C_TXT ) POSITION2 = IntToStr( POS_SF );
+        else if ( position2 == POS_NONE_TXT ) POSITION2 = IntToStr( POS_NONE );
+
+        this->_record->ram[ FIELD_POSITION2 ] = POSITION2;
+    }
 }
 //---------------------------------------------------------------------------
 WORD __fastcall CNLPlayer::getTeam()

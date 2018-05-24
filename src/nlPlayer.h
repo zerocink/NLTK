@@ -25,6 +25,23 @@
 #define DRAFT_YEAR_UNDEF            (WORD(0))
 #define DRAFT_TEAM_UNDEF            TXT_NULL
 //===========================================================================
+// CONSTANTES : liste des positions
+//---------------------------------------------------------------------------
+#define POS_PG           4
+#define POS_SG           3
+#define POS_SF           2
+#define POS_PF           1
+#define POS_C            0
+#define POS_NONE	  	-1
+#define POS_UNDEF       -2
+//---------------------------------------------------------------------------
+#define POS_PG_TXT          AnsiString( "PG" )
+#define POS_SG_TXT          AnsiString( "SG" )
+#define POS_SF_TXT          AnsiString( "SF" )
+#define POS_PF_TXT          AnsiString( "PF" )
+#define POS_C_TXT           AnsiString( "C"  )
+#define POS_NONE_TXT        AnsiString( "-"  )
+//===========================================================================
 
 //===========================================================================
 // Pré-déclarations des classes
@@ -182,7 +199,7 @@ class CNLPlayer
         __property WORD	      Weight 		= { read = getWeight		};
         __property WORD 	  Height    	= { read = getHeight		};
         __property AnsiString Position1 	= { read = getPosition1 	};
-        __property AnsiString Position2 	= { read = getPosition2 	};
+        __property AnsiString Position2 	= { read = getPosition2 	, write = setPosition2 };
         __property WORD       Team          = { read = getTeam          };
         __property WORD       RosterPos	 	= { read = getRosterPos	 	, write = setRosterPos };
         __property AnsiString RosterPosText = { read = getRosterPosText };
@@ -265,6 +282,7 @@ class CNLPlayer
         WORD        __fastcall getHeight();
         AnsiString  __fastcall getPosition1();
         AnsiString  __fastcall getPosition2();
+        void        __fastcall setPosition2( AnsiString position2 );
         WORD        __fastcall getTeam();
         WORD        __fastcall getRosterPos();
         void        __fastcall setRosterPos( WORD rosterPos );

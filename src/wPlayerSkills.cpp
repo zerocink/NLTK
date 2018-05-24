@@ -60,6 +60,17 @@ void __fastcall TPlayerSkillsDlg::deinit()
 //---------------------------------------------------------------------------
 void __fastcall TPlayerSkillsDlg::formInit()
 {
+
+    this->cbChangePosition2->Items->Clear();
+    this->cbChangePosition2->Items->Add( "Pas de changement" );
+    this->cbChangePosition2->Items->Add( POS_NONE_TXT );
+    this->cbChangePosition2->Items->Add( POS_PG_TXT );
+    this->cbChangePosition2->Items->Add( POS_SG_TXT );
+    this->cbChangePosition2->Items->Add( POS_SF_TXT );
+    this->cbChangePosition2->Items->Add( POS_PF_TXT );
+    this->cbChangePosition2->Items->Add( POS_C_TXT );
+
+
     gridStats->ColCount = 12;
     gridStats->RowCount = 2;
 
@@ -202,8 +213,10 @@ void __fastcall TPlayerSkillsDlg::playerDisplay()
         AnsiString txt;
         float taille = ((float)this->_p->Height) / 100.0;
         pnlBio->Caption = txt.sprintf( "%s - %s %s ( %.2f m / %d kg ) Exp. %d" , this->_p->Number , this->_p->FName , this->_p->Name.UpperCase() , taille , this->_p->Weight , this->_p->YearsExp );
-        pnlPos1->Caption = this->_p->Position1;
+        pnlPos1->Caption = txt.sprintf( "%s (%.1f)" , this->_p->Position1 , this->_p->OverallRtg );
         pnlPos2->Caption = this->_p->Position2;
+
+        this->cbChangePosition2->ItemIndex = 0;
 
         CNLPlayerStats ps;
         this->_p->loadSeasonStats( ps );
@@ -332,6 +345,15 @@ void __fastcall TPlayerSkillsDlg::playerDisplay()
         this->gridSkills->Cells[13][15] = IntToStr( this->_p->skillPuissance );
         this->gridSkills->Cells[13][16] = IntToStr( this->_p->skillVitesse );
         this->gridSkills->Cells[13][17] = IntToStr( this->_p->skillContre );
+
+        for ( int i = 1 ; i < this->gridSkills->RowCount ; i++ )
+        {
+            this->gridSkills->Cells[2][i] = StringOfChar(' ',30);
+            this->gridSkills->Cells[5][i] = StringOfChar(' ',30);
+            this->gridSkills->Cells[8][i] = StringOfChar(' ',30);
+            this->gridSkills->Cells[11][i] = StringOfChar(' ',30);
+            this->gridSkills->Cells[14][i] = StringOfChar(' ',30);
+        }
     }
     else
     {
@@ -352,7 +374,6 @@ void __fastcall TPlayerSkillsDlg::playerDisplay()
     this->gridAutoSizeCol( this->gridStats , -1);
     this->gridAutoSizeCol( this->gridSkills , -1);
 }
-//---------------------------------------------------------------------------
 //---------------------------------------------------------------------------
 void __fastcall TPlayerSkillsDlg::gridAutoSizeCol( TStringGrid* grid , int col )
 {
@@ -379,6 +400,21 @@ void __fastcall TPlayerSkillsDlg::gridAutoSizeCol( TStringGrid* grid , int col )
         }
     }
 }
+//---------------------------------------------------------------------------
+bool __fastcall TPlayerSkillsDlg::getChangePos2()
+{
+    return ( this->cbChangePosition2->ItemIndex > 0 );
+}
+//---------------------------------------------------------------------------
+AnsiString __fastcall TPlayerSkillsDlg::getNewPos2()
+{
+    return ( this->cbChangePosition2->Text );
+}
+//---------------------------------------------------------------------------
+//---------------------------------------------------------------------------
+//---------------------------------------------------------------------------
+//---------------------------------------------------------------------------
+//---------------------------------------------------------------------------
 //---------------------------------------------------------------------------
 //===========================================================================
 //===========================================================================
@@ -410,5 +446,28 @@ void __fastcall TPlayerSkillsDlg::FormCreate(TObject *Sender)
 void __fastcall TPlayerSkillsDlg::FormDestroy(TObject *Sender)
 {
     this->formDeinit();
+}
+//---------------------------------------------------------------------------
+void __fastcall TPlayerSkillsDlg::gridSkillsDrawCell(TObject *Sender, int ACol, int ARow,
+          TRect &Rect, TGridDrawState State)
+{
+    TStringGrid* grid = (TStringGrid*)Sender;
+
+    if ( grid && ACol % 3 == 2 && ARow >= 1 )
+    {
+        double val = (double)grid->Cells[ACol-1][ARow].ToIntDef(0);
+
+        double w = (double)Rect.Width() * ( val / 99.0 );
+
+        TRect bargraph;
+        bargraph.left = Rect.left;
+        bargraph.top = Rect.top;
+        bargraph.right = Rect.left + (int)w;
+        bargraph.bottom = Rect.bottom;
+        grid->Canvas->Pen->Color = clRed;
+        grid->Canvas->Brush->Color = clRed;
+        //grid->Canvas->FillRect(bargraph);
+        grid->Canvas->Rectangle( bargraph.left , bargraph.top , bargraph.right , bargraph.bottom );
+    }
 }
 //---------------------------------------------------------------------------

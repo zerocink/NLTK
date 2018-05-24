@@ -582,7 +582,11 @@ void __fastcall TRosterEditorDlg::gridPlayersDblClick(TObject *Sender)
 
     TPlayerSkillsDlg* skills = new TPlayerSkillsDlg( this );
 
-    skills->showPlayerSkills( p );
+    if ( skills->showPlayerSkills( p )  && skills->changePos2 )
+    {
+        p->Position2 = skills->newPos2;
+        this->playerDisplay( p , this->gridPlayers->Row );
+    }
 
     delete skills;
     skills = NULL;

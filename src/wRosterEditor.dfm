@@ -94,6 +94,7 @@ object RosterEditorDlg: TRosterEditorDlg
     Align = alBottom
     BevelOuter = bvNone
     TabOrder = 2
+    ExplicitTop = 489
     object btnMoveUp: TButton
       Left = 0
       Top = 0
