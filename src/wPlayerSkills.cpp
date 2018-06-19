@@ -471,3 +471,4 @@ void __fastcall TPlayerSkillsDlg::gridSkillsDrawCell(TObject *Sender, int ACol, 
     }
 }
 //---------------------------------------------------------------------------
+

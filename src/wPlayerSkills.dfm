@@ -122,8 +122,6 @@ object PlayerSkillsDlg: TPlayerSkillsDlg
     ParentDoubleBuffered = False
     TabOrder = 1
     OnDrawCell = gridSkillsDrawCell
-    ExplicitTop = 199
-    ExplicitHeight = 263
     ColWidths = (
       64
       64
@@ -150,7 +148,6 @@ object PlayerSkillsDlg: TPlayerSkillsDlg
       Images = IconListsDlg.ilIconSet48x48_green
       ModalResult = 1
       TabOrder = 0
-      ExplicitTop = 6
     end
   end
 end

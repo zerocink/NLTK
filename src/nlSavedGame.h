@@ -79,6 +79,7 @@ class CNLSavedGame
         __property tNLSavedGame type 			= { read = _type 			};
         __property AnsiString   name 			= { read = _name		    };
         __property int          salaryCap 		= { read = _salaryCap		};
+        __property TDate        dateActive		= { read = getDateActive    };
         __property TDate        dateAllStarGame = { read = _dateAllStarGame	};
         __property TDate        dateEndTransf   = { read = _dateEndTransf	};
         __property TDate        dateInSeason    = { read = _dateInSeason    };
@@ -110,6 +111,7 @@ class CNLSavedGame
         CNLPlayer* 	__fastcall getPlayerByIndex( int index );
         int         __fastcall getPlayerCount();
         bool        __fastcall getPlayersDif();
+        TDate       __fastcall getDateActive();
 
         // variables internes :
         //---------------------

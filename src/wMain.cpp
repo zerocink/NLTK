@@ -6,6 +6,7 @@
 //---------------------------------------------------------------------------
 #include "wRosterEditor.h"
 #include "wDraftReview.h"
+#include "wInjuryCleaner.h"
 //---------------------------------------------------------------------------
 #include "wMain.h"
 //---------------------------------------------------------------------------
@@ -44,6 +45,7 @@ void __fastcall TMainDlg::init()
 {
     if ( !this->_rosterEditor ) this->_rosterEditor = new TRosterEditorDlg(NULL );
     if ( !this->_draftReview ) this->_draftReview = new TDraftReviewDlg( NULL );
+    if ( !this->_injuryCleaner ) this->_injuryCleaner = new TInjuryCleanerDlg( NULL );
 }
 //---------------------------------------------------------------------------
 void __fastcall TMainDlg::deinit()
@@ -59,12 +61,19 @@ void __fastcall TMainDlg::deinit()
     	delete this->_rosterEditor;
         this->_rosterEditor = NULL;
     }
+    if ( this->_injuryCleaner )
+    {
+        delete this->_injuryCleaner;
+        this->_injuryCleaner = NULL;
+    }
 
 }
 //---------------------------------------------------------------------------
 void __fastcall TMainDlg::formInit()
 {
     this->Caption = Application->Title;
+    this->btnMVP->Visible = false;
+    this->btnPlayerDebug->Visible = false;
 
     this->loadSavedGamesPaths();
 }
@@ -186,6 +195,25 @@ void __fastcall TMainDlg::btnDraftsClick(TObject *Sender)
 void __fastcall TMainDlg::btnMVPClick(TObject *Sender)
 {
     //;
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TMainDlg::btnInjuryCleanerClick(TObject *Sender)
+{
+ 	AnsiString path = this->cbSavedGamesPaths->Items->Strings[ this->cbSavedGamesPaths->ItemIndex ];
+
+    CNLSavedGame* sg = new CNLSavedGame( path );
+    bool ok = sg->open();
+
+    if ( this->_injuryCleaner )
+    {
+    	this->_injuryCleaner->sg = sg;
+        this->_injuryCleaner->ShowModal();
+    }
+
+    sg->close();
+    delete sg;
+    sg = NULL;
 }
 //---------------------------------------------------------------------------
 

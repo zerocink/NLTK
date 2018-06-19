@@ -37,6 +37,8 @@ TStrings* CNLPlayer::_fieldNames = NULL;
 #define FIELD_OVERALLRTG    AnsiString( "OVERALLRTG" )
 #define FIELD_YEARSEXP      AnsiString( "YEARSEXP" )
 #define FIELD_INJURYID      AnsiString( "INJURYID" )
+#define FIELD_INJURYDATE    AnsiString( "INJURYDATE" )
+#define FIELD_RECOVERYDATE	AnsiString( "RECOVRDATE" )
 #define FIELD_ISPLAYABLE    AnsiString( "ISPLAYABLE" )
 //---------------------------------------------------------------------------
 #define FIELD_WEEKLYMVP     AnsiString( "WEEKLYMVP" )
@@ -619,6 +621,8 @@ void __fastcall CNLPlayer::createFieldNames()
         CNLPlayer::_fieldNames->Add( FIELD_OVERALLRTG );
         CNLPlayer::_fieldNames->Add( FIELD_YEARSEXP );
         CNLPlayer::_fieldNames->Add( FIELD_INJURYID );
+        CNLPlayer::_fieldNames->Add( FIELD_INJURYDATE );
+        CNLPlayer::_fieldNames->Add( FIELD_RECOVERYDATE );
         CNLPlayer::_fieldNames->Add( FIELD_ISPLAYABLE );
 
         CNLPlayer::_fieldNames->Add( FIELD_WEEKLYMVP );
@@ -944,6 +948,46 @@ WORD __fastcall CNLPlayer::getInjuryId()
     return INJURYID;
 }
 //---------------------------------------------------------------------------
+void __fastcall CNLPlayer::setInjuryId( WORD injuryId )
+{
+    AnsiString INJURYID = TXT_NULL;
+    if ( injuryId != INJURYID_UNDEF )
+    {
+        INJURYID = IntToStr( injuryId );
+    }
+    if ( this->_record ) this->_record->ram[ FIELD_INJURYID ] = INJURYID;
+}
+//---------------------------------------------------------------------------
+AnsiString __fastcall CNLPlayer::getInjuryDate()
+{
+    AnsiString INJURYDATE = TXT_NULL;
+    if ( this->_record )
+    {
+        INJURYDATE = this->_record->ram[ FIELD_INJURYDATE ];
+    }
+    return INJURYDATE;
+}
+//---------------------------------------------------------------------------
+void __fastcall CNLPlayer::setInjuryDate( AnsiString injuryDate )
+{
+    if ( this->_record ) this->_record->ram[ FIELD_INJURYDATE ] = injuryDate;
+}
+//---------------------------------------------------------------------------
+AnsiString __fastcall CNLPlayer::getRecoveryDate()
+{
+    AnsiString RECOVERYDATE = TXT_NULL;
+    if ( this->_record )
+    {
+        RECOVERYDATE = this->_record->ram[ FIELD_RECOVERYDATE ];
+    }
+    return RECOVERYDATE;
+}
+//---------------------------------------------------------------------------
+void __fastcall CNLPlayer::setRecoveryDate( AnsiString recoveryDate )
+{
+    if ( this->_record ) this->_record->ram[ FIELD_RECOVERYDATE ] = recoveryDate;
+}
+//---------------------------------------------------------------------------
 bool __fastcall CNLPlayer::getIsPlayable()
 {
     bool ISPLAYABLE = false;
@@ -954,6 +998,11 @@ bool __fastcall CNLPlayer::getIsPlayable()
     }
 
     return ISPLAYABLE;
+}
+//---------------------------------------------------------------------------
+void __fastcall CNLPlayer::setIsPlayable( bool isPlayable )
+{
+    if ( this->_record ) this->_record->ram[ FIELD_ISPLAYABLE ] = CDBEngine::boolToString( isPlayable);
 }
 //---------------------------------------------------------------------------
 WORD __fastcall CNLPlayer::getWeeklyMvp()

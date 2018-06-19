@@ -206,8 +206,10 @@ class CNLPlayer
         __property bool       InSeason      = { read = getInSeason      };
         __property double     OverallRtg    = { read = getOverallRtg    };
         __property WORD       YearsExp      = { read = getYearsExp      };
-        __property WORD       InjuryId      = { read = getInjuryId      };
-        __property bool       IsPlayable    = { read = getIsPlayable	};
+        __property WORD       InjuryId      = { read = getInjuryId      , write = setInjuryId };
+        __property AnsiString InjuryDate    = { read = getInjuryDate    , write = setInjuryDate };
+        __property AnsiString RecoveryDate  = { read = getRecoveryDate  , write = setRecoveryDate };
+        __property bool       IsPlayable    = { read = getIsPlayable	, write = setIsPlayable };
 
         __property WORD       weeklyMvp     = { read = getWeeklyMvp 		};
         __property WORD       monthlyMvp    = { read = getMonthlyMvp 		};
@@ -291,7 +293,13 @@ class CNLPlayer
         double      __fastcall getOverallRtg();
         WORD        __fastcall getYearsExp();
         WORD        __fastcall getInjuryId();
+        void        __fastcall setInjuryId( WORD injuryId );
+        AnsiString  __fastcall getInjuryDate();
+        void        __fastcall setInjuryDate( AnsiString injuryDate );
+        AnsiString  __fastcall getRecoveryDate();
+        void        __fastcall setRecoveryDate( AnsiString recoveryDate );
         bool        __fastcall getIsPlayable();
+        void        __fastcall setIsPlayable( bool isPlayable );
 
         WORD        __fastcall getWeeklyMvp();
         WORD        __fastcall getMonthlyMvp();

@@ -53,12 +53,21 @@ object MainDlg: TMainDlg
     OnClick = btnDraftsClick
   end
   object btnMVP: TButton
-    Left = 8
-    Top = 107
+    Left = 143
+    Top = 162
     Width = 129
     Height = 41
     Caption = 'MVPs'
     TabOrder = 4
     OnClick = btnMVPClick
+  end
+  object btnInjuryCleaner: TButton
+    Left = 8
+    Top = 107
+    Width = 129
+    Height = 41
+    Caption = 'Injury Cleaner'
+    TabOrder = 5
+    OnClick = btnInjuryCleanerClick
   end
 end

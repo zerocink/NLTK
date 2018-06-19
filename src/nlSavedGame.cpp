@@ -38,7 +38,7 @@
 #define SAVE_OFFSET_DATE_ALLSTARGAME	0x07B2
 #define SAVE_OFFSET_DATE_ENDTRANSF  	0x07BB
 #define SAVE_OFFSET_DATE_INSEASON   	0x07C4
-#define SAVE_OFFSET_DATE_INPLAYOFFS 	0x0000 // a définir
+#define SAVE_OFFSET_DATE_INPLAYOFFS 	0x07C4
 //===========================================================================
 
 
@@ -358,6 +358,19 @@ bool __fastcall CNLSavedGame::readSave()
             }
             ZeroMemory( buf , sizeof(buf) );
 
+            // lecture date actuelle en playoffs :
+            //------------------------------------
+            f->Position = SAVE_OFFSET_DATE_INPLAYOFFS;
+            if ( f->Read( buf , 8 ) )
+            {
+                this->_dateInPlayoffs = CDBEngine::stringToDate( AnsiString( buf ) );
+            }
+            else
+            {
+                this->_dateInPlayoffs = (TDate)0;
+            }
+            ZeroMemory( buf , sizeof(buf) );
+
             ok = true;
 
         }
@@ -560,6 +573,16 @@ bool __fastcall CNLSavedGame::getPlayersDif()
     return false;
 }
 //---------------------------------------------------------------------------
+TDate __fastcall CNLSavedGame::getDateActive()
+{
+    switch ( this->_type )
+    {
+        case nlsgSeason	: return this->_dateInSeason;
+        case nlsgPlayoffs : return this->_dateInPlayoffs;
+    }
+
+    return (TDate)0;
+}
 //===========================================================================
 //===========================================================================
 //===========================================================================

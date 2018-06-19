@@ -1,0 +1,66 @@
+object InjuryCleanerDlg: TInjuryCleanerDlg
+  Left = 0
+  Top = 0
+  Caption = 'InjuryCleanerDlg'
+  ClientHeight = 147
+  ClientWidth = 529
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  OnCreate = FormCreate
+  OnDestroy = FormDestroy
+  PixelsPerInch = 96
+  TextHeight = 13
+  object lblPlayer: TLabel
+    Left = 0
+    Top = 0
+    Width = 529
+    Height = 32
+    Align = alTop
+    AutoSize = False
+    Caption = 'Joueurs'
+    ExplicitTop = 81
+  end
+  object pbPlayers: TProgressBar
+    Left = 0
+    Top = 32
+    Width = 529
+    Height = 56
+    Align = alTop
+    TabOrder = 0
+    ExplicitTop = 101
+  end
+  object btnRun: TButton
+    Left = 351
+    Top = 88
+    Width = 89
+    Height = 59
+    Align = alRight
+    ImageAlignment = iaCenter
+    ImageIndex = 190
+    Images = IconListsDlg.ilIconSet48x48_blue
+    TabOrder = 1
+    OnClick = btnRunClick
+    ExplicitLeft = 440
+    ExplicitTop = 0
+    ExplicitHeight = 60
+  end
+  object btnAccept: TButton
+    Left = 440
+    Top = 88
+    Width = 89
+    Height = 59
+    Align = alRight
+    ImageAlignment = iaCenter
+    ImageIndex = 191
+    Images = IconListsDlg.ilIconSet48x48_green
+    TabOrder = 2
+    OnClick = btnAcceptClick
+    ExplicitTop = 0
+    ExplicitHeight = 60
+  end
+end

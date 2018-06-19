@@ -165,6 +165,12 @@
             <DependentOn>wIconLists.h</DependentOn>
             <BuildOrder>12</BuildOrder>
         </CppCompile>
+        <CppCompile Include="wInjuryCleaner.cpp">
+            <Form>InjuryCleanerDlg</Form>
+            <FormType>dfm</FormType>
+            <DependentOn>wInjuryCleaner.h</DependentOn>
+            <BuildOrder>17</BuildOrder>
+        </CppCompile>
         <CppCompile Include="wMain.cpp">
             <Form>MainDlg</Form>
             <FormType>dfm</FormType>
@@ -195,14 +201,15 @@
             <DependentOn>wRosterEditor.h</DependentOn>
             <BuildOrder>11</BuildOrder>
         </CppCompile>
+        <FormResources Include="wMain.dfm"/>
         <FormResources Include="wIconLists.dfm"/>
         <FormResources Include="wDraftReview.dfm"/>
         <FormResources Include="wAcceptChanges.dfm"/>
         <FormResources Include="wRosterEditor.dfm"/>
+        <FormResources Include="wPlayerSkills.dfm"/>
         <FormResources Include="wPlayerDebug.dfm"/>
         <FormResources Include="wMVPReview.dfm"/>
-        <FormResources Include="wMain.dfm"/>
-        <FormResources Include="wPlayerSkills.dfm"/>
+        <FormResources Include="wInjuryCleaner.dfm"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

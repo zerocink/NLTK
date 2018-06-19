@@ -6,14 +6,15 @@
 //---------------------------------------------------------------------------
 #include <Vcl.Styles.hpp>
 #include <Vcl.Themes.hpp>
+USEFORM("wMain.cpp", MainDlg);
 USEFORM("wIconLists.cpp", IconListsDlg);
 USEFORM("wDraftReview.cpp", DraftReviewDlg);
 USEFORM("wAcceptChanges.cpp", AcceptChangesDlg);
 USEFORM("wRosterEditor.cpp", RosterEditorDlg);
+USEFORM("wPlayerSkills.cpp", PlayerSkillsDlg);
 USEFORM("wPlayerDebug.cpp", PlayerDebugDlg);
 USEFORM("wMVPReview.cpp", MVPReviewDlg);
-USEFORM("wMain.cpp", MainDlg);
-USEFORM("wPlayerSkills.cpp", PlayerSkillsDlg);
+USEFORM("wInjuryCleaner.cpp", InjuryCleanerDlg);
 //---------------------------------------------------------------------------
 int WINAPI _tWinMain(HINSTANCE, HINSTANCE, LPTSTR, int)
 {
@@ -24,7 +25,6 @@ int WINAPI _tWinMain(HINSTANCE, HINSTANCE, LPTSTR, int)
 		TStyleManager::TrySetStyle("Windows10 SlateGray");
 		Application->CreateForm(__classid(TMainDlg), &MainDlg);
 		Application->CreateForm(__classid(TIconListsDlg), &IconListsDlg);
-		Application->CreateForm(__classid(TPlayerSkillsDlg), &PlayerSkillsDlg);
 		Application->Run();
 	}
 	catch (Exception &exception)
