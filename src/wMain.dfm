@@ -16,8 +16,8 @@ object MainDlg: TMainDlg
   PixelsPerInch = 96
   TextHeight = 13
   object btnPlayerDebug: TButton
-    Left = 8
-    Top = 162
+    Left = 476
+    Top = 27
     Width = 129
     Height = 41
     Caption = 'Player Debug'
@@ -53,8 +53,8 @@ object MainDlg: TMainDlg
     OnClick = btnDraftsClick
   end
   object btnMVP: TButton
-    Left = 143
-    Top = 162
+    Left = 476
+    Top = 74
     Width = 129
     Height = 41
     Caption = 'MVPs'

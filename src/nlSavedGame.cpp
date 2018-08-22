@@ -80,16 +80,21 @@ bool __fastcall CNLSavedGame::open()
     //----------------------------
     if ( ok ) ok = this->openPlayers();
 
+	// step 4 : open career.dbf :
+	//---------------------------
+	if ( ok ) ok = this->openCareer();
+
 
     return ok;
 }
 //---------------------------------------------------------------------------
 bool __fastcall CNLSavedGame::close()
 {
-    bool ok_p = this->closePlayers();
-    bool ok_t = this->closeTeams();
+	bool ok_c = this->closeCareer();
+	bool ok_p = this->closePlayers();
+	bool ok_t = this->closeTeams();
 
-    return (ok_p && ok_t);
+	return (ok_c && ok_p && ok_t);
 }
 //---------------------------------------------------------------------------
 bool __fastcall CNLSavedGame::playersAccept()
@@ -149,8 +154,8 @@ bool __fastcall CNLSavedGame::playersAccept()
 //---------------------------------------------------------------------------
 bool __fastcall CNLSavedGame::playersUpdate()
 {
-    if ( this->_tablePlayers )
-    {
+	if ( this->_tablePlayers )
+	{
         this->_tablePlayers->first();
 
         for ( int i = 0 ; i < this->playerCount ; i++ )
@@ -178,9 +183,11 @@ void __fastcall CNLSavedGame::zero()
 {
     this->_path				= TXT_NULL;
     this->_teams			= NULL;
-    this->_players			= NULL;
-    this->_tableTeams		= NULL;
-    this->_tablePlayers		= NULL;
+	this->_players			= NULL;
+	this->_career           = NULL;
+	this->_tableTeams		= NULL;
+	this->_tablePlayers		= NULL;
+    this->_tableCareer  	= NULL;
     this->_type         	= (tNLSavedGame)0;
 	this->_name				= TXT_NULL;
     this->_salaryCap		= 0;
@@ -193,23 +200,35 @@ void __fastcall CNLSavedGame::zero()
 void __fastcall CNLSavedGame::init()
 {
     if ( !this->_teams ) this->_teams = new TList();
-    if ( !this->_players ) this->_players = new TList();
+	if ( !this->_players ) this->_players = new TList();
+	if ( !this->_career ) this->_career = new TList();
     if ( !this->_tableTeams ) this->_tableTeams = new CDBTable( this->_path + FILE_TEAMS );
-    if ( !this->_tablePlayers ) this->_tablePlayers = new CDBTable( this->_path + FILE_PLAYERS );
+	if ( !this->_tablePlayers ) this->_tablePlayers = new CDBTable( this->_path + FILE_PLAYERS );
+    if ( !this->_tableCareer ) this->_tableCareer = new CDBTable( this->_path + FILE_CAREER );
 }
 //---------------------------------------------------------------------------
 void __fastcall CNLSavedGame::deinit()
 {
-    this->close();
-    if ( this->_tablePlayers )
+	this->close();
+	if ( this->_tableCareer )
+	{
+		delete this->_tableCareer;
+		this->_tableCareer = NULL;
+    }
+	if ( this->_tablePlayers )
     {
         delete this->_tablePlayers;
         this->_tablePlayers = NULL;
     }
     if ( this->_tableTeams )
-    {
-        delete this->_tableTeams;
+	{
+		delete this->_tableTeams;
         this->_tableTeams = NULL;
+	}
+	if ( this->_career )
+	{
+		delete this->_career;
+		this->_career = NULL;
     }
     if ( this->_players )
     {
@@ -222,6 +241,24 @@ void __fastcall CNLSavedGame::deinit()
         this->deleteTeams();
         delete this->_teams;
         this->_teams = NULL;
+    }
+}
+//---------------------------------------------------------------------------
+void __fastcall CNLSavedGame::deleteCareer()
+{
+	if ( this->_career )
+	{
+		while ( this->_career->Count )
+		{
+			CNLCareer* c = (CNLCareer*)this->_career->Items[ 0 ];
+			if ( c )
+			{
+				this->_career->Items[0] = NULL;
+				delete c;
+				c = NULL;
+			}
+            this->_career->Delete( 0 );
+        }
     }
 }
 //---------------------------------------------------------------------------
@@ -397,7 +434,7 @@ bool __fastcall CNLSavedGame::readSave()
 //---------------------------------------------------------------------------
 bool __fastcall CNLSavedGame::openTeams()
 {
-    bool ok = false;
+	bool ok = false;
 
     if ( this->_tableTeams && !this->_tableTeams->isOpen )
     {
@@ -427,20 +464,20 @@ bool __fastcall CNLSavedGame::openTeams()
             ok = true;
         }
         else
-        {
+		{
             ok = false;
         }
 
     }
 
-    return ok;
+	return ok;
 }
 //---------------------------------------------------------------------------
 bool __fastcall CNLSavedGame::openPlayers()
 {
     bool ok = false;
 
-    if ( this->_tablePlayers && !this->_tablePlayers->isOpen )
+	if ( this->_tablePlayers && !this->_tablePlayers->isOpen )
     {
         ok = this->_tablePlayers->open();
 
@@ -479,6 +516,46 @@ bool __fastcall CNLSavedGame::openPlayers()
     return ok;
 }
 //---------------------------------------------------------------------------
+bool __fastcall CNLSavedGame::openCareer()
+{
+	bool ok = false;
+
+	if ( this->_tableCareer && !this->_tableCareer->isOpen )
+	{
+		ok = this->_tableCareer->open();
+
+		if ( ok && this->_career && this->_career->Count == 0 )
+        {
+            int indexDebug = 0;
+			ok = this->_tableCareer->first();
+            while ( ok )
+            {
+				CNLCareer* c = new CNLCareer( this->_tableCareer );
+				if ( this->playerById[ c->PlayerId ] )
+				{
+					this->_career->Add( c );
+				}
+				else
+				{
+					delete c;
+					c = NULL;
+				}
+
+				ok = this->_tableCareer->next();
+				indexDebug++;
+            }
+            ok = true;
+        }
+        else
+		{
+            ok = false;
+        }
+
+    }
+
+	return ok;
+}
+//---------------------------------------------------------------------------
 bool __fastcall CNLSavedGame::closeTeams()
 {
     if ( this->_tableTeams )
@@ -495,6 +572,15 @@ bool __fastcall CNLSavedGame::closePlayers()
     {
         return this->_tablePlayers->close();
     }
+	return true;
+}
+//---------------------------------------------------------------------------
+bool __fastcall CNLSavedGame::closeCareer()
+{
+	if ( this->_tableCareer )
+	{
+		return this->_tableCareer->close();
+	}
     return true;
 }
 //---------------------------------------------------------------------------

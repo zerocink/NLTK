@@ -7,6 +7,7 @@
 //---------------------------------------------------------------------------
 #include "nlTeam.h"
 #include "nlPlayer.h"
+#include "nlCareer.h"
 //===========================================================================
 
 
@@ -93,14 +94,17 @@ class CNLSavedGame
         void __fastcall init();
         void __fastcall deinit();
 
+        void __fastcall deleteCareer();
         void __fastcall deletePlayers();
         void __fastcall deleteTeams();
 
         bool __fastcall readSave();
         bool __fastcall openTeams();
-        bool __fastcall openPlayers();
+		bool __fastcall openPlayers();
+		bool __fastcall openCareer();
         bool __fastcall closeTeams();
-        bool __fastcall closePlayers();
+		bool __fastcall closePlayers();
+		bool __fastcall closeCareer();
 
         // méthodes get / set des propriétés :
         //------------------------------------
@@ -108,7 +112,7 @@ class CNLSavedGame
         CNLTeam* 	__fastcall getTeamByIndex( int index );
         int      	__fastcall getTeamCount();
         CNLPlayer* 	__fastcall getPlayerById( WORD playerId );
-        CNLPlayer* 	__fastcall getPlayerByIndex( int index );
+		CNLPlayer* 	__fastcall getPlayerByIndex( int index );
         int         __fastcall getPlayerCount();
         bool        __fastcall getPlayersDif();
         TDate       __fastcall getDateActive();
@@ -116,14 +120,16 @@ class CNLSavedGame
         // variables internes :
         //---------------------
         AnsiString 		_path;
-        TList*     		_teams;
-        TList*     		_players;
+		TList*     		_teams;
+		TList*     		_players;
+		TList*          _career;
         CDBTable* 		_tableTeams;
-        CDBTable*  		_tablePlayers;
-        tNLSavedGame    _type;
-        AnsiString   	_name;
+		CDBTable*  		_tablePlayers;
+		CDBTable*       _tableCareer;
+		tNLSavedGame    _type;
+		AnsiString   	_name;
         int          	_salaryCap;
-        TDate        	_dateAllStarGame;
+		TDate        	_dateAllStarGame;
         TDate        	_dateEndTransf;
         TDate        	_dateInSeason;
         TDate        	_dateInPlayoffs;

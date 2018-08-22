@@ -1,7 +1,7 @@
 ﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <PropertyGroup>
         <ProjectGuid>{BC9FE063-CBDE-49A0-8A5C-4AE8FB6FCE0C}</ProjectGuid>
-        <ProjectVersion>18.3</ProjectVersion>
+        <ProjectVersion>18.4</ProjectVersion>
         <FrameworkType>VCL</FrameworkType>
         <AppType>Application</AppType>
         <MainSource>NLTK.cpp</MainSource>
@@ -124,6 +124,10 @@
         <CppCompile Include="dbf\ioapi\ioapi.c">
             <BuildOrder>4</BuildOrder>
         </CppCompile>
+        <CppCompile Include="nlCareer.cpp">
+            <DependentOn>nlCareer.h</DependentOn>
+            <BuildOrder>18</BuildOrder>
+        </CppCompile>
         <CppCompile Include="nlPlayer.cpp">
             <DependentOn>nlPlayer.h</DependentOn>
             <BuildOrder>6</BuildOrder>
@@ -131,6 +135,10 @@
         <CppCompile Include="nlSavedGame.cpp">
             <DependentOn>nlSavedGame.h</DependentOn>
             <BuildOrder>7</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="nlStats.cpp">
+            <DependentOn>nlStats.h</DependentOn>
+            <BuildOrder>19</BuildOrder>
         </CppCompile>
         <CppCompile Include="nlTeam.cpp">
             <DependentOn>nlTeam.h</DependentOn>
@@ -201,15 +209,15 @@
             <DependentOn>wRosterEditor.h</DependentOn>
             <BuildOrder>11</BuildOrder>
         </CppCompile>
-        <FormResources Include="wMain.dfm"/>
+        <FormResources Include="wInjuryCleaner.dfm"/>
         <FormResources Include="wIconLists.dfm"/>
         <FormResources Include="wDraftReview.dfm"/>
         <FormResources Include="wAcceptChanges.dfm"/>
+        <FormResources Include="wMain.dfm"/>
         <FormResources Include="wRosterEditor.dfm"/>
         <FormResources Include="wPlayerSkills.dfm"/>
         <FormResources Include="wPlayerDebug.dfm"/>
         <FormResources Include="wMVPReview.dfm"/>
-        <FormResources Include="wInjuryCleaner.dfm"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>
