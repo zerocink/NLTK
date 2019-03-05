@@ -70,4 +70,13 @@ object MainDlg: TMainDlg
     TabOrder = 5
     OnClick = btnInjuryCleanerClick
   end
+  object btnPrepareNewSeason: TButton
+    Left = 8
+    Top = 147
+    Width = 129
+    Height = 41
+    Caption = 'Prepare New Season'
+    TabOrder = 6
+    OnClick = btnPrepareNewSeasonClick
+  end
 end

@@ -42,6 +42,8 @@
 #define POS_PF_TXT          AnsiString( "PF" )
 #define POS_C_TXT           AnsiString( "C"  )
 #define POS_NONE_TXT        AnsiString( "-"  )
+//---------------------------------------------------------------------------
+#define COLORED_FACE(c,f)   ((c*4)+f)
 //===========================================================================
 
 //===========================================================================
@@ -91,7 +93,14 @@ class CNLPlayer
         __property WORD       InjuryId      = { read = getInjuryId      , write = setInjuryId };
         __property AnsiString InjuryDate    = { read = getInjuryDate    , write = setInjuryDate };
         __property AnsiString RecoveryDate  = { read = getRecoveryDate  , write = setRecoveryDate };
-        __property bool       IsPlayable    = { read = getIsPlayable	, write = setIsPlayable };
+		__property bool       IsPlayable    = { read = getIsPlayable	, write = setIsPlayable };
+		__property bool       IsCreated     = { read = getIsCreated     , write = setIsCreated };
+		__property bool       IsRom     	= { read = getIsRom     	, write = setIsRom };
+		__property bool       IsGenerate    = { read = getIsGenerate    , write = setIsGenerate };
+
+		__property WORD       Color			= { read = getColor         , write = setColor  	};
+		__property WORD       Face          = { read = getFace          , write = setFace 		};
+		__property AnsiString PlayerPkg     = { read = getPlayerPkg     , write = setPlayerPkg 	};
 
         __property WORD       weeklyMvp     = { read = getWeeklyMvp 		};
         __property WORD       monthlyMvp    = { read = getMonthlyMvp 		};
@@ -177,12 +186,26 @@ class CNLPlayer
         void        __fastcall setInjuryId( WORD injuryId );
         AnsiString  __fastcall getInjuryDate();
         void        __fastcall setInjuryDate( AnsiString injuryDate );
-        AnsiString  __fastcall getRecoveryDate();
-        void        __fastcall setRecoveryDate( AnsiString recoveryDate );
-        bool        __fastcall getIsPlayable();
-        void        __fastcall setIsPlayable( bool isPlayable );
+		AnsiString  __fastcall getRecoveryDate();
+		void        __fastcall setRecoveryDate( AnsiString recoveryDate );
+		bool        __fastcall getIsPlayable();
+		void        __fastcall setIsPlayable( bool isPlayable );
+		bool        __fastcall getIsCreated();
+		void        __fastcall setIsCreated( bool isCreated );
+		bool        __fastcall getIsRom();
+		void        __fastcall setIsRom( bool isRom );
+		bool        __fastcall getIsGenerate();
+		void        __fastcall setIsGenerate( bool isGenerate );
 
-        WORD        __fastcall getWeeklyMvp();
+		WORD        __fastcall getColor();
+		void		__fastcall setColor( WORD color );
+		WORD        __fastcall getFace();
+		void        __fastcall setFace( WORD face );
+		AnsiString  __fastcall getPlayerPkg();
+		void        __fastcall setPlayerPkg( AnsiString playerPkg );
+
+
+		WORD        __fastcall getWeeklyMvp();
         WORD        __fastcall getMonthlyMvp();
         WORD        __fastcall getAllStarMvp();
 

@@ -64,7 +64,7 @@ __fastcall CNLSavedGame::~CNLSavedGame()
     this->zero();
 }
 //---------------------------------------------------------------------------
-bool __fastcall CNLSavedGame::open()
+bool __fastcall CNLSavedGame::open( bool loadCareer )
 {
     bool ok = false;
 
@@ -82,7 +82,7 @@ bool __fastcall CNLSavedGame::open()
 
 	// step 4 : open career.dbf :
 	//---------------------------
-	if ( ok ) ok = this->openCareer();
+	if ( ok && loadCareer ) ok = this->openCareer();
 
 
     return ok;
@@ -177,6 +177,21 @@ bool __fastcall CNLSavedGame::playersUpdate()
         return true;;
     }
     return false;
+}
+//---------------------------------------------------------------------------
+void __fastcall CNLSavedGame::loadPlayerCareer( int playerId , TList* lc )
+{
+	if ( lc )
+	{
+		for ( int i = 0 ; i < this->careerCount ; i++ )
+		{
+			CNLCareer* c = this->careerByIndex[ i ];
+			if ( c && c->PlayerId == playerId )
+			{
+				lc->Add( c );
+			}
+		}
+    }
 }
 //---------------------------------------------------------------------------
 void __fastcall CNLSavedGame::zero()
@@ -657,6 +672,23 @@ bool __fastcall CNLSavedGame::getPlayersDif()
         }
     }
     return false;
+}
+//---------------------------------------------------------------------------
+CNLCareer* __fastcall CNLSavedGame::getCareerByIndex( int index )
+{
+	if ( this->_career )
+	{
+		return (CNLCareer*)this->_career->Items[ index ];
+	}
+
+	return NULL;
+}
+//---------------------------------------------------------------------------
+int __fastcall CNLSavedGame::getCareerCount()
+{
+	if ( this->_career ) return this->_career->Count;
+
+	return 0;
 }
 //---------------------------------------------------------------------------
 TDate __fastcall CNLSavedGame::getDateActive()

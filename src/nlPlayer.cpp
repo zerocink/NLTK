@@ -40,6 +40,12 @@ TStrings* CNLPlayer::_fieldNames = NULL;
 #define FIELD_INJURYDATE    AnsiString( "INJURYDATE" )
 #define FIELD_RECOVERYDATE	AnsiString( "RECOVRDATE" )
 #define FIELD_ISPLAYABLE    AnsiString( "ISPLAYABLE" )
+#define FIELD_ISCREATED     AnsiString( "ISCREATED" )
+#define FIELD_ISROM         AnsiString( "ISROM" )
+#define FIELD_ISGENERATE	AnsiString( "ISGENERATE" )
+#define FIELD_COLOR         AnsiString( "COLOR" )
+#define FIELD_FACE          AnsiString( "FACE" )
+#define FIELD_PLAYERPKG     AnsiString( "PLAYERPKG" )
 //---------------------------------------------------------------------------
 #define FIELD_WEEKLYMVP     AnsiString( "WEEKLYMVP" )
 #define FIELD_MONTHLYMVP    AnsiString( "MONTHLYMVP" )
@@ -96,6 +102,16 @@ TStrings* CNLPlayer::_fieldNames = NULL;
 // CONSTANTES : liste des années d'exp
 //---------------------------------------------------------------------------
 #define YEARSEXP_UNDEF          ((WORD)-1)
+//===========================================================================
+// CONSTANTES : liste des couleurs
+//---------------------------------------------------------------------------
+#define COLOR_MIN   0
+#define COLOR_MAX	5
+//===========================================================================
+// CONSTANTES : liste des visages
+//---------------------------------------------------------------------------
+#define FACE_MIN   COLORED_FACE(COLOR_MIN,0)
+#define FACE_MAX   COLORED_FACE(COLOR_MAX,4)
 //===========================================================================
 // CONSTANTES : liste des roster position
 //---------------------------------------------------------------------------
@@ -281,14 +297,20 @@ void __fastcall CNLPlayer::createFieldNames()
         CNLPlayer::_fieldNames->Add( FIELD_INJURYID );
         CNLPlayer::_fieldNames->Add( FIELD_INJURYDATE );
         CNLPlayer::_fieldNames->Add( FIELD_RECOVERYDATE );
-        CNLPlayer::_fieldNames->Add( FIELD_ISPLAYABLE );
+		CNLPlayer::_fieldNames->Add( FIELD_ISPLAYABLE );
+		CNLPlayer::_fieldNames->Add( FIELD_ISCREATED );
+		CNLPlayer::_fieldNames->Add( FIELD_ISROM );
+		CNLPlayer::_fieldNames->Add( FIELD_ISGENERATE );
+		CNLPlayer::_fieldNames->Add( FIELD_COLOR );
+		CNLPlayer::_fieldNames->Add( FIELD_FACE );
+		CNLPlayer::_fieldNames->Add( FIELD_PLAYERPKG );
 
         CNLPlayer::_fieldNames->Add( FIELD_WEEKLYMVP );
         CNLPlayer::_fieldNames->Add( FIELD_MONTHLYMVP );
         CNLPlayer::_fieldNames->Add( FIELD_ALLSTARMVP );
 
         CNLPlayer::_fieldNames->Add( FIELD_SGM );
-        CNLPlayer::_fieldNames->Add( FIELD_SGMS );
+		CNLPlayer::_fieldNames->Add( FIELD_SGMS );
         CNLPlayer::_fieldNames->Add( FIELD_SFGA );
         CNLPlayer::_fieldNames->Add( FIELD_SFGM );
         CNLPlayer::_fieldNames->Add( FIELD_S3PA );
@@ -524,13 +546,13 @@ WORD __fastcall CNLPlayer::getRosterPos()
 //---------------------------------------------------------------------------
 void __fastcall CNLPlayer::setRosterPos( WORD rosterPos )
 {
-    AnsiString ROSTERPOS = TXT_NULL;
-    if ( rosterPos >= ROSTERPOS_MIN && rosterPos <= ROSTERPOS_MAX )
-    {
-        ROSTERPOS = IntToStr( rosterPos );
-    }
+	AnsiString ROSTERPOS = TXT_NULL;
+	if ( rosterPos >= ROSTERPOS_MIN && rosterPos <= ROSTERPOS_MAX )
+	{
+		ROSTERPOS = IntToStr( rosterPos );
+	}
 
-    this->_record->ram[ FIELD_ROSTERPOS ] = ROSTERPOS;
+	this->_record->ram[ FIELD_ROSTERPOS ] = ROSTERPOS;
 }
 //---------------------------------------------------------------------------
 AnsiString __fastcall CNLPlayer::getRosterPosText()
@@ -661,6 +683,118 @@ bool __fastcall CNLPlayer::getIsPlayable()
 void __fastcall CNLPlayer::setIsPlayable( bool isPlayable )
 {
     if ( this->_record ) this->_record->ram[ FIELD_ISPLAYABLE ] = CDBEngine::boolToString( isPlayable);
+}
+//---------------------------------------------------------------------------
+bool __fastcall CNLPlayer::getIsCreated()
+{
+	bool ISCREATED = false;
+
+	if ( this->_record )
+	{
+		ISCREATED = CDBEngine::stringToBool( this->_record->ram[ FIELD_ISCREATED ] );
+	}
+
+	return ISCREATED;
+}
+//---------------------------------------------------------------------------
+void __fastcall CNLPlayer::setIsCreated( bool isCreated )
+{
+	if ( this->_record ) this->_record->ram[ FIELD_ISCREATED ] = CDBEngine::boolToString( isCreated);
+}
+//---------------------------------------------------------------------------
+bool __fastcall CNLPlayer::getIsRom()
+{
+	bool ISROM = false;
+
+	if ( this->_record )
+	{
+		ISROM = CDBEngine::stringToBool( this->_record->ram[ FIELD_ISROM ] );
+	}
+
+	return ISROM;
+}
+//---------------------------------------------------------------------------
+void __fastcall CNLPlayer::setIsRom( bool isRom )
+{
+	if ( this->_record ) this->_record->ram[ FIELD_ISROM ] = CDBEngine::boolToString( isRom);
+}
+//---------------------------------------------------------------------------
+bool __fastcall CNLPlayer::getIsGenerate()
+{
+	bool ISGENERATE = false;
+
+	if ( this->_record )
+	{
+		ISGENERATE = CDBEngine::stringToBool( this->_record->ram[ FIELD_ISGENERATE ] );
+	}
+
+	return ISGENERATE;
+}
+//---------------------------------------------------------------------------
+void __fastcall CNLPlayer::setIsGenerate( bool isGenerate )
+{
+	if ( this->_record ) this->_record->ram[ FIELD_ISGENERATE ] = CDBEngine::boolToString( isGenerate);
+}
+//---------------------------------------------------------------------------
+WORD __fastcall CNLPlayer::getColor()
+{
+	WORD COLOR = 0;
+
+	if ( this->_record )
+	{
+		COLOR = this->_record->ram[ FIELD_COLOR ].ToIntDef( 0 );
+	}
+	return COLOR;
+}
+//---------------------------------------------------------------------------
+void __fastcall CNLPlayer::setColor( WORD color )
+{
+	AnsiString COLOR = TXT_NULL;
+	if ( color >= COLOR_MIN && color <= COLOR_MAX )
+	{
+		COLOR = IntToStr( color );
+	}
+
+	this->_record->ram[ FIELD_COLOR ] = COLOR;
+}
+//---------------------------------------------------------------------------
+WORD __fastcall CNLPlayer::getFace()
+{
+	WORD FACE = 0;
+	if ( this->_record )
+	{
+		FACE = this->_record->ram[ FIELD_FACE ].ToIntDef( 0 );
+	}
+	return FACE;
+}
+//---------------------------------------------------------------------------
+void __fastcall CNLPlayer::setFace( WORD face )
+{
+	AnsiString FACE = TXT_NULL;
+	if ( face >= FACE_MIN && face <= FACE_MAX )
+	{
+		FACE = IntToStr( face );
+	}
+
+	this->_record->ram[ FIELD_FACE ] = FACE;
+}
+//---------------------------------------------------------------------------
+AnsiString __fastcall CNLPlayer::getPlayerPkg()
+{
+	AnsiString PLAYERPKG = TXT_NULL;
+	if ( this->_record )
+	{
+		PLAYERPKG = this->_record->ram[ FIELD_PLAYERPKG ];
+	}
+	return PLAYERPKG;
+}
+//---------------------------------------------------------------------------
+void __fastcall CNLPlayer::setPlayerPkg( AnsiString playerPkg )
+{
+	if ( this->_record )
+	{
+		this->_record->ram[ FIELD_PLAYERPKG ] = playerPkg;
+    }
 }
 //---------------------------------------------------------------------------
 WORD __fastcall CNLPlayer::getWeeklyMvp()

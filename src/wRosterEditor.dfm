@@ -15,6 +15,16 @@ object RosterEditorDlg: TRosterEditorDlg
   OnDestroy = FormDestroy
   PixelsPerInch = 96
   TextHeight = 13
+  object Splitter1: TSplitter
+    Left = 0
+    Top = 401
+    Width = 854
+    Height = 3
+    Cursor = crVSplit
+    Align = alBottom
+    ExplicitLeft = -8
+    ExplicitTop = 421
+  end
   object pnlTeam: TPanel
     Left = 0
     Top = 0
@@ -75,26 +85,29 @@ object RosterEditorDlg: TRosterEditorDlg
     Left = 0
     Top = 59
     Width = 854
-    Height = 424
+    Height = 282
     Align = alClient
     DoubleBuffered = True
     FixedCols = 0
     Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goColMoving, goRowSelect]
     ParentDoubleBuffered = False
     TabOrder = 1
+    OnClick = gridPlayersClick
     OnColumnMoved = gridPlayersColumnMoved
     OnDblClick = gridPlayersDblClick
     OnDrawCell = gridPlayersDrawCell
+    ExplicitHeight = 424
   end
   object pnlCmd: TPanel
     Left = 0
-    Top = 483
+    Top = 341
     Width = 854
     Height = 60
     Align = alBottom
     BevelOuter = bvNone
     TabOrder = 2
-    ExplicitTop = 489
+    ExplicitLeft = -8
+    ExplicitTop = 315
     object btnMoveUp: TButton
       Left = 0
       Top = 0
@@ -131,5 +144,20 @@ object RosterEditorDlg: TRosterEditorDlg
       TabOrder = 2
       OnClick = btnAcceptClick
     end
+  end
+  object gridCareer: TStringGrid
+    Left = 0
+    Top = 404
+    Width = 854
+    Height = 139
+    Align = alBottom
+    DoubleBuffered = True
+    FixedCols = 0
+    Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goColMoving, goRowSelect]
+    ParentDoubleBuffered = False
+    TabOrder = 3
+    OnColumnMoved = gridCareerColumnMoved
+    OnDblClick = gridPlayersDblClick
+    OnDrawCell = gridPlayersDrawCell
   end
 end

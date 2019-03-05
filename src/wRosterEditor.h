@@ -26,6 +26,8 @@ __published:	// Composants gérés par l'EDI
 	TButton *btnMoveDown;
 	TButton *btnAccept;
 	TComboBox *cbTeamSel;
+	TStringGrid *gridCareer;
+	TSplitter *Splitter1;
 	void __fastcall FormCreate(TObject *Sender);
 	void __fastcall FormDestroy(TObject *Sender);
 	void __fastcall cbTeamSelChange(TObject *Sender);
@@ -41,6 +43,10 @@ __published:	// Composants gérés par l'EDI
           TOwnerDrawState State);
 	void __fastcall gridPlayersColumnMoved(TObject *Sender, int FromIndex, int ToIndex);
 	void __fastcall gridPlayersDblClick(TObject *Sender);
+	void __fastcall gridPlayersClick(TObject *Sender);
+	void __fastcall gridCareerColumnMoved(TObject *Sender, int FromIndex, int ToIndex);
+
+
 
 
 
@@ -55,38 +61,41 @@ private:	// Déclarations utilisateur
     void __fastcall formDeinit();
     void __fastcall clearRosters();
     void __fastcall updateTeams();
-    void __fastcall updatePlayers();
-    void __fastcall autoSizeCol( int col );
-    void __fastcall autoSizeRow( int row );
-    void __fastcall playerDisplay( CNLPlayer* p , int row );
-    void __fastcall playerMoveUp();
-    void __fastcall playerMoveDown();
-    bool __fastcall playerSwitch( int row1 , int row2 );
-    void __fastcall rostersAccept();
-    void __fastcall rostersUpdate();
+	void __fastcall updatePlayers();
+	void __fastcall updateCareer();
+	void __fastcall autoSizeCol( TStringGrid* grid , int col );
+	void __fastcall autoSizeRow( TStringGrid* grid , int row );
+	void __fastcall playerDisplay( CNLPlayer* p , int row );
+	void __fastcall playerMoveUp();
+	void __fastcall playerMoveDown();
+	bool __fastcall playerSwitch( int row1 , int row2 );
+	void __fastcall rostersAccept();
+	void __fastcall rostersUpdate();
+    void __fastcall careerStatsDisplay( CNLPlayerStats* ps , int row );
 
-    // méthodes get/set des propriétés :
+	// méthodes get/set des propriétés :
     //----------------------------------
     void 		__fastcall setSg( CNLSavedGame* sg );
     CNLRoster* 	__fastcall getTeamRoster( WORD teamNum );
-    CNLPlayer*  __fastcall getPlayerAtRow( int row );
+	CNLPlayer*  __fastcall getPlayerAtRow( int row );
 
     // propriétés internes :
-    //----------------------
+	//----------------------
     __property CNLRoster* teamRoster[ WORD teamNum ] = { read = getTeamRoster };
-    __property CNLPlayer* playerAtRow[ int row ] = { read = getPlayerAtRow };
+	__property CNLPlayer* playerAtRow[ int row ] = { read = getPlayerAtRow };
 
     // variables internes :
     //---------------------
     CNLSavedGame* _sg;
-    TList*        _rosters;
-    TStringList*  _fieldCols;
+	TList*        _rosters;
+	TStringList*  _fieldPlayers;
+	TStringList*  _fieldCareer;
 
 public:		// Déclarations utilisateur
 
 	// propriétés publiques :
     //-----------------------
-    __property CNLSavedGame* sg = { read = _sg , write = setSg };
+	__property CNLSavedGame* sg = { read = _sg , write = setSg };
 
     // constructeurs & destructeur :
     //------------------------------

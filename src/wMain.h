@@ -21,6 +21,7 @@ __published:	// Composants gérés par l'EDI
 	TButton *btnDrafts;
 	TButton *btnMVP;
 	TButton *btnInjuryCleaner;
+	TButton *btnPrepareNewSeason;
 	void __fastcall FormCreate(TObject *Sender);
 	void __fastcall FormDestroy(TObject *Sender);
 	void __fastcall btnPlayerDebugClick(TObject *Sender);
@@ -28,6 +29,7 @@ __published:	// Composants gérés par l'EDI
 	void __fastcall btnDraftsClick(TObject *Sender);
 	void __fastcall btnMVPClick(TObject *Sender);
 	void __fastcall btnInjuryCleanerClick(TObject *Sender);
+	void __fastcall btnPrepareNewSeasonClick(TObject *Sender);
 private:	// Déclarations utilisateur
 
 
@@ -36,15 +38,16 @@ private:	// Déclarations utilisateur
     void __fastcall zero();
     void __fastcall init();
     void __fastcall deinit();
-    void __fastcall formInit();
+	void __fastcall formInit();
     void __fastcall formDeinit();
     void __fastcall loadSavedGamesPaths();
 
     // variables internes :
-    //---------------------
-    TRosterEditorDlg* 	_rosterEditor;
-    TDraftReviewDlg*    _draftReview;
-    TInjuryCleanerDlg*  _injuryCleaner;
+	//---------------------
+	TRosterEditorDlg* 		_rosterEditor;
+	TDraftReviewDlg*    	_draftReview;
+	TInjuryCleanerDlg*  	_injuryCleaner;
+	TPrepareNewSeasonDlg* 	_prepareNewSeason;
     //TStrings* 			_savedGamesPaths;
 
 public:		// Déclarations utilisateur

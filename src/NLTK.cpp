@@ -6,15 +6,16 @@
 //---------------------------------------------------------------------------
 #include <Vcl.Styles.hpp>
 #include <Vcl.Themes.hpp>
-USEFORM("wInjuryCleaner.cpp", InjuryCleanerDlg);
 USEFORM("wIconLists.cpp", IconListsDlg);
 USEFORM("wDraftReview.cpp", DraftReviewDlg);
 USEFORM("wAcceptChanges.cpp", AcceptChangesDlg);
-USEFORM("wMain.cpp", MainDlg);
 USEFORM("wRosterEditor.cpp", RosterEditorDlg);
 USEFORM("wPlayerSkills.cpp", PlayerSkillsDlg);
 USEFORM("wPlayerDebug.cpp", PlayerDebugDlg);
 USEFORM("wMVPReview.cpp", MVPReviewDlg);
+USEFORM("wMain.cpp", MainDlg);
+USEFORM("wInjuryCleaner.cpp", InjuryCleanerDlg);
+USEFORM("wPrepareNewSeason.cpp", PrepareNewSeasonDlg);
 //---------------------------------------------------------------------------
 int WINAPI _tWinMain(HINSTANCE, HINSTANCE, LPTSTR, int)
 {

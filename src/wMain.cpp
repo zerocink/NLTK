@@ -7,6 +7,7 @@
 #include "wRosterEditor.h"
 #include "wDraftReview.h"
 #include "wInjuryCleaner.h"
+#include "wPrepareNewSeason.h"
 //---------------------------------------------------------------------------
 #include "wMain.h"
 //---------------------------------------------------------------------------
@@ -45,7 +46,8 @@ void __fastcall TMainDlg::init()
 {
     if ( !this->_rosterEditor ) this->_rosterEditor = new TRosterEditorDlg(NULL );
     if ( !this->_draftReview ) this->_draftReview = new TDraftReviewDlg( NULL );
-    if ( !this->_injuryCleaner ) this->_injuryCleaner = new TInjuryCleanerDlg( NULL );
+	if ( !this->_injuryCleaner ) this->_injuryCleaner = new TInjuryCleanerDlg( NULL );
+	if ( !this->_prepareNewSeason ) this->_prepareNewSeason = new TPrepareNewSeasonDlg( NULL );
 }
 //---------------------------------------------------------------------------
 void __fastcall TMainDlg::deinit()
@@ -158,12 +160,12 @@ void __fastcall TMainDlg::btnRostersClick(TObject *Sender)
 {
  	AnsiString path = this->cbSavedGamesPaths->Items->Strings[ this->cbSavedGamesPaths->ItemIndex ];
 
-    CNLSavedGame* sg = new CNLSavedGame( path );
-    bool ok = sg->open();
+	CNLSavedGame* sg = new CNLSavedGame( path );
+	bool ok = sg->open(true);
 
     if ( this->_rosterEditor )
     {
-    	this->_rosterEditor->sg = sg;
+		this->_rosterEditor->sg = sg;
         this->_rosterEditor->ShowModal();
     }
 
@@ -178,15 +180,15 @@ void __fastcall TMainDlg::btnDraftsClick(TObject *Sender)
  	AnsiString path = this->cbSavedGamesPaths->Items->Strings[ this->cbSavedGamesPaths->ItemIndex ];
 
     CNLSavedGame* sg = new CNLSavedGame( path );
-    bool ok = sg->open();
+	bool ok = sg->open(false);
 
     if ( this->_draftReview )
     {
     	this->_draftReview->sg = sg;
         this->_draftReview->ShowModal();
-    }
+	}
 
-    sg->close();
+	sg->close();
     delete sg;
     sg = NULL;
 }
@@ -200,20 +202,39 @@ void __fastcall TMainDlg::btnMVPClick(TObject *Sender)
 
 void __fastcall TMainDlg::btnInjuryCleanerClick(TObject *Sender)
 {
- 	AnsiString path = this->cbSavedGamesPaths->Items->Strings[ this->cbSavedGamesPaths->ItemIndex ];
+	AnsiString path = this->cbSavedGamesPaths->Items->Strings[ this->cbSavedGamesPaths->ItemIndex ];
 
-    CNLSavedGame* sg = new CNLSavedGame( path );
-    bool ok = sg->open();
+	CNLSavedGame* sg = new CNLSavedGame( path );
+	bool ok = sg->open(false);
 
-    if ( this->_injuryCleaner )
-    {
-    	this->_injuryCleaner->sg = sg;
-        this->_injuryCleaner->ShowModal();
-    }
+	if ( this->_injuryCleaner )
+	{
+		this->_injuryCleaner->sg = sg;
+		this->_injuryCleaner->ShowModal();
+	}
 
-    sg->close();
-    delete sg;
-    sg = NULL;
+	sg->close();
+	delete sg;
+	sg = NULL;
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TMainDlg::btnPrepareNewSeasonClick(TObject *Sender)
+{
+	AnsiString path = this->cbSavedGamesPaths->Items->Strings[ this->cbSavedGamesPaths->ItemIndex ];
+
+	CNLSavedGame* sg = new CNLSavedGame( path );
+	bool ok = sg->open(false);
+
+	if ( this->_prepareNewSeason )
+	{
+		this->_prepareNewSeason->sg = sg;
+		this->_prepareNewSeason->ShowModal();
+	}
+
+	sg->close();
+	delete sg;
+	sg = NULL;
 }
 //---------------------------------------------------------------------------
 

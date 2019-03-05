@@ -36,19 +36,49 @@ TRosterEditorDlg *RosterEditorDlg;
 #define COL_STL         AnsiString( "Stl" )
 #define COL_EVAL        AnsiString( "Eval" )
 //---------------------------------------------------------------------------
-#define RP              (this->_fieldCols->IndexOf(COL_RP))
-#define NOM             (this->_fieldCols->IndexOf(COL_NOM))
-#define TAILLE          (this->_fieldCols->IndexOf(COL_TAILLE))
-#define POIDS           (this->_fieldCols->IndexOf(COL_POIDS))
-#define POS             (this->_fieldCols->IndexOf(COL_POS))
-#define OVRL            (this->_fieldCols->IndexOf(COL_OVRL))
-#define EXP             (this->_fieldCols->IndexOf(COL_EXP))
-#define PTS             (this->_fieldCols->IndexOf(COL_PTS))
-#define RB              (this->_fieldCols->IndexOf(COL_RB))
-#define AST             (this->_fieldCols->IndexOf(COL_AST))
-#define BLK             (this->_fieldCols->IndexOf(COL_BLK))
-#define STL             (this->_fieldCols->IndexOf(COL_STL))
-#define EVAL            (this->_fieldCols->IndexOf(COL_EVAL))
+#define RP              (this->_fieldPlayers->IndexOf(COL_RP))
+#define NOM             (this->_fieldPlayers->IndexOf(COL_NOM))
+#define TAILLE          (this->_fieldPlayers->IndexOf(COL_TAILLE))
+#define POIDS           (this->_fieldPlayers->IndexOf(COL_POIDS))
+#define POS             (this->_fieldPlayers->IndexOf(COL_POS))
+#define OVRL            (this->_fieldPlayers->IndexOf(COL_OVRL))
+#define EXP             (this->_fieldPlayers->IndexOf(COL_EXP))
+#define PTS             (this->_fieldPlayers->IndexOf(COL_PTS))
+#define RB              (this->_fieldPlayers->IndexOf(COL_RB))
+#define AST             (this->_fieldPlayers->IndexOf(COL_AST))
+#define BLK             (this->_fieldPlayers->IndexOf(COL_BLK))
+#define STL             (this->_fieldPlayers->IndexOf(COL_STL))
+#define EVAL            (this->_fieldPlayers->IndexOf(COL_EVAL))
+//---------------------------------------------------------------------------
+#define COL_C_YEAR      AnsiString( "S" )
+#define COL_C_TEAM      AnsiString( "T" )
+#define COL_C_GM        AnsiString( "GM" )
+#define COL_C_PTS       AnsiString( "PTS" )
+#define COL_C_MN        AnsiString( "MIN" )
+#define COL_C_FG        AnsiString( "FG" )
+#define COL_C_3P        AnsiString( "3P" )
+#define COL_C_FT        AnsiString( "FT" )
+#define COL_C_RB        AnsiString( "RB" )
+#define COL_C_AST       AnsiString( "AST" )
+#define COL_C_STL       AnsiString( "STL" )
+#define COL_C_BLK       AnsiString( "BLK" )
+#define COL_C_TO        AnsiString( "TO" )
+#define COL_C_EVAL      AnsiString( "EVAL" )
+//---------------------------------------------------------------------------
+#define C_YEAR      (this->_fieldCareer->IndexOf(COL_C_YEAR))
+#define C_TEAM      (this->_fieldCareer->IndexOf(COL_C_TEAM))
+#define C_GM        (this->_fieldCareer->IndexOf(COL_C_GM))
+#define C_PTS       (this->_fieldCareer->IndexOf(COL_C_PTS))
+#define C_MN        (this->_fieldCareer->IndexOf(COL_C_MN))
+#define C_FG        (this->_fieldCareer->IndexOf(COL_C_FG))
+#define C_3P        (this->_fieldCareer->IndexOf(COL_C_3P))
+#define C_FT        (this->_fieldCareer->IndexOf(COL_C_FT))
+#define C_RB        (this->_fieldCareer->IndexOf(COL_C_RB))
+#define C_AST       (this->_fieldCareer->IndexOf(COL_C_AST))
+#define C_STL       (this->_fieldCareer->IndexOf(COL_C_STL))
+#define C_BLK       (this->_fieldCareer->IndexOf(COL_C_BLK))
+#define C_TO        (this->_fieldCareer->IndexOf(COL_C_TO))
+#define C_EVAL	    (this->_fieldCareer->IndexOf(COL_C_EVAL))
 //===========================================================================
 
 //===========================================================================
@@ -74,42 +104,72 @@ void __fastcall TRosterEditorDlg::zero()
 {
     this->_sg = NULL;
     this->_rosters = NULL;
-    this->_fieldCols = NULL;
+    this->_fieldPlayers = NULL;
 }
 //---------------------------------------------------------------------------
 void __fastcall TRosterEditorDlg::init()
 {
     if ( !this->_rosters ) this->_rosters = new TList();
-    if ( !this->_fieldCols )
+    if ( !this->_fieldPlayers )
     {
-    	this->_fieldCols = new TStringList();
+    	this->_fieldPlayers = new TStringList();
 
-        // ordre par défaut des colonnes :
-        //--------------------------------
-        this->_fieldCols->Add( COL_RP );
-        this->_fieldCols->Add( COL_NOM );
-        this->_fieldCols->Add( COL_TAILLE );
-        this->_fieldCols->Add( COL_POIDS );
-        this->_fieldCols->Add( COL_POS );
-        this->_fieldCols->Add( COL_OVRL );
-        this->_fieldCols->Add( COL_EXP );
-        this->_fieldCols->Add( COL_PTS );
-        this->_fieldCols->Add( COL_RB );
-        this->_fieldCols->Add( COL_AST );
-        this->_fieldCols->Add( COL_BLK );
-        this->_fieldCols->Add( COL_STL );
-        this->_fieldCols->Add( COL_EVAL );
+		// ordre par défaut des colonnes (roster) :
+		//-----------------------------------------
+		this->_fieldPlayers->Add( COL_RP );
+		this->_fieldPlayers->Add( COL_NOM );
+		this->_fieldPlayers->Add( COL_TAILLE );
+		this->_fieldPlayers->Add( COL_POIDS );
+		this->_fieldPlayers->Add( COL_POS );
+		this->_fieldPlayers->Add( COL_OVRL );
+		this->_fieldPlayers->Add( COL_EXP );
+		this->_fieldPlayers->Add( COL_PTS );
+		this->_fieldPlayers->Add( COL_RB );
+		this->_fieldPlayers->Add( COL_AST );
+		this->_fieldPlayers->Add( COL_BLK );
+		this->_fieldPlayers->Add( COL_STL );
+		this->_fieldPlayers->Add( COL_EVAL );
+
+	}
+
+	if ( !this->_fieldCareer )
+	{
+		this->_fieldCareer = new TStringList();
+
+		// ordre par défaut des colonnes (carrière ) :
+		//--------------------------------------------
+		this->_fieldCareer->Add( COL_C_YEAR );
+		this->_fieldCareer->Add( COL_C_TEAM );
+		this->_fieldCareer->Add( COL_C_GM );
+		this->_fieldCareer->Add( COL_C_MN );
+		this->_fieldCareer->Add( COL_C_FG );
+		this->_fieldCareer->Add( COL_C_3P );
+		this->_fieldCareer->Add( COL_C_FT );
+		this->_fieldCareer->Add( COL_C_RB );
+		this->_fieldCareer->Add( COL_C_AST );
+		this->_fieldCareer->Add( COL_C_STL );
+		this->_fieldCareer->Add( COL_C_BLK );
+		this->_fieldCareer->Add( COL_C_TO );
+		this->_fieldCareer->Add( COL_C_PTS );
+		this->_fieldCareer->Add( COL_C_EVAL );
     }
 }
 //---------------------------------------------------------------------------
 void __fastcall TRosterEditorDlg::deinit()
 {
-    if ( this->_fieldCols )
-    {
-        this->_fieldCols->Clear();
-        delete this->_fieldCols;
-        this->_fieldCols = NULL;
-    }
+	if ( this->_fieldCareer )
+	{
+		this->_fieldCareer->Clear();
+		delete this->_fieldCareer;
+		this->_fieldCareer = NULL;
+	}
+
+	if ( this->_fieldPlayers )
+	{
+		this->_fieldPlayers->Clear();
+		delete this->_fieldPlayers;
+		this->_fieldPlayers = NULL;
+	}
 
     if ( this->_rosters )
     {
@@ -185,70 +245,149 @@ void __fastcall TRosterEditorDlg::updatePlayers()
 {
     // vidage de la grille :
     //----------------------
-    for ( int i = 0 ; i < this->gridPlayers->ColCount ; i++ )
+	for ( int i = 0 ; i < this->gridPlayers->ColCount ; i++ )
     {
         for ( int j = 0 ; j < this->gridPlayers->RowCount ; j++ )
         {
             this->gridPlayers->Cells[i][j]	 	= TXT_NULL;
             this->gridPlayers->Objects[i][j]	= NULL;
         }
-    }
+	}
 
-    // initialisation des lignes et colonnes :
-    //----------------------------------------
-    this->gridPlayers->RowCount = ROSTER_SIZE + 1;
-    this->gridPlayers->ColCount = this->_fieldCols->Count;
+	// initialisation des lignes et colonnes :
+	//----------------------------------------
+	this->gridPlayers->RowCount = ROSTER_SIZE + 1;
+	this->gridPlayers->ColCount = this->_fieldPlayers->Count;
 
-    // titres des colonnes :
-    //----------------------
-    for ( int i = 0 ; i < this->_fieldCols->Count ; i++ )
-    {
-        AnsiString titre = this->_fieldCols->Strings[ i ];
-        this->gridPlayers->Cells[i][0] = titre;
-    }
+	// titres des colonnes :
+	//----------------------
+	for ( int i = 0 ; i < this->_fieldPlayers->Count ; i++ )
+	{
+		AnsiString titre = this->_fieldPlayers->Strings[ i ];
+		this->gridPlayers->Cells[i][0] = titre;
+	}
 
     // récup roster sélectionné dans la liste déroulante :
-    //----------------------------------------------------
+	//----------------------------------------------------
     CNLRoster* r = (CNLRoster*)this->cbTeamSel->Items->Objects[ this->cbTeamSel->ItemIndex ];
     if ( r )
     {
         for ( int i = 0 ; i < ROSTER_SIZE ; i++ )
         {
             CNLPlayer* p = r->players[ i ];
-            this->playerDisplay( p , i+1 );
+			this->playerDisplay( p , i+1 );
         }
     }
 
-    // auto size des colonnes de la grille :
-    //--------------------------------------
-    this->autoSizeCol( -1 );
-    this->autoSizeRow( -1 );
+	// auto size des colonnes de la grille :
+	//--------------------------------------
+	this->autoSizeCol( this->gridPlayers , -1 );
+	this->autoSizeRow( this->gridPlayers , -1 );
+
+	// affichage carrière du joueur sélectionné :
+	//-------------------------------------------
+	this->updateCareer();
 }
 //---------------------------------------------------------------------------
-void __fastcall TRosterEditorDlg::autoSizeCol( int col )
+void __fastcall TRosterEditorDlg::updateCareer()
 {
-    if ( col < 0 )
-    {
-        for ( int i = 0 ; i < this->gridPlayers->ColCount ; i++ )
-        {
-            this->autoSizeCol( i );
-        }
-    }
-    else if ( col >= 0 && col <= this->gridPlayers->ColCount )
-    {
-        this->gridPlayers->Canvas->Font->Assign( this->gridPlayers->Font );
+	// vidage de la grille :
+	//----------------------
+	for ( int i = 0 ; i < this->gridCareer->ColCount ; i++ )
+	{
+		for ( int j = 0 ; j < this->gridCareer->RowCount ; j++ )
+		{
+			this->gridCareer->Cells[i][j]	= TXT_NULL;
+			this->gridCareer->Objects[i][j]	= NULL;
+		}
+	}
 
-        int w_max = 0;
-        for ( int i = 0 ; i < this->gridPlayers->RowCount ; i++ )
-        {
-            int w = this->gridPlayers->Canvas->TextWidth( this->gridPlayers->Cells[col][i] );
-            if ( w > w_max ) w_max = w;
-        }
-        this->gridPlayers->ColWidths[ col ] = w_max + 26;
-    }
+	this->gridCareer->ColCount = this->_fieldCareer->Count;
+	this->gridCareer->RowCount = 2;
+
+	// titres des colonnes :
+	//----------------------
+	for ( int i = 0 ; i < this->_fieldCareer->Count ; i++ )
+	{
+		AnsiString titre = this->_fieldCareer->Strings[ i ];
+		this->gridCareer->Cells[i][0] = titre;
+	}
+
+	// récupération joueur sélectionné dans la grille roster :
+	//--------------------------------------------------------
+	CNLPlayer* p = this->playerAtRow[ this->gridPlayers->Row ];
+	if ( p && this->_sg )
+	{
+		// recherche des stats en carrière :
+		//----------------------------------
+		TList* lc = new TList();
+
+		this->_sg->loadPlayerCareer( p->ID , lc );
+
+		this->gridCareer->RowCount = 2 + lc->Count;
+		this->gridCareer->ColCount = this->_fieldCareer->Count;
+
+		for ( int i = 0 ; i < lc->Count ; i++ )
+		{
+			CNLCareer* c = (CNLCareer*)lc->Items[ i ];
+			if ( c )
+			{
+				CNLPlayerStats ps;
+				c->loadSeasonStats( ps );
+
+				this->gridCareer->Cells[C_YEAR][ i+1 ] = IntToStr( c->Year );
+				this->gridCareer->Cells[C_TEAM][ i+1 ] = c->Team;
+				this->careerStatsDisplay( &ps , i+1 );
+			}
+		}
+
+		delete lc;
+		lc = NULL;
+
+		// affichage stats saison en cours :
+		//----------------------------------
+		CNLPlayerStats ps;
+		p->loadSeasonStats( ps );
+		this->careerStatsDisplay( &ps , this->gridCareer->RowCount-1 );
+	}
+	else
+	{
+		this->careerStatsDisplay( NULL , 1 );
+	}
+
+	// auto size des colonnes de la grille :
+	//--------------------------------------
+	this->autoSizeCol( this->gridCareer , -1 );
+	this->autoSizeRow( this->gridCareer , -1 );
 }
 //---------------------------------------------------------------------------
-void __fastcall TRosterEditorDlg::autoSizeRow( int row )
+void __fastcall TRosterEditorDlg::autoSizeCol( TStringGrid* grid , int col )
+{
+	if ( grid )
+	{
+		if ( col < 0 )
+		{
+			for ( int i = 0 ; i < grid->ColCount ; i++ )
+			{
+				this->autoSizeCol( grid , i );
+			}
+		}
+		else if ( col >= 0 && col <= grid->ColCount )
+		{
+			grid->Canvas->Font->Assign( grid->Font );
+
+			int w_max = 0;
+			for ( int i = 0 ; i < grid->RowCount ; i++ )
+			{
+				int w = grid->Canvas->TextWidth( grid->Cells[col][i] );
+				if ( w > w_max ) w_max = w;
+			}
+			grid->ColWidths[ col ] = w_max + 26;
+		}
+	}
+}
+//---------------------------------------------------------------------------
+void __fastcall TRosterEditorDlg::autoSizeRow( TStringGrid* grid , int row )
 {
 
 }
@@ -358,6 +497,43 @@ void __fastcall TRosterEditorDlg::rostersUpdate()
         bool ok = this->_sg->playersUpdate();
     }
 }
+//---------------------------------------------------------------------------
+ void __fastcall TRosterEditorDlg::careerStatsDisplay( CNLPlayerStats* ps , int row )
+ {
+	if ( ps && row > 0 && row < this->gridCareer->RowCount && ps->GM>0 )
+	{
+		AnsiString txt;
+
+		this->gridCareer->Cells[C_GM][row] = txt.sprintf( "%d / %d" , ps->GMS , ps->GM );
+		this->gridCareer->Cells[C_MN][row] = txt.sprintf( "%2.01f", ps->avgMIN );
+		this->gridCareer->Cells[C_FG][row] = txt.sprintf( "%2.01f%%  ( %d / %d )" , ps->prctFG , ps->FGM , ps->FGA );
+		this->gridCareer->Cells[C_3P][row] = txt.sprintf( "%2.01f%%  ( %d / %d )" , ps->prctTP , ps->TPM , ps->TPA );
+		this->gridCareer->Cells[C_FT][row] = txt.sprintf( "%2.01f%%  ( %d / %d )" , ps->prctFT , ps->FTM , ps->FTA );
+		this->gridCareer->Cells[C_RB][row] = txt.sprintf( "%2.01f ( %2.01f / %2.01f )" , ps->avgRB , ps->avgORB , ps->avgDRB );
+		this->gridCareer->Cells[C_AST][row] = txt.sprintf( "%2.01f" , ps->avgAST );
+		this->gridCareer->Cells[C_STL][row] = txt.sprintf( "%2.01f" , ps->avgSTL );
+		this->gridCareer->Cells[C_BLK][row] = txt.sprintf( "%2.01f" , ps->avgBLK );
+		this->gridCareer->Cells[C_TO][row] = txt.sprintf( "%2.01f" , ps->avgTO );
+		this->gridCareer->Cells[C_PTS][row] = txt.sprintf( "%2.01f" , ps->avgPTS );
+		this->gridCareer->Cells[C_EVAL][row] = txt.sprintf( "%2.01f" , ps->avgEVAL );
+
+	}
+	else
+	{
+		this->gridCareer->Cells[C_GM][row] = TXT_NULL;
+		this->gridCareer->Cells[C_PTS][row] = TXT_NULL;
+		this->gridCareer->Cells[C_MN][row] = TXT_NULL;
+		this->gridCareer->Cells[C_FG][row] = TXT_NULL;
+		this->gridCareer->Cells[C_3P][row] = TXT_NULL;
+		this->gridCareer->Cells[C_FT][row] = TXT_NULL;
+		this->gridCareer->Cells[C_RB][row] = TXT_NULL;
+		this->gridCareer->Cells[C_AST][row] = TXT_NULL;
+		this->gridCareer->Cells[C_STL][row] = TXT_NULL;
+		this->gridCareer->Cells[C_BLK][row] = TXT_NULL;
+		this->gridCareer->Cells[C_TO][row] = TXT_NULL;
+		this->gridCareer->Cells[C_EVAL][row] = TXT_NULL;
+    }
+ }
 //---------------------------------------------------------------------------
 void __fastcall TRosterEditorDlg::setSg( CNLSavedGame* sg )
 {
@@ -567,10 +743,10 @@ void __fastcall TRosterEditorDlg::cbTeamSelDrawItem(TWinControl *Control, int In
 void __fastcall TRosterEditorDlg::gridPlayersColumnMoved(TObject *Sender, int FromIndex,
           int ToIndex)
 {
-    if ( this->_fieldCols )
-    {
-        this->_fieldCols->Move( FromIndex,ToIndex );
-    }
+	if ( this->_fieldPlayers )
+	{
+		this->_fieldPlayers->Move( FromIndex,ToIndex );
+	}
 }
 //---------------------------------------------------------------------------
 
@@ -578,7 +754,7 @@ void __fastcall TRosterEditorDlg::gridPlayersDblClick(TObject *Sender)
 {
     // édition du joueur sélectionné dans la fenêtre skills :
     //-------------------------------------------------------
-    CNLPlayer* p = this->getPlayerAtRow( this->gridPlayers->Row );
+	CNLPlayer* p = this->getPlayerAtRow( this->gridPlayers->Row );
 
     TPlayerSkillsDlg* skills = new TPlayerSkillsDlg( this );
 
@@ -590,6 +766,24 @@ void __fastcall TRosterEditorDlg::gridPlayersDblClick(TObject *Sender)
 
     delete skills;
     skills = NULL;
+}
+//---------------------------------------------------------------------------
+
+
+void __fastcall TRosterEditorDlg::gridPlayersClick(TObject *Sender)
+{
+	// affichage des stats en carrière du joueur sélectionné :
+	//--------------------------------------------------------
+	this->updateCareer();}
+//---------------------------------------------------------------------------
+
+void __fastcall TRosterEditorDlg::gridCareerColumnMoved(TObject *Sender, int FromIndex,
+          int ToIndex)
+{
+	if ( this->_fieldCareer )
+	{
+		this->_fieldCareer->Move( FromIndex,ToIndex );
+	}
 }
 //---------------------------------------------------------------------------
 

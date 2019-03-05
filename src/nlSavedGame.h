@@ -59,14 +59,16 @@ class CNLSavedGame
         virtual __fastcall ~CNLSavedGame();
 
         // méthodes publiques :
-        //---------------------
-        bool __fastcall open();
-        bool __fastcall close();
+		//---------------------
+		bool __fastcall open( bool loadCareer );
+		bool __fastcall close();
 
         bool __fastcall playersAccept();	// demande acceptation puis applications des modifications
-        bool __fastcall playersUpdate();    // applications des modifications
+		bool __fastcall playersUpdate();    // applications des modifications
 
-        // propriétés publiques :
+		void __fastcall loadPlayerCareer( int playerId , TList* lc );	// charge la liste des stats en carrière d'un joueur
+
+		// propriétés publiques :
         //-----------------------
         __property AnsiString path 							 = { read = _path 				};
         __property CNLTeam*   teamByNum	   [ WORD teamNum  ] = { read = getTeamByNum 		};
@@ -75,15 +77,17 @@ class CNLSavedGame
         __property CNLPlayer* playerById   [ WORD playerId ] = { read = getPlayerById 		};
         __property CNLPlayer* playerByIndex[ int index 	   ] = { read = getPlayerByIndex	};
         __property int        playerCount                	 = { read = getPlayerCount 		};
-        __property bool       playersDif                     = { read = getPlayersDif		};
+		__property bool       playersDif                     = { read = getPlayersDif		};
+		__property CNLCareer* careerByIndex[ int index     ] = { read = getCareerByIndex    };
+		__property int        careerCount                    = { read = getCareerCount		};
 
         __property tNLSavedGame type 			= { read = _type 			};
         __property AnsiString   name 			= { read = _name		    };
         __property int          salaryCap 		= { read = _salaryCap		};
         __property TDate        dateActive		= { read = getDateActive    };
-        __property TDate        dateAllStarGame = { read = _dateAllStarGame	};
+		__property TDate        dateAllStarGame = { read = _dateAllStarGame	};
         __property TDate        dateEndTransf   = { read = _dateEndTransf	};
-        __property TDate        dateInSeason    = { read = _dateInSeason    };
+		__property TDate        dateInSeason    = { read = _dateInSeason    };
         __property TDate        dateInPlayoffs  = { read = _dateInPlayoffs  };
 
     private :
@@ -113,9 +117,11 @@ class CNLSavedGame
         int      	__fastcall getTeamCount();
         CNLPlayer* 	__fastcall getPlayerById( WORD playerId );
 		CNLPlayer* 	__fastcall getPlayerByIndex( int index );
-        int         __fastcall getPlayerCount();
-        bool        __fastcall getPlayersDif();
-        TDate       __fastcall getDateActive();
+		int         __fastcall getPlayerCount();
+		bool        __fastcall getPlayersDif();
+		CNLCareer*  __fastcall getCareerByIndex( int index );
+		int         __fastcall getCareerCount();
+		TDate       __fastcall getDateActive();
 
         // variables internes :
         //---------------------

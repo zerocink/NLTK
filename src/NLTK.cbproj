@@ -177,7 +177,7 @@
             <Form>InjuryCleanerDlg</Form>
             <FormType>dfm</FormType>
             <DependentOn>wInjuryCleaner.h</DependentOn>
-            <BuildOrder>17</BuildOrder>
+            <BuildOrder>19</BuildOrder>
         </CppCompile>
         <CppCompile Include="wMain.cpp">
             <Form>MainDlg</Form>
@@ -203,21 +203,28 @@
             <DependentOn>wPlayerSkills.h</DependentOn>
             <BuildOrder>16</BuildOrder>
         </CppCompile>
+        <CppCompile Include="wPrepareNewSeason.cpp">
+            <Form>PrepareNewSeasonDlg</Form>
+            <FormType>dfm</FormType>
+            <DependentOn>wPrepareNewSeason.h</DependentOn>
+            <BuildOrder>20</BuildOrder>
+        </CppCompile>
         <CppCompile Include="wRosterEditor.cpp">
             <Form>RosterEditorDlg</Form>
             <FormType>dfm</FormType>
             <DependentOn>wRosterEditor.h</DependentOn>
             <BuildOrder>11</BuildOrder>
         </CppCompile>
-        <FormResources Include="wInjuryCleaner.dfm"/>
         <FormResources Include="wIconLists.dfm"/>
         <FormResources Include="wDraftReview.dfm"/>
         <FormResources Include="wAcceptChanges.dfm"/>
-        <FormResources Include="wMain.dfm"/>
         <FormResources Include="wRosterEditor.dfm"/>
         <FormResources Include="wPlayerSkills.dfm"/>
         <FormResources Include="wPlayerDebug.dfm"/>
         <FormResources Include="wMVPReview.dfm"/>
+        <FormResources Include="wMain.dfm"/>
+        <FormResources Include="wInjuryCleaner.dfm"/>
+        <FormResources Include="wPrepareNewSeason.dfm"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

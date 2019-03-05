@@ -1,10 +1,10 @@
-object InjuryCleanerDlg: TInjuryCleanerDlg
+object PrepareNewSeasonDlg: TPrepareNewSeasonDlg
   Left = 0
   Top = 0
   BorderStyle = bsDialog
-  Caption = 'InjuryCleanerDlg'
+  Caption = 'PrepareNewSeasonDlg'
   ClientHeight = 157
-  ClientWidth = 539
+  ClientWidth = 515
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -12,31 +12,33 @@ object InjuryCleanerDlg: TInjuryCleanerDlg
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  OnCreate = FormCreate
   OnDestroy = FormDestroy
   PixelsPerInch = 96
   TextHeight = 13
   object lblPlayer: TLabel
     Left = 0
     Top = 0
-    Width = 539
+    Width = 515
     Height = 32
     Align = alTop
     AutoSize = False
     Caption = 'Joueurs'
-    ExplicitTop = 81
+    ExplicitLeft = -24
     ExplicitWidth = 529
   end
   object pbPlayers: TProgressBar
     Left = 0
     Top = 32
-    Width = 539
+    Width = 515
     Height = 56
     Align = alTop
     TabOrder = 0
+    ExplicitLeft = -24
     ExplicitWidth = 529
   end
   object btnRun: TButton
-    Left = 361
+    Left = 337
     Top = 88
     Width = 89
     Height = 69
@@ -50,7 +52,7 @@ object InjuryCleanerDlg: TInjuryCleanerDlg
     ExplicitHeight = 59
   end
   object btnAccept: TButton
-    Left = 450
+    Left = 426
     Top = 88
     Width = 89
     Height = 69
@@ -60,7 +62,45 @@ object InjuryCleanerDlg: TInjuryCleanerDlg
     Images = IconListsDlg.ilIconSet48x48_green
     TabOrder = 2
     OnClick = btnAcceptClick
-    ExplicitLeft = 440
+    ExplicitLeft = 416
     ExplicitHeight = 59
+  end
+  object Panel1: TPanel
+    Left = 0
+    Top = 88
+    Width = 337
+    Height = 69
+    Align = alClient
+    BevelOuter = bvNone
+    TabOrder = 3
+    ExplicitLeft = 96
+    ExplicitTop = 94
+    ExplicitWidth = 185
+    ExplicitHeight = 41
+    object lblExpChangeFace: TLabel
+      Left = 0
+      Top = 56
+      Width = 337
+      Height = 13
+      Align = alBottom
+      Caption = 'Changement de visage : exp maxi = 0'
+      ExplicitTop = 48
+      ExplicitWidth = 183
+    end
+    object tbExpChangeFace: TTrackBar
+      Left = 0
+      Top = 0
+      Width = 337
+      Height = 56
+      Align = alClient
+      Max = 20
+      Position = 3
+      ShowSelRange = False
+      TabOrder = 0
+      ThumbLength = 40
+      OnChange = tbExpChangeFaceChange
+      ExplicitTop = 8
+      ExplicitHeight = 45
+    end
   end
 end
